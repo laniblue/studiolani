@@ -713,7 +713,7 @@
 
 <div id="bcx">
 <div class="prog"><i id="pg" style="width: 0%;"></i></div>
-<div class="fl" id="fl"><a href="#apply" target="_top" data-go="1">무료 인스타 진단 리포트 받기</a></div>
+<div class="fl" id="fl"><a href="apply.html" target="_top" data-go="1">무료 인스타 진단 리포트 받기</a></div>
 <div class="root">
 
 <header class="hero go">
@@ -727,7 +727,7 @@
 <span class="ln"><i style="--d:.24s"><em>인스타툰 계정을 만듭니다</em></i></span>
 </h1>
 <p class="lead hfd" style="--d:.46s">의사·변호사·세무사처럼<br>전문직의 이야기를 툰으로 연재합니다.</p>
-<a href="#apply" target="_top" data-go="1" class="cta sm hfd" style="--d:.60s">무료 인스타 진단 리포트 받기</a>
+<a href="apply.html" target="_top" data-go="1" class="cta sm hfd" style="--d:.60s">무료 인스타 진단 리포트 받기</a>
 <div class="feedw hfd" style="--d:.80s" aria-hidden="true">
 <div class="fw-bar"><span class="fw-dot"></span><b>홈 피드</b><span class="fw-st">넘기는 중</span></div>
 <div class="fw-view">
@@ -969,7 +969,7 @@
 <div class="rv"><span class="dot"></span><p>2~3일 안에 리포트를 보내드립니다</p></div>
 <div class="rv"><span class="dot"></span><p>더 궁금한 점은 온라인 미팅으로 이야기 나눕니다</p></div>
 </div>
-<a href="#apply" target="_top" data-go="1" class="cta rv pop">무료 인스타 진단 리포트 받기</a>
+<a href="apply.html" target="_top" data-go="1" class="cta rv pop">무료 인스타 진단 리포트 받기</a>
 </div>
 </section>
 
@@ -979,50 +979,6 @@
 </div>
 
 
-<section id="apply" class="ap">
-  <div class="apw">
-    <p class="apk">FREE REPORT</p>
-    <h2>무료 인스타 진단 리포트 신청</h2>
-    <p class="aps">인스타 주소와 업종만 알려주세요.<br>2~3일 안에 리포트를 보내드려요.</p>
-    <form id="apf">
-      <label>인스타그램 주소 *<input name="인스타그램" required placeholder="@아이디 또는 링크"></label>
-      <label>업종 *<input name="업종" required placeholder="예: 동물병원, 법률사무소"></label>
-      <label>성함 · 직함<input name="성함·직함" placeholder="예: 김OO 원장님"></label>
-      <label>리포트 받을 연락처 *<input name="연락처" required placeholder="이메일 또는 카카오톡 ID"></label>
-      <label>요즘 인스타 고민 (선택)<textarea name="고민" rows="3" placeholder="한 줄이면 충분해요"></textarea></label>
-      <label class="agree"><input type="checkbox" name="agree" required> 리포트 발송을 위한 정보 수집에 동의해요</label>
-      <button type="submit">무료 진단 신청하기</button>
-      <p class="apr" id="apr"></p>
-    </form>
-  </div>
-</section>
-<style>
-.ap{background:#0b1020;padding:72px 0 96px;font-family:'Noto Sans KR',sans-serif;color:#fff}
-.apw{max-width:440px;margin:0 auto;padding:0 24px}
-.apk{color:#4d8dff;font-size:12px;font-weight:800;letter-spacing:.14em;margin:0 0 10px}
-.ap h2{font-size:26px;line-height:1.35;margin:0 0 10px;font-weight:800}
-.aps{color:#aab4c8;font-size:15px;line-height:1.6;margin:0 0 26px}
-#apf label{display:block;font-size:13px;font-weight:700;color:#cfd6e4;margin-bottom:14px}
-#apf input,#apf textarea{display:block;width:100%;box-sizing:border-box;margin-top:7px;background:#151b2e;border:1.5px solid #283250;border-radius:12px;color:#fff;font-size:15px;padding:13px 14px;font-family:inherit}
-#apf input:focus,#apf textarea:focus{outline:none;border-color:#1664ff}
-#apf .agree{display:flex;gap:8px;align-items:center;font-weight:500;color:#aab4c8}
-#apf .agree input{width:auto;margin:0}
-#apf button{width:100%;margin-top:8px;background:#1664ff;color:#fff;border:0;border-radius:14px;font-size:16px;font-weight:800;padding:16px;cursor:pointer;font-family:inherit}
-#apf button:disabled{opacity:.6}
-.apr{font-size:14px;color:#9fc0ff;margin:14px 0 0;min-height:20px}
-</style>
-<script>
-const APPLY_ENDPOINT = "https://formsubmit.co/ajax/info@studiolani.kr"; // 신청 내용이 스튜디오 라니 업무 메일로 감
-document.getElementById("apf").addEventListener("submit", async (e) => {
-  e.preventDefault(); const f=e.target, b=f.querySelector("button"), r=document.getElementById("apr");
-  const data=Object.fromEntries(new FormData(f)); data._subject="[무료 진단 신청] "+(data["업종"]||"")+" "+(data["인스타그램"]||""); data._template="table"; data._captcha="false"; delete data.agree; data["신청 페이지"]="무료 인스타 진단 리포트";
-  if(!APPLY_ENDPOINT){ r.textContent="준비 중이에요. 잠시 후 다시 시도해 주세요."; return; }
-  b.disabled=true; b.textContent="보내는 중...";
-  try{ const res=await fetch(APPLY_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)}); if(!res.ok) throw new Error(res.status);
-    f.reset(); r.textContent="신청 완료! 2~3일 안에 리포트를 보내드릴게요."; b.textContent="신청 완료";
-  }catch(err){ r.textContent="전송이 안 됐어요. 잠시 후 다시 시도해 주세요."; b.disabled=false; b.textContent="무료 진단 신청하기"; }
-});
-</script>
 
 <script>(function(){
 function bootLani(R) {
@@ -1098,7 +1054,7 @@ function bootLani(R) {
     later(() => { if (v) v.classList.add('hit'); }, 9000);
 
     // report links: navigate reliably on mobile / inside iframes
-    const GO = '#apply';
+    const GO = 'apply.html';
     const go = (e) => {
       if (e) { e.preventDefault(); e.stopPropagation(); }
       try { if (W.top && W.top !== W) { W.top.location.href = GO; return; } } catch (err) {}
