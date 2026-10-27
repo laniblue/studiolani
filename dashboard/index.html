@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>인스타 보고서·대시보드 문장 · STUDIO LANI</title>
+<meta name="description" content="인스타 인사이트 캡처를 클로드에 올려 공유 보고서와 대시보드로 만드는 복사용 문장 4개">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+@font-face{font-family:Paperlogy;src:url(../work/img/Paperlogy-7Bold.ttf);font-weight:700}
+@font-face{font-family:Paperlogy;src:url(../work/img/Paperlogy-6SemiBold.ttf);font-weight:600}
+:root{--b:#1664ff;--bl:#e8f0ff;--ink:#191f28;--sub:#4e5968;--mute:#8b95a1;--line:#e5e8eb;--bg:#f4efe6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg) radial-gradient(#e4ddcd 1.4px,transparent 1.6px) 0 0/18px 18px;color:var(--ink);font-family:"Pretendard Variable",Pretendard,-apple-system,sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:28px 16px 60px}
+h1,h2,h3{font-family:Paperlogy,"Pretendard Variable",sans-serif}
+.brand{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;color:var(--b);letter-spacing:.08em}
+.brand a{color:var(--sub);text-decoration:none;font-weight:600;letter-spacing:0}
+.hero{margin-top:18px;background:#fff;border:2px solid var(--ink);border-radius:22px;padding:26px 22px 56px;position:relative;overflow:hidden}
+.tag{display:inline-block;background:var(--b);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;letter-spacing:.04em}
+.hero h1{font-size:30px;line-height:1.3;margin:14px 0 10px;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;color:var(--b);box-shadow:inset 0 -10px 0 #cfe0ff}
+.hero p{font-size:17px;line-height:1.5;color:var(--sub);margin:0 0 6px;font-weight:600}
+.rab{position:absolute;right:26px;bottom:-40px;width:150px;image-rendering:pixelated}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px;max-width:170px}
+.chips>span{display:flex;align-items:center;gap:5px;background:var(--bl);color:var(--b);font-size:12px;font-weight:700;padding:5px 9px;border-radius:99px}
+.chips .ti{font-size:14px;background:none;padding:0}
+h2{font-size:20px;margin:34px 0 12px;letter-spacing:-.3px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.flow div{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px 4px;text-align:center}
+.flow .ti{font-size:26px;margin:0 auto}
+.flow b{display:block;font-size:13px;margin-top:6px;line-height:1.35}
+.flow div.on{border-color:var(--b);background:var(--bl)}
+.need{display:flex;flex-direction:column;gap:8px}
+.need div{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px;font-size:16px;font-weight:600;line-height:1.4}
+.need i{font-style:normal;flex:none;width:24px;height:24px;border-radius:7px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.need small{color:var(--mute);font-size:13px;display:block;font-weight:500}
+.rules{background:#fff;border-radius:18px;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:1.5px solid var(--line)}
+.rules div{text-align:center;font-size:13px;font-weight:600;line-height:1.4}
+.rules .ti{font-size:30px;margin:0 auto 6px;display:flex}
+.step{background:#fff;border:2px solid var(--ink);border-radius:22px;padding:20px 18px;margin-top:16px}
+.step .lab{display:flex;align-items:center;gap:10px}
+.step .lab b{background:var(--b);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:7px;letter-spacing:.04em}
+.step .lab .ti{font-size:24px;margin-left:auto}
+.step h3{font-size:23px;line-height:1.3;margin:12px 0 6px;letter-spacing:-.3px}
+.step .when{font-size:15px;color:var(--mute);line-height:1.5;margin:0 0 14px;font-weight:600}
+.ba{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.ba div{flex:1;border-radius:12px;padding:10px;font-size:13px;line-height:1.45;font-weight:600}
+.ba .bf{background:#f2f4f6;color:var(--sub)}.ba .af{background:var(--bl);color:var(--b)}
+.ba small{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;opacity:.7;margin-bottom:3px}
+.ba svg{flex:none;width:18px;height:18px;stroke:#b0b8c1}
+.code{background:#f7f8fa;border:1px solid var(--line);border-radius:14px;padding:16px;font-size:15px;line-height:1.8;white-space:pre-wrap;word-break:break-all;color:#333d4b}
+.code .bk{color:var(--b);background:var(--bl);border-radius:5px;padding:0 3px;font-weight:700}
+.cp{display:flex;align-items:center;justify-content:center;width:100%;margin-top:8px;border:0;background:var(--ink);color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:12px;cursor:pointer;font-family:inherit}
+.cp.done{background:var(--b)}
+.check{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.check span{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--sub);background:#f2f4f6;padding:6px 9px;border-radius:99px}
+.check svg{width:13px;height:13px;stroke:var(--b)}
+.end{margin-top:34px;background:var(--b);color:#fff;border-radius:22px;padding:24px 20px 56px;position:relative;overflow:hidden}
+.end h3{font-size:22px;line-height:1.35;margin:0 0 8px}
+.end p{font-size:14px;line-height:1.65;opacity:.9;margin:0 0 16px}
+.end a{display:inline-block;background:#fff;color:var(--b);font-weight:700;font-size:15px;padding:12px 18px;border-radius:12px;text-decoration:none}
+.note{font-size:12px;color:var(--mute);line-height:1.6;margin-top:18px}
+.note a{color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;font-size:14px;font-weight:600;padding:12px 18px;border-radius:12px;transition:.25s;opacity:0}
+.toast.on{transform:translateX(-50%);opacity:1}
+
+.ti{display:inline-flex;align-items:center;justify-content:center;width:1.4em;height:1.4em;border-radius:30%;background:#e8f3ff;color:#3182f6;vertical-align:-0.35em;flex:none}
+.ti svg{width:62%;height:62%}.ti.solid{background:#3182f6;color:#fff}.ti.gray{background:#f2f4f6;color:#8b95a1}.ti.red{background:#ffeeee;color:#f04452}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">STUDIO LANI<a href="https://www.instagram.com/studio._.lani/">@studio._.lani</a></div>
+
+  <section class="hero">
+    <span class="tag">무료 자료 · Claude</span>
+    <h1>인사이트 캡처로<br><em>보고서·대시보드</em></h1>
+    <p>캡처 올리고<br>문장만 붙여 넣기</p>
+    <div class="chips"><span><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></span>캡처</span><span><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v4h4"/></svg></span>보고서</span><span><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 3 7-8"/><path d="M15 7h5v5"/></svg></span>대시보드</span></div>
+    <img class="rab" src="../work/img/rabbit.png" alt="스튜디오 라니 토끼">
+  </section>
+
+  <h2>이렇게 써요</h2>
+  <div class="flow"><div><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></span><b>1. 캡처<br>올리기</b></div><div><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span><b>2. 성과<br>정리</b></div><div><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v4h4"/></svg></span><b>3. /docs<br>보고서</b></div><div class=on><span class="ti solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 3 7-8"/><path d="M15 7h5v5"/></svg></span><b>4. 대시보드<br>(Pro 이상)</b></div></div>
+
+  <h2>준비물</h2>
+  <div class="need"><div><i>1</i><span>클로드<small>챗 화면에서 바로</small></span></div><div><i>2</i><span>인스타 인사이트 캡처<small>최근 30일 개요 · 콘텐츠별 반응</small></span></div><div><i>3</i><span>요금제<small>보고서(Docs)는 무료 포함 모든 요금제 · 대시보드는 Pro·Max·Team·Enterprise 베타</small></span></div></div>
+
+  <h2>꼭 지켜요</h2>
+  <div class="rules"><div><span class="ti red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span>고객 이름·DM<br>가리고 올리기</div><div><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/></svg></span>숫자는 캡처와<br>직접 대조</div><div><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span>공유 링크는<br>볼 사람에게만</div></div>
+
+  <section class="step">
+    <div class="lab"><b>STEP 1</b><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span></div>
+    <h3>캡처 올리고<br>성과 정리</h3>
+    <p class="when">이번 달 인스타가<br>잘됐는지 모를 때</p>
+    <div class="ba"><div class="bf"><small>BEFORE</small>캡처만 쌓여 있음</div><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div class="af"><small>AFTER</small>한눈에 보는 요약</div></div>
+    <div class="code">첨부한 인스타 인사이트 캡처로 [10월] 성과를 정리해 줘.
+1. 팔로워·도달·저장·DM 변화
+2. 반응 좋았던 콘텐츠 3개와 이유
+3. 반응 낮았던 콘텐츠와 이유
+캡처에 없는 숫자는 지어내지 말고 '확인 못 함'이라고 써 줘.</div>
+    <button class="cp">복사하기</button>
+    <div class="check"><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>캡처 여러 장 한 번에</span><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>없는 숫자는 확인 못 함</span></div>
+  </section>
+  <section class="step">
+    <div class="lab"><b>STEP 2</b><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v4h4"/></svg></span></div>
+    <h3>공유되는<br>보고서로</h3>
+    <p class="when">직원·팀과<br>같이 볼 때</p>
+    <div class="ba"><div class="bf"><small>BEFORE</small>채팅에만 남은 글</div><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div class="af"><small>AFTER</small>링크로 보는 보고서</div></div>
+    <div class="code">/docs 방금 정리한 내용을 [10월] 인스타 성과 보고서로 만들어 줘.
+1. 맨 위 한 줄 요약
+2. 숫자 표 1개
+3. 다음 달 할 일 3개</div>
+    <button class="cp">복사하기</button>
+    <div class="check"><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>링크로 공유</span><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>글 선택해서 댓글</span><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>@Claude 댓글로 수정 요청</span></div>
+  </section>
+  <section class="step">
+    <div class="lab"><b>STEP 3</b><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 3 7-8"/><path d="M15 7h5v5"/></svg></span></div>
+    <h3>대시보드로<br>바꾸기</h3>
+    <p class="when">다음 달 어디에<br>힘줄지 볼 때</p>
+    <div class="ba"><div class="bf"><small>BEFORE</small>글로 읽는 성과</div><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div class="af"><small>AFTER</small>숫자 카드 + 그래프</div></div>
+    <div class="code">같은 내용으로 대시보드 만들어 줘.
+1. 팔로워·도달·저장·DM 숫자 카드
+2. 콘텐츠별 반응 막대 그래프
+3. 다음 달 힘줄 곳 표시</div>
+    <button class="cp">복사하기</button>
+    <div class="check"><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pro 이상 · 베타</span><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>입력창 Output › Dashboards 선택</span><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>공식 안내는 연결한 앱·데이터 기준 · 캡처만으로 되는지는 확인 못 함</span></div>
+  </section>
+  <section class="step">
+    <div class="lab"><b>STEP 4</b><span class="ti "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+    <h3>틀린 부분만<br>고치기</h3>
+    <p class="when">숫자 하나가<br>틀렸을 때</p>
+    <div class="ba"><div class="bf"><small>BEFORE</small>처음부터 다시</div><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><div class="af"><small>AFTER</small>그 부분만 수정</div></div>
+    <div class="code">[틀린 부분]을 [맞는 내용]으로 고쳐 줘.
+나머지는 그대로 둬.</div>
+    <button class="cp">복사하기</button>
+    <div class="check"><span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>전체 다시 만들기 X</span></div>
+  </section>
+
+  <section class="end">
+    <h3>월간 보고서,<br>캡처 한 장으로</h3>
+    <p>다음 자료도 받으려면<br>팔로우!</p>
+    <a href="https://www.instagram.com/studio._.lani/">@studio._.lani</a>
+    <img class="rab" src="../work/img/rabbit.png" alt="">
+  </section>
+
+  <p class="note">2026년 10월 기준 · 출처: 클로드 공식 도움말 <a href="https://support.claude.com/en/articles/16923645-get-started-with-claude-docs">Claude Docs</a> · <a href="https://support.claude.com/en/articles/17454700-get-started-with-claude-dashboards">Claude Dashboards</a> · <a href="https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them">아티팩트</a> · 설정 › 기능에서 &#39;파일 만들기·편집&#39;이 켜져 있어야 해요 · 복사 문장은 스튜디오 라니가 쓴 예시예요</p>
+</div>
+<div class="toast" id="toast">복사 완료! 클로드에 붙여 넣으세요</div>
+<script>
+document.querySelectorAll('.code').forEach(c=>{c.innerHTML=c.textContent.replace(/\[([^\]]+)\]/g,'<span class="bk">[$1]</span>')});
+document.querySelectorAll('.cp').forEach(b=>b.addEventListener('click',async()=>{
+  const t=b.previousElementSibling.textContent;
+  try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}
+  b.textContent='복사 완료';b.classList.add('done');const s=document.getElementById('toast');s.classList.add('on');
+  setTimeout(()=>{b.textContent='복사하기';b.classList.remove('done');s.classList.remove('on')},1800);
+}));
+</script>
+</body>
+</html>
