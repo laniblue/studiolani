@@ -30,7 +30,7 @@ def text_png(path, text, font_path, size, color, stroke=10):
 # 제목 PNG (위 검정 띠 가운데, 2줄, 흰+노랑)
 def title_png(path):
     img = Image.new("RGBA", (W, TOP), (0,0,0,0)); d = ImageDraw.Draw(img)
-    font = ImageFont.truetype(TITLE_FONT, 86)
+    font = ImageFont.truetype(TITLE_FONT, 92)
     ys = [406]
     for line, col, y in zip(TITLE, ["#111111"], ys):
         x0,y0,x1,y1 = d.textbbox((0,0), line, font=font)
@@ -63,7 +63,7 @@ for i,(src,s,e,cy,keep_audio,caps) in enumerate(SCENES):
     last="v1"; n=3
     for j,(cs,ce,txt,who) in enumerate(caps):
         p=f"{OUT}/png/c{i}_{j}.png"
-        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 72, "#111111", 0); y=NAR_Y
+        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 82, "#111111", 0); y=NAR_Y
         else:        tw,th = text_png(p, txt, DOG_FONT, 92, WHITE, 10);  y=DOG_Y
         inputs += ["-i",p]
         fc += f";[{last}][{n}:v]overlay=(W-w)/2:{y - th//2}:enable='gte(t,{cs})*lt(t,{ce})'[v{n}]"
@@ -82,5 +82,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v11.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v12.mp4"],check=True)
 print("done")
