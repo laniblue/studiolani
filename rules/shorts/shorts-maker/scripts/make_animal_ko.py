@@ -18,24 +18,30 @@ WHITE, YELLOW, MINT = "#FFFFFF", "#FFE006", "#8CE99A"
 
 TITLE = ["눈나가 간식 꺼냈더니.."]
 
-def text_png(path, text, font_path, size, color, stroke=10):
+def text_png(path, text, font_path, size, color, stroke=10, spacing=0, skew=0.0):
     font = ImageFont.truetype(font_path, size)
-    img0 = Image.new("RGBA", (W, 300), (0,0,0,0)); d = ImageDraw.Draw(img0)
-    x0,y0,x1,y1 = d.textbbox((0,0), text, font=font, stroke_width=stroke)
-    tw, th = x1-x0, y1-y0
-    img = Image.new("RGBA", (tw+40, th+40), (0,0,0,0)); d = ImageDraw.Draw(img)
-    d.text((20-x0, 20-y0), text, font=font, fill=color, stroke_width=stroke, stroke_fill="black")
+    img0 = Image.new("RGBA", (W*2, 400), (0,0,0,0)); d0 = ImageDraw.Draw(img0)
+    # 글자별로 그려서 자간 적용
+    x = 40; parts=[]
+    for ch in text:
+        bb = d0.textbbox((0,0), ch, font=font, stroke_width=stroke)
+        adv = font.getlength(ch)
+        parts.append((x, ch)); x += adv + spacing
+    for px,ch in parts:
+        d0.text((px, 40), ch, font=font, fill=color, stroke_width=stroke, stroke_fill="black")
+    bbox = img0.getbbox(); img = img0.crop(bbox)
+    if skew:
+        w,h = img.size; pad=int(h*abs(skew))+2
+        canvas = Image.new("RGBA",(w+pad*2,h),(0,0,0,0)); canvas.paste(img,(pad,0))
+        img = canvas.transform(canvas.size, Image.AFFINE, (1, skew, -skew*h/2 if skew>0 else 0, 0, 1, 0), resample=Image.BICUBIC)
+        img = img.crop(img.getbbox())
     img.save(path); return img.size
 
 # 제목 PNG (위 검정 띠 가운데, 2줄, 흰+노랑)
 def title_png(path):
-    img = Image.new("RGBA", (W, TOP), (0,0,0,0)); d = ImageDraw.Draw(img)
-    font = ImageFont.truetype(TITLE_FONT, 92)
-    ys = [406]
-    for line, col, y in zip(TITLE, ["#111111"], ys):
-        x0,y0,x1,y1 = d.textbbox((0,0), line, font=font)
-        d.text(((W-(x1-x0))//2 - x0, y), line, font=font, fill=col)
-    img.save(path)
+    tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 0, spacing=0, skew=-0.22)
+    t = Image.open(path+".tmp.png")
+    img = Image.new("RGBA", (W, TOP), (0,0,0,0)); img.paste(t, ((W-tw)//2, 455-th//2), t); img.save(path)
 
 # 장면: (원본, 시작, 끝, 세로 자르기 y(1920 기준), 원본소리, 자막들[(시작,끝,텍스트,화자)])
 SCENES = [
@@ -51,7 +57,7 @@ SCENES = [
     ("v2", 0.0, 2.2, 358, False, [(0.0,1.0,"코가 다 닳도록","n"),(1.0,2.2,"핥았는데","n")]),
     ("v2", 2.2, 4.8, 358, False, [(0.2,2.6,"눈나 안 줄 거야?","d")]),
 ]
-NAR_Y = 1612   # 영상 칸 아래 흰 바탕 (블로 화면 기준)   # 해설 자막 중심
+NAR_Y = 1594   # 영상 칸 아래 흰 바탕 (블로 화면 기준)   # 해설 자막 중심
 DOG_Y = 700    # 강아지 자막(머리 위쪽)
 
 title_png(f"{OUT}/png/title.png")
@@ -63,7 +69,7 @@ for i,(src,s,e,cy,keep_audio,caps) in enumerate(SCENES):
     last="v1"; n=3
     for j,(cs,ce,txt,who) in enumerate(caps):
         p=f"{OUT}/png/c{i}_{j}.png"
-        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 82, "#111111", 0); y=NAR_Y
+        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 72, "#111111", 0, spacing=-3); y=NAR_Y
         else:        tw,th = text_png(p, txt, DOG_FONT, 92, WHITE, 10);  y=DOG_Y
         inputs += ["-i",p]
         fc += f";[{last}][{n}:v]overlay=(W-w)/2:{y - th//2}:enable='gte(t,{cs})*lt(t,{ce})'[v{n}]"
@@ -82,5 +88,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v12.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v13.mp4"],check=True)
 print("done")
