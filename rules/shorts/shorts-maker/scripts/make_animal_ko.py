@@ -11,7 +11,7 @@ W, H = 1080, 1920
 TOP, BOT = 516, 0
 BX, BW, BH = 52, 976, 1019   # 템플릿 투명 칸
 VH = H - TOP - BOT             # 1134
-TITLE_FONT = f"{F}/f2.ttf"     # Gothic A1 ExtraBold
+TITLE_FONT = f"{F}/BMDOHYEON.ttf"   # 배민 도현 (대표님 지정, 제목 105)
 NAR_FONT = f"{F}/f2.ttf"
 DOG_FONT = f"{F}/GriunYeeun-Rg.ttf"   # 그리운 예은 (대표님 지정, 강아지 1번·사람 대사)
 WHITE, YELLOW, MINT = "#FFFFFF", "#FFE006", "#8CE99A"
@@ -30,8 +30,8 @@ def text_png(path, text, font_path, size, color, stroke=10):
 # 제목 PNG (위 검정 띠 가운데, 2줄, 흰+노랑)
 def title_png(path):
     img = Image.new("RGBA", (W, TOP), (0,0,0,0)); d = ImageDraw.Draw(img)
-    font = ImageFont.truetype(TITLE_FONT, 72)
-    ys = [352, 440]
+    font = ImageFont.truetype(TITLE_FONT, 105)
+    ys = [330, 440]
     for line, col, y in zip(TITLE, ["#111111", "#111111"], ys):
         x0,y0,x1,y1 = d.textbbox((0,0), line, font=font)
         d.text(((W-(x1-x0))//2 - x0, y), line, font=font, fill=col)
@@ -82,5 +82,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v7.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v8.mp4"],check=True)
 print("done")
