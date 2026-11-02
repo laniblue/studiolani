@@ -39,7 +39,7 @@ def text_png(path, text, font_path, size, color, stroke=10, spacing=0, skew=0.0)
 
 # 제목 PNG (위 검정 띠 가운데, 2줄, 흰+노랑)
 def title_png(path):
-    tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 0, spacing=0, skew=-0.22)
+    tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 0, spacing=0, skew=0.22)
     t = Image.open(path+".tmp.png")
     img = Image.new("RGBA", (W, TOP), (0,0,0,0)); img.paste(t, ((W-tw)//2, 455-th//2), t); img.save(path)
 
@@ -88,5 +88,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v13.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v14.mp4"],check=True)
 print("done")
