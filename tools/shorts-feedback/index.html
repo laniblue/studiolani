@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>쇼츠 피드백</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--line:#e3e6ea;--txt:#111;--sub:#6b7280;--blue:#1664ff;--mint:#d1fae5;--done:#9ca3af}
+@media (prefers-color-scheme:dark){:root{--bg:#111315;--card:#1b1e22;--line:#2a2f35;--txt:#f3f4f6;--sub:#9ca3af;--mint:#064e3b}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"Apple SD Gothic Neo","Pretendard",system-ui,sans-serif}
+header{display:flex;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:2}
+header h1{font-size:17px;margin:0;white-space:nowrap}
+select{font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--txt);max-width:60vw}
+main{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;padding:16px;max-width:1400px;margin:0 auto}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+video{width:100%;max-height:70vh;background:#000;border-radius:12px;display:block}
+.row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.time{font-variant-numeric:tabular-nums;font-size:22px;font-weight:700;min-width:92px}
+button{font-size:15px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--txt);cursor:pointer}
+button.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+textarea{width:100%;min-height:84px;font-size:16px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--txt);margin-top:10px;resize:vertical}
+.hint{color:var(--sub);font-size:13px;margin-top:6px}
+h2{font-size:15px;margin:0 0 10px;color:var(--sub);font-weight:600}
+ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;max-height:75vh;overflow:auto}
+li{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;cursor:pointer}
+li.done{opacity:.55}li.done .text{text-decoration:line-through}
+li .t{color:var(--blue);font-weight:700;font-variant-numeric:tabular-nums}
+li .text{white-space:pre-wrap;word-break:break-word}
+li .reply{margin-top:6px;font-size:13px;color:var(--sub);background:var(--mint);padding:6px 8px;border-radius:8px}
+li .ops{display:flex;flex-direction:column;gap:6px}
+li .ops button{padding:6px 8px;font-size:13px}
+.empty{color:var(--sub);padding:20px;text-align:center}
+.count{color:var(--sub);font-size:13px;margin-left:auto}
+</style>
+</head>
+<body>
+<header>
+  <h1>쇼츠 피드백</h1>
+  <select id="videoSel"></select>
+  <span class="count" id="count"></span>
+</header>
+<main>
+  <section class="card">
+    <video id="v" controls playsinline preload="metadata"></video>
+    <div class="row">
+      <span class="time" id="tm">00:00</span>
+      <button id="back">◀ 1초</button><button id="fwd">1초 ▶</button>
+      <button id="pp">일시정지</button>
+    </div>
+    <textarea id="memo" placeholder="영상 멈추고 여기에 피드백 쓰기 (저장하면 지금 시간이 같이 붙어요)"></textarea>
+    <div class="row">
+      <button class="primary" id="save">이 시간에 피드백 저장</button>
+      <span class="hint">저장 위치: 피드백/영상이름.json · 클로드한테 “피드백 반영해줘” 하면 읽어서 고치고 ✓ 표시</span>
+    </div>
+  </section>
+  <aside class="card">
+    <h2>피드백 목록 (누르면 그 장면으로)</h2>
+    <ul id="list"></ul>
+  </aside>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const v=$('#v'), sel=$('#videoSel'), list=$('#list'), memo=$('#memo');
+const pin=new URLSearchParams(location.search).get('pin'); const qs=pin?'&pin='+pin:'';
+let data={video:'',items:[]};
+const fmt=t=>{t=Math.max(0,t||0);const m=Math.floor(t/60),s=Math.floor(t%60),d=Math.floor((t%1)*10);return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${d}`};
+async function loadVideos(){
+  const r=await fetch('/api/videos?x=1'+qs); const vids=await r.json();
+  sel.innerHTML=vids.map(x=>`<option value="${x.name}">${x.name} (${x.done}/${x.count}) · ${x.mtime}</option>`).join('')||'<option>컨펌본 폴더에 영상이 없어요</option>';
+  const saved=localStorage.getItem('fb_video'); if(saved&&vids.some(x=>x.name===saved)) sel.value=saved;
+  if(vids.length) openVideo(sel.value);
+}
+async function openVideo(name){
+  localStorage.setItem('fb_video',name);
+  v.src='/video/'+encodeURIComponent(name)+(pin?'?pin='+pin:'');
+  const r=await fetch('/api/feedback?video='+encodeURIComponent(name)+qs); data=await r.json(); data.video=name; render();
+}
+function render(){
+  const items=[...data.items].sort((a,b)=>a.t-b.t);
+  $('#count').textContent=items.length?`${items.filter(i=>i.done).length}/${items.length} 반영`:'';
+  list.innerHTML=items.map(i=>`<li class="${i.done?'done':''}" data-id="${i.id}">
+    <span class="t">${i.time}</span>
+    <div><div class="text">${esc(i.text)}</div>${i.reply?`<div class="reply">✓ ${esc(i.reply)}</div>`:''}</div>
+    <div class="ops"><button data-act="done">${i.done?'↩':'✓'}</button><button data-act="del">삭제</button></div>
+  </li>`).join('')||'<div class="empty">아직 피드백이 없어요. 영상 멈추고 아래에 써서 저장해 봐요.</div>';
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function persist(){ await fetch('/api/feedback?x=1'+qs,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); render(); }
+$('#save').onclick=async()=>{
+  const text=memo.value.trim(); if(!text) return memo.focus();
+  v.pause();
+  data.items.push({id:Date.now().toString(36),t:+v.currentTime.toFixed(2),time:fmt(v.currentTime),text,done:false,reply:'',created:new Date().toISOString().slice(0,19)});
+  memo.value=''; await persist();
+};
+list.onclick=async e=>{
+  const li=e.target.closest('li'); if(!li) return; const it=data.items.find(i=>i.id===li.dataset.id); if(!it) return;
+  const act=e.target.dataset.act;
+  if(act==='del'){ if(confirm('이 피드백 지울까?')){data.items=data.items.filter(i=>i!==it); await persist();} return; }
+  if(act==='done'){ it.done=!it.done; await persist(); return; }
+  v.currentTime=it.t; v.pause();
+};
+v.addEventListener('timeupdate',()=>{$('#tm').textContent=fmt(v.currentTime)});
+$('#pp').onclick=()=>v.paused?v.play():v.pause();
+v.addEventListener('play',()=>$('#pp').textContent='일시정지'); v.addEventListener('pause',()=>$('#pp').textContent='재생');
+$('#back').onclick=()=>{v.currentTime=Math.max(0,v.currentTime-1);v.pause()};
+$('#fwd').onclick=()=>{v.currentTime=v.currentTime+1;v.pause()};
+sel.onchange=()=>openVideo(sel.value);
+memo.addEventListener('focus',()=>v.pause());
+document.addEventListener('keydown',e=>{ if(e.target===memo) return; if(e.code==='Space'){e.preventDefault();$('#pp').click();} });
+loadVideos();
+</script>
+</body>
+</html>
