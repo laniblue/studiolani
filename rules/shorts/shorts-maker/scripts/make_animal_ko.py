@@ -38,7 +38,7 @@ def text_png(path, text, font_path, size, color, stroke=10, spacing=0, skew=0.0)
         img = img.crop(img.getbbox())
     img.save(path); return img.size
 
-def mind_png(path, text, color="#FF2006"):
+def mind_png(path, text, color="#FFE006"):  # 속마음·효과 노랑 FFE006 (대표님 확정)
     font = ImageFont.truetype(MIND_FONT, 64)
     d0 = ImageDraw.Draw(Image.new("RGBA",(10,10)))
     x0,y0,x1,y1 = d0.textbbox((0,0), text, font=font); tw,th = x1-x0, y1-y0
@@ -100,5 +100,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v17.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/final_v18.mp4"],check=True)
 print("done")
