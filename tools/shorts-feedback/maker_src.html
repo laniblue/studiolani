@@ -22,10 +22,10 @@ header{position:sticky;top:0;z-index:10;background:rgba(242,244,246,.94);backdro
 h2{font-size:22px;font-weight:800;margin:22px 0 4px;letter-spacing:-.02em}.lead{color:var(--sub);margin:0 0 14px;font-size:14px}
 .card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
 .card h3{font-size:15px;font-weight:700;margin:0 0 10px;display:flex;align-items:center;gap:8px}.card h3 .r{margin-left:auto;font-weight:500;font-size:12px;color:var(--muted)}
-.btn{font-size:15px;font-weight:700;padding:12px 18px;border-radius:14px;border:0;background:#F2F4F6;color:var(--txt);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;line-height:1.2}
+.btn{white-space:nowrap;font-size:15px;font-weight:700;padding:12px 18px;border-radius:14px;border:0;background:#F2F4F6;color:var(--txt);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;line-height:1.2}
 .btn:active{transform:scale(.98)}.btn.primary{background:var(--blue);color:#fff}.btn.ghost{background:transparent;color:var(--blue)}.btn.danger{color:var(--red)}.btn.sm{font-size:13px;padding:7px 11px;border-radius:10px;font-weight:600}.btn.xs{font-size:12px;padding:5px 8px;border-radius:8px;font-weight:600}.btn.block{width:100%}.btn:disabled{opacity:.35;cursor:default}
 .seg{display:flex;gap:8px}.seg .opt{flex:1;padding:14px 10px;border-radius:16px;border:2px solid var(--line);background:#fff;text-align:center;font-weight:700;cursor:pointer;font-size:15px}.seg .opt small{display:block;font-weight:500;color:var(--muted);font-size:12px}.seg .opt.on{border-color:var(--blue);background:var(--blue-bg);color:var(--blue)}
-input[type=text],input[type=number],select,textarea{font:inherit;font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--txt);width:100%;outline:none}
+input[type=text],input[type=password],input[type=number],select,textarea{font:inherit;font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--txt);width:100%;outline:none}
 input:focus,textarea:focus,select:focus{border-color:var(--blue)}textarea{min-height:96px;resize:vertical}
 label.f{display:block;margin-top:12px;font-size:13px;font-weight:600;color:var(--sub)}label.f>*{margin-top:6px}
 .drop{display:block;border:2px dashed #CFD6DE;border-radius:16px;padding:22px 16px;text-align:center;color:var(--sub);cursor:pointer;background:#FAFBFC}.drop b{display:block;color:var(--txt);font-size:15px;margin-bottom:2px}input[type=file]{display:none}
@@ -40,7 +40,7 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}table.t th{text-align
 .embeds{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.embeds>div{min-width:0}.embeds .e{border-radius:12px;overflow:hidden;background:#000;aspect-ratio:9/16;position:relative}.embeds iframe{width:100%;height:100%;border:0}.embeds .cap{font-size:12px;color:var(--sub);margin-top:4px;line-height:1.3}
 table.cmp td,table.cmp th{min-width:150px;font-size:12px;vertical-align:top}table.cmp td.me{background:var(--blue-bg)}
 .radio .opt .lines{margin:8px 0 0 38px;font-size:13px;color:var(--sub);white-space:pre-wrap;max-height:160px;overflow:auto}
-.ed{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,420px);gap:12px}@media (max-width:1100px){.ed{grid-template-columns:1fr}.ed .card.pvc{position:static!important}}
+.ed{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,380px);gap:12px}@media (max-width:1100px){.ed{grid-template-columns:1fr}.ed .card.pvc{position:static!important}}
 canvas#cv{width:100%;max-width:calc(56vh * 9 / 16);aspect-ratio:9/16;background:#fff;border-radius:16px;display:block;margin:0 auto;box-shadow:0 0 0 1px var(--line)}
 .ctrl{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}.time{font-variant-numeric:tabular-nums;font-size:17px;font-weight:800}
 .tl{margin-top:8px;position:relative;height:54px;background:#F2F4F6;border-radius:12px;overflow:hidden;cursor:pointer;user-select:none}
@@ -50,7 +50,7 @@ canvas#cv{width:100%;max-width:calc(56vh * 9 / 16);aspect-ratio:9/16;background:
 .tl .ph{position:absolute;top:0;bottom:0;width:2px;background:var(--red);pointer-events:none}
 .scene{border:1.5px solid var(--line);border-radius:16px;padding:12px;margin-top:8px;background:#fff}.scene.on{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.12)}
 .scene .hd{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.scene .hd b{font-size:14px}.scene .hd select{width:auto;padding:6px 8px;font-size:13px;border-radius:10px}
-.scene .io{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.scene .io .f2{display:flex;gap:4px;align-items:center}.scene .io label{font-size:11px;color:var(--muted);font-weight:600;display:block}.scene .io input{padding:8px 10px;font-size:14px;border-radius:10px}
+.scene .io{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.scene .io .f2{display:flex;gap:4px;align-items:center}.scene .io label{font-size:11px;color:var(--muted);font-weight:600;display:block}.scene .io input{padding:8px 8px;font-size:14px;border-radius:10px;min-width:0}
 .face{margin-top:8px;font-size:11px;color:var(--muted);font-weight:600}input[type=range]{width:100%;accent-color:var(--blue)}
 .caps{margin-top:8px;display:flex;flex-direction:column;gap:5px}
 .cap{display:grid;grid-template-columns:56px 56px 84px 1fr auto;gap:4px;align-items:center}.cap input,.cap select{padding:7px 8px;font-size:13px;border-radius:9px}.cap.cur input[type=text]{border-color:var(--blue);background:var(--blue-bg)}
@@ -63,13 +63,15 @@ pre.out{background:#F9FAFB;border-radius:14px;padding:12px;font-size:13px;white-
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#191F28;color:#fff;padding:12px 18px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.2s;z-index:30}.toast.on{opacity:1}
 .page{display:none}.page.on{display:block}
 .memo{display:flex;gap:6px;margin-top:8px}.memo input{flex:1}.notes{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}.notes li{padding:9px 11px;border-radius:12px;background:#F9FAFB;font-size:13px;display:flex;gap:10px;cursor:pointer}.notes li b{color:var(--blue)}.notes li.done{opacity:.5}
+.chat{margin-top:10px;display:flex;flex-direction:column;gap:6px;max-height:200px;overflow:auto}.chat .m{font-size:13px;padding:8px 11px;border-radius:12px;max-width:92%;white-space:pre-wrap;word-break:break-word}.chat .u{background:var(--blue-bg);align-self:flex-end;color:var(--txt)}.chat .a{background:#F2F4F6;align-self:flex-start;color:var(--sub)}.chat .w{background:#FFF3E0;align-self:flex-start;color:#B25E00}
+.busy{opacity:.55;pointer-events:none}
 .kbd{font-size:11px;color:var(--muted);margin-top:6px}.kbd b{display:inline-block;border:1px solid var(--line);border-radius:5px;padding:0 5px;background:#fff;font-weight:700;color:var(--sub)}
 body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 </style>
 </head>
 <body>
 <header><div class="wrap" style="padding-bottom:0">
-  <div class="topbar"><h1>쇼츠 제작실</h1><span class="sp"></span><button class="btn sm" id="btnSaveProj">저장</button><label class="btn sm">불러오기<input type="file" id="openProj" accept=".json"></label></div>
+  <div class="topbar"><h1>쇼츠 제작실</h1><span class="sp"></span><button class="btn sm" id="btnKeys">⚙ 클로드 연결</button><button class="btn sm" id="btnSaveProj">저장</button><label class="btn sm">불러오기<input type="file" id="openProj" accept=".json"></label></div>
   <div class="tabs" id="tabs"><div class="tab on" data-t="1">① 자료</div><div class="tab" data-t="2">② 분석</div><div class="tab" data-t="3">③ 각색</div><div class="tab" data-t="4">④ 제작·편집</div><div class="tab" data-t="5">⑤ 완성</div></div>
 </div></header>
 <div class="wrap">
@@ -85,35 +87,42 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
   <div class="card"><h3>원본 영상 <span class="r">선택 · 만들 때는 필요</span></h3>
     <label class="drop"><b>여기를 눌러 영상 넣기</b>또는 끌어다 놓기 · 넣은 순서대로 v1, v2, v3…<input type="file" id="addClips" accept="video/*" multiple></label>
     <div class="list" id="clips" style="margin-top:8px"></div></div>
-  <div class="card"><h3>클로드에게 분석 요청</h3>
-    <div class="how"><div class="n">1</div><div><b>요청 복사</b> → 클로드 채팅에 붙여넣기 (원본 파일 있으면 같이 올리기)</div></div>
-    <div class="how"><div class="n">2</div><div>클로드가 정답지대로: 유튜브에서 대조해 <b>같은 원본 쓴 쇼츠 전부</b> 찾기 → <b>큰 주제(카테고리) 훅·내용 공식</b> → <b>상위 3개 제목·내용 비교</b> → 제목·내용 각색안</div></div>
-    <div class="how"><div class="n">3</div><div>클로드 답을 ② 분석 탭에 붙여넣기</div></div>
-    <button class="btn primary block" id="copyReq" style="margin-top:6px">요청 복사</button></div>
+  <div class="card" id="keysCard"><h3>클로드 연결 <span class="r">한 번만 넣으면 이 기기에 저장</span></h3>
+    <label class="f">클로드 API 키 <span style="font-weight:400;color:var(--muted)">(platform.claude.com → API keys)</span><input type="password" id="apiKey" placeholder="sk-ant-…" autocomplete="off"></label>
+    <label class="f">유튜브 API 키 <span style="font-weight:400;color:var(--muted)">(선택 · 같은 원본 대조 정확도 ↑ · 무료)</span><input type="password" id="ytKey" placeholder="AIza…" autocomplete="off"></label>
+    <div class="lead" style="margin:8px 0 0;font-size:12px">분석 한 번에 보통 몇백 원~1천 원쯤(클로드 토큰 + 웹 검색). 키는 이 브라우저 안에만 저장되고 프로젝트 파일엔 안 들어가.</div></div>
+  <div class="card"><h3>클로드 분석</h3>
+    <div class="how"><div class="n">1</div><div>클로드가 정답지대로 바로: 원본 찾기 → 유튜브 대조로 <b>같은 원본 쓴 쇼츠</b> → <b>카테고리 훅·내용 공식</b> → <b>상위 3개 제목·내용 비교</b> → 제목·내용 각색안</div></div>
+    <div class="how"><div class="n">2</div><div>끝나면 ② 분석·③ 각색이 자동으로 채워져 (1~3분)</div></div>
+    <button class="btn primary block" id="runAnalyze" style="margin-top:6px">클로드 분석 시작</button>
+    <div class="prog" id="anaProg"><i></i></div><div class="lead" id="anaStatus" style="margin:8px 0 0;font-size:13px"></div>
+    <button id="copyReq" style="display:none"></button></div>
 </section>
 
 <!-- ② 분석 -->
 <section class="page" id="p2">
-  <h2>분석</h2><p class="lead">클로드 답을 붙여넣으면 같은 원본 목록·카테고리 공식·상위 3개 비교가 표로 떠.</p>
-  <div class="card"><textarea id="reply" placeholder="클로드 답 통째로 붙여넣기 ([같은 원본] [카테고리] [상위3] [제목 후보] [대본 후보] [업로드])"></textarea><button class="btn block" id="parseReply" style="margin-top:8px">읽어오기</button></div>
+  <h2>분석</h2><p class="lead">같은 원본 목록 · 카테고리 공식 · 상위 3개 비교. 영상은 아래에서 바로 볼 수 있어.</p>
+  <div class="ctrl" style="margin-bottom:10px"><button class="btn sm" id="reAnalyze">다시 분석</button><span class="lead" style="margin:0;font-size:13px" id="anaMeta"></span></div>
+  <textarea id="reply" style="display:none"></textarea><button id="parseReply" style="display:none"></button>
   <div id="anaView"></div>
   <div class="card" id="watchCard" style="display:none"><h3>터진 영상 · 같은 원본 영상 보기 <span class="r">인터넷 연결 필요</span></h3><div class="embeds" id="embeds"></div></div>
 </section>
 
 <!-- ③ 각색 -->
 <section class="page" id="p3">
-  <h2>각색</h2><p class="lead">제목 하나, 내용(대본) 하나 고르면 돼. 글자는 바로 고칠 수 있어.</p>
+  <h2>각색</h2><p class="lead">제목 하나, 내용(대본) 하나 고르면 돼. 글자는 바로 고칠 수 있고, 마음에 안 들면 「다시 요청」으로 새 후보를 바로 받아.</p>
   <div class="card"><h3>상위 3개 vs 우리 <span class="r">제목 줄 + 줄마다 내용</span></h3><div style="overflow:auto"><table class="t cmp" id="cmp"></table></div></div>
   <div class="card"><h3>제목 고르기 <span class="r">상위 3개 결 그대로 · 결말 숨김</span></h3><div class="radio" id="titles"></div>
     <div class="ctrl"><button class="btn sm ghost" id="addTitle">+ 직접 쓰기</button><span style="flex:1"></span><button class="btn sm" id="reTitle">마음에 안 들어 · 제목 다시 요청</button></div></div>
   <div class="card"><h3>내용(대본) 고르기 <span class="r">누르면 ④에 들어감</span></h3><div class="radio" id="props"></div>
     <div class="ctrl"><span style="flex:1"></span><button class="btn sm" id="reProp">마음에 안 들어 · 내용 다시 요청</button></div>
     <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--muted);font-size:13px">직접 쓰기 (장면/자막 형식)</summary><textarea id="manualScript" style="margin-top:8px" placeholder="장면1 v1 0~5 얼굴 0.35&#10;  0~1.2 해설 : …&#10;  2~4 강아지 : …"></textarea><button class="btn sm" id="manualApply" style="margin-top:8px">이 대본으로</button></details></div>
+  <div class="card" id="reqModal" style="display:none"><h3 id="reqTitle">다시 요청</h3><input type="text" id="reqWhy" placeholder="왜 마음에 안 드는지·어떻게 바꾸고 싶은지 한 줄 (Enter)"><div class="ctrl"><button class="btn primary sm" id="reqGo">클로드에게 새로 받기</button><button class="btn sm ghost" id="reqClose">닫기</button><span class="lead" style="margin:0;font-size:12px" id="reqStatus"></span></div><textarea id="reqReply" style="display:none"></textarea><button id="reqCopy" style="display:none"></button><button id="reqApply" style="display:none"></button></div>
 </section>
 
 <!-- ④ 제작·편집 -->
 <section class="page" id="p4">
-  <h2>제작 · 편집</h2><p class="lead">타임라인 블록을 누르면 그 장면. 구간 자르기·삭제, 자막 싱크는 「지금」 버튼으로.</p>
+  <h2>제작 · 편집</h2><p class="lead">타임라인 블록을 누르면 그 장면. 구간 자르기·삭제, 자막·음성 싱크는 「지금」 버튼으로. 말로 고치려면 미리보기 아래 칸에.</p>
   <div class="ed">
     <div class="card pvc" style="position:sticky;top:110px">
       <canvas id="cv" width="1080" height="1920"></canvas>
@@ -121,19 +130,16 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
       <div class="tl" id="tl"><div class="ph" id="ph"></div></div>
       <div class="ctrl"><button class="btn sm" id="undo" title="되돌리기 (Ctrl+Z)">↶</button><button class="btn sm" id="redo" title="다시 (Ctrl+Shift+Z)">↷</button><button class="btn sm" id="splitHere">✂ 자르기</button><button class="btn sm" id="setIn">[ 시작=지금</button><button class="btn sm" id="setOut">] 끝=지금</button><button class="btn sm" id="dupCur">복제</button><button class="btn sm danger" id="delCur">삭제</button></div>
       <div class="kbd">타임라인: 블록 끌어서 이동 · 양끝 끌어서 길이 · 빨간 선 끌어서 탐색 · <b>Space</b> 재생 · <b>←</b><b>→</b> 0.1초 · <b>I</b>/<b>O</b> 시작/끝=지금 · <b>[</b>/<b>]</b> 자막 시작/끝 · <b>S</b> 자르기 · <b>Delete</b> 장면 삭제 · <b>⌘Z</b> 되돌리기</div>
+      <div class="chat" id="chat"></div>
+      <div class="memo" id="editBox"><input type="text" id="editPrompt" placeholder="클로드에게 바로 수정 요청 · 예: 덥석 0.3초 더 길게, 마지막 해설 짧게 (Enter)"><button class="btn primary sm" id="sendEdit">보내기</button></div>
+      <div class="kbd">보내면 클로드가 지금 대본을 고쳐서 바로 반영해. 마음에 안 들면 <b>↶</b> 되돌리기</div>
     </div>
     <div>
-      <div class="ctrl" style="margin:0 0 6px"><span class="lead" style="margin:0;font-size:13px" id="clipHint"></span><span style="flex:1"></span><label class="btn sm">영상 추가<input type="file" id="addClips2" accept="video/*" multiple></label><button class="btn sm" id="addScene">+ 장면</button></div>
       <div id="scenes"></div>
     </div>
   </div>
-  <div class="card" style="margin-top:12px"><h3>클로드에게 수정 요청 <span class="r">편집기 안에서</span></h3>
-    <textarea id="editPrompt" placeholder="예: 덥석 장면 0.3초 더 길게, 마지막 해설 더 짧게, 강아지 대사 더 귀엽게"></textarea>
-    <div class="ctrl"><button class="btn primary sm" id="copyEdit">수정 요청 복사 (지금 대본 포함)</button><span class="lead" style="margin:0;font-size:12px">→ 클로드 답을 아래에 붙여넣고 적용</span></div>
-    <textarea id="editReply" style="margin-top:8px;min-height:70px" placeholder="클로드 답([대본 후보] 또는 장면 표) 붙여넣기"></textarea>
-    <div class="ctrl"><button class="btn sm" id="applyEdit">적용 (지금 장면 교체)</button><button class="btn sm ghost" id="applyEditAsProp">③에 새 안으로 추가만</button></div></div>
+  <span id="clipHint" style="display:none"></span><input type="file" id="addClips2" style="display:none"><button id="addScene" style="display:none"></button><textarea id="editReply" style="display:none"></textarea><button id="copyEdit" style="display:none"></button><button id="applyEdit" style="display:none"></button><button id="applyEditAsProp" style="display:none"></button>
   <div class="card" style="margin-top:12px"><h3>검수 <span class="r">넘기기 전</span></h3><div id="checks"></div></div>
-  <div class="card" id="reqModal" style="display:none"><h3 id="reqTitle">다시 요청</h3><input type="text" id="reqWhy" placeholder="왜 마음에 안 드는지·어떻게 바꾸고 싶은지 한 줄"><div class="ctrl"><button class="btn primary sm" id="reqCopy">요청 복사</button><span class="lead" style="margin:0;font-size:12px">→ 클로드 답을 아래에</span></div><textarea id="reqReply" style="margin-top:8px;min-height:70px" placeholder="[제목 후보] 또는 [대본 후보] 붙여넣기"></textarea><div class="ctrl"><button class="btn sm" id="reqApply">후보에 추가</button><button class="btn sm ghost" id="reqClose">닫기</button></div></div>
 </section>
 
 <!-- ⑤ 완성 -->
@@ -162,7 +168,7 @@ async function copyText(txt,msg){try{await navigator.clipboard.writeText(txt);to
 const WHO_KO={n:'해설',d:'강아지',m:'속마음'},WHO_JA={n:'해설',d:'남자',d2:'남자2',f:'여자',em:'강조',m:'속마음'};
 const WHO_R={'해설':'n','강아지':'d','속마음':'m','사람':'d','고양이':'d','효과':'m','남자':'d','남자2':'d2','여자':'f','강조':'em','엄마':'f','아빠':'d','아들':'d2','딸':'f','ママ':'f','パパ':'d','息子':'d2','娘':'f'};
 let P={tpl:'white',title:'',titles:[],titleSel:-1,props:[],propSel:-1,clips:[],scenes:[],notes:[],refs:'',src:'',ana:{same:[],cat:'',top3:[]},upload:{tags:''},tab:1};
-const media={};let tplImg=null,playing=false,cur=0,curScene=-1,curCap=null,rafId=0,audioCtx=null,streamDest=null;
+const media={},voices={};let tplImg=null,playing=false,cur=0,curScene=-1,curCap=null,rafId=0,audioCtx=null,streamDest=null;
 const WHO=()=>P.tpl==='ja'?WHO_JA:WHO_KO;
 const ready=(async()=>{await Promise.all(['66px "BMDoHyeon"','72px "NarrKo"','74px "Griun"','64px "HSHwalkong"','104px "MPlusR"'].map(f=>document.fonts.load(f,'가')));tplImg=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=TEMPLATE_PNG;});})();
 
@@ -182,7 +188,7 @@ function addClipFiles(files){[...files].filter(f=>f.type.startsWith('video/')||/
 $('#addClips').onchange=e=>{addClipFiles(e.target.files);e.target.value='';};$('#addClips2').onchange=e=>{addClipFiles(e.target.files);e.target.value='';};
 ['dragenter','dragover'].forEach(x=>document.addEventListener(x,e=>{e.preventDefault();document.body.classList.add('drag')}));['dragleave','drop'].forEach(x=>document.addEventListener(x,e=>{e.preventDefault();document.body.classList.remove('drag')}));
 document.addEventListener('drop',e=>{const fs=[...e.dataTransfer.files];const j=fs.find(x=>/\.json$/i.test(x.name));if(j)loadProjectFile(j);addClipFiles(fs);});
-function renderClips(){const h=P.clips.map(c=>`<div class="item"><span class="tag">${c.id}</span><span class="grow">${esc(c.name)}</span><span style="color:var(--muted)">${c.dur?c.dur+'초 · '+c.w+'×'+c.h:''}</span>${media[c.id]?'':'<span style="color:var(--red);font-weight:700">다시 넣기</span>'}</div>`).join('');$('#clips').innerHTML=h||'<div class="lead" style="margin:0">아직 없음</div>';$('#clipHint').textContent=P.clips.length?P.clips.map(c=>`${c.id}=${c.name}`).join(' · '):'원본 영상이 없어. 「영상 추가」로 넣어 줘';}
+function renderClips(){const h=P.clips.map(c=>`<div class="item"><span class="tag">${c.id}</span><span class="grow">${esc(c.name)}</span><span style="color:var(--muted)">${c.dur?c.dur+'초 · '+c.w+'×'+c.h:''}</span>${media[c.id]?'':'<span style="color:var(--red);font-weight:700">다시 넣기</span>'}</div>`).join('');$('#clips').innerHTML=h||'<div class="lead" style="margin:0">아직 없음</div>';$('#clipHint').textContent=P.clips.length?P.clips.map(c=>`${c.id}=${c.name}`).join(' · '):'원본 영상이 없어. ① 자료에서 넣어 줘';}
 function requestText(){const lang=P.tpl==='ja'?'일본어':'한국어',tpl=P.tpl==='ja'?'일본어 템플릿':(P.tpl==='white'?'한국어 화이트(동물·멍냥한입·음성 없음)':'한국어 블랙');
   return [`[쇼츠 제작 요청]`,`언어: ${lang}`,`템플릿: ${tpl}`,`발견한 쇼츠 링크: ${P.refs.trim().split(/\n+/).filter(Boolean).join(', ')||'-'}`,`원본 출처: ${P.src||'-'}`,`원본 영상: ${P.clips.map(c=>`${c.id}=${c.name}(${c.dur}초)`).join(', ')||'(없음 — 링크로 찾아 줘)'}`,``,
   `쇼츠 스킬 정답지(shorts-maker/references/쇼츠-정답지.md + white-template-ko-animal.md)를 끝까지 읽고 그대로: ① 원본 직접 찾기(1080 미만이면 알림) ② 유튜브 대조로 같은 원본 쓴 쇼츠 전부(검색어 30개·썸네일 대조·재업로드 제외, 언어별 표, 100만+ 표시) ③ 큰 주제(카테고리) 100만+ 20개 훅·내용 공식 ④ 같은 원본 상위 3개 제목·줄마다 내용·편집 비교 ⑤ 제목 후보 3개 = 상위 3개 결 그대로 단어만 바꿈, 결말 숨김, 쉬운 말, 줄마다 1위 +2자 이내(화이트는 한 줄 10자 안쪽) ⑥ 내용(대본) 후보 2~3안 = 1·2위 흐름에 표현만, 번역 금지, 해설 필수(상황→반전 예고→대사→리액션→끝 펀치), 해설은 「~했는데/~했다네요」(존댓말·음슴체 X), 강아지 대사 반말, 속마음은 *별표*, 한 화면 9자 안쪽, 말줄임 「..」, 첫 3초 궁금증, 13~23초, 포인트 행동 중심, 안마다 1·2·3위와 비교 한 줄 ⑦ 업로드 글(출처·해시태그 #웃긴영상). 장면은 한 원본 한 덩어리(잘게 X), 얼굴 가운데. 과정·표는 채팅에 보여 주고, 마지막에 아래 형식 코드 블록 하나로 (제작실 페이지가 읽어):`,
@@ -198,7 +204,8 @@ function parseScenes(txt){const scenes=[];let cur=null;for(let raw of txt.split(
 function parseTitles(lines){return lines.map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^[A-Za-z0-9가-힣]{1,2}\s*[:：.)]\s*(.+?)(?:\s*\((근거.*?)\))?$/);return m?{t:m[1].trim(),why:m[2]||''}:{t:l,why:''};});}
 function parseProps(lines){const props=[];let o=null,buf=[];const flush=()=>{if(o){o.scenes=parseScenes(buf.join('\n'));props.push(o);}};lines.forEach(l=>{const m=l.trim().match(/^안\s*([A-Za-z0-9가-힣]{1,2})\s*제목\s*[:：]\s*(.+)/);const c=l.trim().match(/^비교\s*[:：]\s*(.+)/);if(m){flush();o={name:m[1],title:m[2].trim(),compare:'',scenes:[]};buf=[];}else if(c&&o)o.compare=c[1];else buf.push(l);});flush();if(!props.length){const sc=parseScenes(lines.join('\n'));if(sc.length)props.push({name:'',title:'',compare:'',scenes:sc});}return props;}
 function splitSections(txt){const sec={};let k='etc';txt.replace(/```/g,'').split(/\r?\n/).forEach(l=>{const m=l.trim().match(/^\[(.+?)\]$/);if(m){k=m[1];sec[k]=[];}else(sec[k]=sec[k]||[]).push(l);});return sec;}
-$('#parseReply').onclick=()=>{const txt=$('#reply').value.replace(/```/g,'');if(!txt.trim()){toast('붙여넣어 줘');return;}
+$('#parseReply').onclick=()=>ingestReply($('#reply').value);
+function ingestReply(raw){const txt=(raw||'').replace(/```/g,'');if(!txt.trim()){toast('답이 비었어');return false;}
   const sec={};let k='etc';txt.split(/\r?\n/).forEach(l=>{const m=l.trim().match(/^\[(.+?)\]$/);if(m){k=m[1];sec[k]=[];}else(sec[k]=sec[k]||[]).push(l);});
   const get=n=>Object.keys(sec).find(x=>x.replace(/\s/g,'').includes(n));const got=[];
   const sm=get('같은원본');if(sm){P.ana.same=sec[sm].map(l=>l.trim()).filter(l=>l&&!/^조회수/.test(l)).map(l=>{const p=l.split('|').map(x=>x.trim());return{views:p[0]||'',title:p[1]||'',url:p[2]||'',lang:p[3]||''};});got.push('같은 원본 '+P.ana.same.length);}
@@ -207,12 +214,12 @@ $('#parseReply').onclick=()=>{const txt=$('#reply').value.replace(/```/g,'');if(
   const t=get('제목후보');if(t){P.titles=parseTitles(sec[t]);P.titleSel=0;P.title=P.titles[0]?.t||'';got.push('제목 '+P.titles.length);}
   const d=get('대본후보')||get('대본');if(d){const props=parseProps(sec[d]).map((p,i)=>({...p,name:p.name||String.fromCharCode(65+i),title:p.title||P.title}));if(props.length){P.props=props;P.propSel=0;P.scenes=JSON.parse(JSON.stringify(props[0].scenes));got.push('대본 '+props.length+'안');}}
   const u=get('업로드');if(u){sec[u].forEach(l=>{let m;if((m=l.match(/출처\s*[:：]\s*(.+)/)))P.src=m[1].trim();if((m=l.match(/해시태그\s*[:：]\s*(.+)/)))P.upload.tags=m[1].trim();});$('#src').value=P.src;}
-  if(!got.length){toast('형식을 못 읽었어. [상위3] [제목 후보] [대본 후보] 머리글이 있는지 봐 줘');return;}toast('읽었어: '+got.join(', '));autosave();renderAna();};
+  if(!got.length){toast('형식을 못 읽었어. [상위3] [제목 후보] [대본 후보] 머리글이 있는지 봐 줘');return false;}toast('읽었어: '+got.join(', '));P.ana.at=new Date().toLocaleString('ko-KR');autosave();renderAna();return true;}
 function renderAna(){const a=P.ana;let h='';
   if(a.same.length)h+=`<div class="card"><h3>같은 원본을 쓴 쇼츠 <span class="r">${a.same.length}개 · 100만+ 표시</span></h3><table class="t"><tr><th>조회수</th><th>제목</th><th>언어</th></tr>${a.same.map(s=>`<tr><td style="white-space:nowrap">${esc(s.views)}</td><td>${s.url?`<a href="${esc(s.url)}" target="_blank">${esc(s.title)}</a>`:esc(s.title)}</td><td>${esc(s.lang)}</td></tr>`).join('')}</table></div>`;
   if(a.cat)h+=`<div class="card"><h3>큰 주제(카테고리) 훅·내용 공식</h3><pre class="out">${esc(a.cat)}</pre></div>`;
   if(a.top3.length)h+=`<div class="card"><h3>같은 원본 상위 3개 · 제목·내용·편집</h3><div class="top3">${a.top3.map(t=>`<div class="b"><b>${t.rank}위 · ${esc(t.title)}</b><div class="ln">${esc(t.lines)}</div>${t.edit?`<div class="ln" style="margin-top:6px;color:var(--muted)">편집: ${esc(t.edit)}</div>`:''}</div>`).join('')}</div></div>`;
-  $('#anaView').innerHTML=h||'<div class="card"><div class="lead" style="margin:0">아직 분석이 없어. 위에 붙여넣고 「읽어오기」</div></div>';
+  $('#anaView').innerHTML=h||'<div class="card"><div class="lead" style="margin:0">아직 분석이 없어. ① 자료에서 「클로드 분석 시작」</div></div>';
   const ytid=u=>{const m=(u||'').match(/(?:shorts\/|v=|youtu\.be\/)([\w-]{11})/);return m?m[1]:null;};
   const vids=[...a.top3.map(t=>({id:ytid(t.url),cap:`${t.rank}위 · ${t.title}${t.views?' · '+t.views:''}`})),...a.same.map(x=>({id:ytid(x.url),cap:`${x.views} · ${x.title}`})),...P.refs.split(/\n+/).map(u=>({id:ytid(u),cap:'내가 보낸 링크'}))].filter(v=>v.id);
   const seen=new Set();const uniq=vids.filter(v=>!seen.has(v.id)&&seen.add(v.id));
@@ -228,18 +235,20 @@ function renderCmp(){const who=WHO();const top=P.ana.top3.slice(0,3);const mine=
 let reqKind='title';
 function openReq(kind){reqKind=kind;$('#reqTitle').textContent=kind==='title'?'제목 다시 요청':'내용(대본) 다시 요청';$('#reqModal').style.display='';$('#reqModal').scrollIntoView({behavior:'smooth'});$('#reqWhy').focus();}
 $('#reTitle').onclick=()=>openReq('title');$('#reProp').onclick=()=>openReq('prop');$('#reqClose').onclick=()=>$('#reqModal').style.display='none';
-$('#reqCopy').onclick=()=>{const why=$('#reqWhy').value.trim();const who=WHO();const cur=reqKind==='title'?P.titles.map((t,i)=>`${String.fromCharCode(65+i)}: ${t.t}`).join('\n'):P.props.map(p=>`안${p.name} ${p.title}\n`+p.scenes.flatMap(s=>s.caps.map(c=>`  ${who[c.who]||c.who} : ${c.text}`)).join('\n')).join('\n');
-  const txt=[`[쇼츠 다시 요청] ${reqKind==='title'?'제목':'내용(대본)'}`,`이유·방향: ${why||'-'}`,`지금 후보(겹치지 않게):`,cur,'',`정답지 규칙 그대로(상위 3개 결·결말 숨김·해설 ~했는데/~했다네요·9자·「..」), ${reqKind==='title'?'새 제목 3개를 [제목 후보] 형식':'새 대본 2안을 [대본 후보] 형식(장면 v번호·초 포함)'}으로 코드 블록 하나로.`].join('\n');copyText(txt);};
-$('#reqApply').onclick=()=>{const sec=splitSections($('#reqReply').value);const get=n=>Object.keys(sec).find(x=>x.replace(/\s/g,'').includes(n));let n=0;
+function reqText(){const why=$('#reqWhy').value.trim();const who=WHO();const cur=reqKind==='title'?P.titles.map((t,i)=>`${String.fromCharCode(65+i)}: ${t.t}`).join('\n'):P.props.map(p=>`안${p.name} ${p.title}\n`+p.scenes.flatMap(s=>s.caps.map(c=>`  ${who[c.who]||c.who} : ${c.text}`)).join('\n')).join('\n');
+  const txt=[`[쇼츠 다시 요청] ${reqKind==='title'?'제목':'내용(대본)'}`,`이유·방향: ${why||'-'}`,`지금 후보(겹치지 않게):`,cur,'',`정답지 규칙 그대로(상위 3개 결·결말 숨김·해설 ~했는데/~했다네요·9자·「..」), ${reqKind==='title'?'새 제목 3개를 [제목 후보] 형식':'새 대본 2안을 [대본 후보] 형식(장면 v번호·초 포함)'}으로 코드 블록 하나로.`].join('\n');return txt;}
+$('#reqCopy').onclick=()=>copyText(reqText());
+$('#reqApply').onclick=()=>applyReqReply($('#reqReply').value);
+function applyReqReply(raw){const sec=splitSections(raw||'');const get=n=>Object.keys(sec).find(x=>x.replace(/\s/g,'').includes(n));let n=0;
   const t=get('제목후보');if(t){const add=parseTitles(sec[t]);P.titles.push(...add);n+=add.length;}
   const d=get('대본후보')||get('대본');if(d){const add=parseProps(sec[d]).map((p,i)=>({...p,name:p.name||String.fromCharCode(65+P.props.length+i),title:p.title||P.title}));P.props.push(...add);n+=add.length;}
-  if(!n){const sc=parseScenes($('#reqReply').value);if(sc.length){P.props.push({name:String.fromCharCode(65+P.props.length),title:P.title,compare:'',scenes:sc});n=1;}}
-  if(!n){toast('형식을 못 읽었어');return;}$('#reqReply').value='';$('#reqModal').style.display='none';renderTitles();renderProps();autosave();toast(`새 후보 ${n}개 추가됐어`);};
-function renderTitles(){renderCmp();const lim=SPEC[P.tpl].maxChars+1;$('#titles').innerHTML=P.titles.map((t,i)=>`<div class="opt ${i===P.titleSel?'on':''}" data-i="${i}"><div class="hd"><span class="k">${String.fromCharCode(65+i)}</span><input type="text" value="${esc(t.t)}" data-i="${i}"><span style="font-size:12px;color:${[...t.t].length>lim&&P.tpl==='white'?'var(--red)':'var(--muted)'}">${[...t.t].length}자</span></div>${t.why?`<div class="why">${esc(t.why)}</div>`:''}</div>`).join('')||'<div class="lead" style="margin:0">② 분석에서 읽어오거나 「직접 쓰기」</div>';}
+  if(!n){const sc=parseScenes(raw||'');if(sc.length){P.props.push({name:String.fromCharCode(65+P.props.length),title:P.title,compare:'',scenes:sc});n=1;}}
+  if(!n){toast('형식을 못 읽었어');return false;}$('#reqReply').value='';$('#reqModal').style.display='none';renderTitles();renderProps();autosave();toast(`새 후보 ${n}개 추가됐어`);return true;}
+function renderTitles(){renderCmp();const lim=SPEC[P.tpl].maxChars+1;$('#titles').innerHTML=P.titles.map((t,i)=>`<div class="opt ${i===P.titleSel?'on':''}" data-i="${i}"><div class="hd"><span class="k">${String.fromCharCode(65+i)}</span><input type="text" value="${esc(t.t)}" data-i="${i}"><span style="font-size:12px;color:${[...t.t].length>lim&&P.tpl==='white'?'var(--red)':'var(--muted)'}">${[...t.t].length}자</span></div>${t.why?`<div class="why">${esc(t.why)}</div>`:''}</div>`).join('')||'<div class="lead" style="margin:0">① 자료에서 「클로드 분석 시작」하거나 「직접 쓰기」</div>';}
 $('#titles').addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o)return;P.titleSel=+o.dataset.i;P.title=P.titles[P.titleSel].t;renderTitles();autosave();});
 $('#titles').addEventListener('input',e=>{if(e.target.tagName!=='INPUT')return;const i=+e.target.dataset.i;P.titles[i].t=e.target.value;if(i===P.titleSel)P.title=e.target.value;autosave();});
 $('#addTitle').onclick=()=>{P.titles.push({t:'',why:''});P.titleSel=P.titles.length-1;P.title='';renderTitles();$$('#titles input').pop().focus();};
-function renderProps(){const who=WHO();$('#props').innerHTML=P.props.map((p,i)=>`<div class="opt ${i===P.propSel?'on':''}" data-i="${i}"><div class="hd"><span class="k">${esc(p.name)}</span><b style="font-size:15px">${esc(p.title||'')}</b><span style="margin-left:auto;font-size:12px;color:var(--muted)">${p.scenes.length}장면 · ${p.scenes.reduce((a,s)=>a+(s.end-s.start),0).toFixed(0)}초</span></div><div class="lines">${esc(p.scenes.map(s=>s.caps.map(c=>`${who[c.who]||c.who} : ${c.text}`).join('\n')).join('\n'))}</div>${p.compare?`<div class="why" style="margin-top:6px">📊 ${esc(p.compare)}</div>`:''}</div>`).join('')||'<div class="lead" style="margin:0">② 분석에서 읽어오거나 아래 직접 쓰기</div>';}
+function renderProps(){const who=WHO();$('#props').innerHTML=P.props.map((p,i)=>`<div class="opt ${i===P.propSel?'on':''}" data-i="${i}"><div class="hd"><span class="k">${esc(p.name)}</span><b style="font-size:15px">${esc(p.title||'')}</b><span style="margin-left:auto;font-size:12px;color:var(--muted)">${p.scenes.length}장면 · ${p.scenes.reduce((a,s)=>a+(s.end-s.start),0).toFixed(0)}초</span></div><div class="lines">${esc(p.scenes.map(s=>s.caps.map(c=>`${who[c.who]||c.who} : ${c.text}`).join('\n')).join('\n'))}</div>${p.compare?`<div class="why" style="margin-top:6px">📊 ${esc(p.compare)}</div>`:''}</div>`).join('')||'<div class="lead" style="margin:0">① 자료에서 「클로드 분석 시작」하거나 아래 직접 쓰기</div>';}
 $('#props').addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o)return;P.propSel=+o.dataset.i;P.scenes=JSON.parse(JSON.stringify(P.props[P.propSel].scenes));if(P.props[P.propSel].title&&!P.title)P.title=P.props[P.propSel].title;renderProps();autosave();toast('이 대본으로 ④ 제작에 들어갔어');});
 $('#manualApply').onclick=()=>{const sc=parseScenes($('#manualScript').value);if(!sc.length){toast('장면/자막 형식으로 써 줘');return;}P.props.push({name:String.fromCharCode(65+P.props.length),title:P.title,compare:'',scenes:sc});P.propSel=P.props.length-1;P.scenes=JSON.parse(JSON.stringify(sc));renderProps();autosave();go(4);};
 
@@ -269,14 +278,17 @@ function renderScenes(){$('#scenes').innerHTML=P.scenes.map((s,i)=>`<div class="
   <div class="io"><div><label>시작(초)</label><div class="f2"><input type="number" step="0.1" min="0" value="${s.start}" data-k="start"><button class="btn xs" data-act="setStart">지금</button></div></div><div><label>끝(초)</label><div class="f2"><input type="number" step="0.1" min="0" value="${s.end}" data-k="end"><button class="btn xs" data-act="setEnd">지금</button></div></div></div>
   <div class="face">얼굴 위치 (위 ← → 아래) · ${sceneDur(s).toFixed(1)}초<input type="range" min="0" max="1" step="0.01" value="${s.yoff}" data-k="yoff"></div>
   <div class="face">원본 소리 ${Math.round((s.vol??(s.audio?1:0))*100)}%<input type="range" min="0" max="1" step="0.05" value="${s.vol??(s.audio?1:0)}" data-k="vol"></div>
+  <div class="ctrl" style="margin-top:6px;align-items:center"><label class="btn xs">🎙 음성 파일${s.voice?'':' 붙이기'}<input type="file" data-act="voice" accept="audio/*,.m4a,.mp3,.wav,.aac"></label>${s.voice?`<span style="font-size:12px;color:var(--sub);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.voice.name)}${voices[s.voice.id]?'':' (다시 넣기)'}</span><label style="font-size:11px;color:var(--muted)">시작 <input type="number" step="0.1" min="0" value="${s.voice.at||0}" data-k="voiceAt" style="width:62px;padding:5px 6px;font-size:12px;display:inline-block">초</label><button class="btn xs" data-act="voiceNow" title="음성 시작=지금">지금</button><label style="font-size:11px;color:var(--muted)">소리 <input type="number" step="10" min="0" max="200" value="${Math.round((s.voice.vol??1)*100)}" data-k="voiceVol" style="width:56px;padding:5px 6px;font-size:12px;display:inline-block">%</label><button class="btn xs" data-act="voiceDel">✕</button>`:''}</div>
   <div class="caps">${s.caps.map((c,ci)=>`<div class="cap ${curCap&&curCap[0]===i&&curCap[1]===ci?'cur':''}" data-ci="${ci}"><input type="number" step="0.1" min="0" value="${c.s}" data-ck="s"><input type="number" step="0.1" min="0" value="${c.e}" data-ck="e"><select data-ck="who">${whoOptions(c.who)}</select><input type="text" value="${esc(c.text)}" data-ck="text"><div class="ops"><button data-act="capIn" title="시작=지금">[</button><button data-act="capOut" title="끝=지금">]</button><button data-act="delCap">✕</button></div></div>`).join('')}</div>
-  <button class="btn xs ghost" data-act="addCap" style="margin-top:6px">+ 자막 줄</button></div>`).join('')||'<div class="card"><div class="lead" style="margin:0">장면이 없어. ③에서 대본을 고르거나 「+ 장면」</div></div>';refreshTotal();renderTL();}
+  <button class="btn xs ghost" data-act="addCap" style="margin-top:6px">+ 자막 줄</button></div>`).join('')||'<div class="card"><div class="lead" style="margin:0">장면이 없어. ③에서 대본을 고르거나 아래 칸에 클로드한테 요청</div></div>';refreshTotal();renderTL();}
 $('#scenes').addEventListener('input',e=>{const sc=e.target.closest('.scene');if(!sc)return;if(!e.target._snapped){snap();e.target._snapped=true;setTimeout(()=>e.target._snapped=false,800);}const s=P.scenes[+sc.dataset.i];const k=e.target.dataset.k,ck=e.target.dataset.ck;
-  if(k){if(k==='vol'){s.vol=+e.target.value;s.audio=s.vol>0;e.target.previousSibling.textContent=`원본 소리 ${Math.round(s.vol*100)}%`;}else if(k==='clip')s.clip=e.target.value;else s[k]=+e.target.value;refreshTotal();renderTL();drawAt(cur);}
+  if(k){if(k==='vol'){s.vol=+e.target.value;s.audio=s.vol>0;e.target.previousSibling.textContent=`원본 소리 ${Math.round(s.vol*100)}%`;}else if(k==='clip')s.clip=e.target.value;else if(k==='voiceAt'){if(s.voice)s.voice.at=+e.target.value;}else if(k==='voiceVol'){if(s.voice)s.voice.vol=+e.target.value/100;}else s[k]=+e.target.value;refreshTotal();renderTL();drawAt(cur);}
   if(ck){const c=s.caps[+e.target.closest('.cap').dataset.ci];c[ck]=(ck==='s'||ck==='e')?+e.target.value:e.target.value;renderTL();drawAt(cur);}autosave();});
-$('#scenes').addEventListener('change',e=>{if(e.target.dataset.k==='clip')renderScenes();if(e.target.dataset.k)snap();});
+$('#scenes').addEventListener('change',e=>{if(e.target.dataset.act==='voice'){const sc=e.target.closest('.scene');const f=e.target.files[0];if(sc&&f)attachVoice(+sc.dataset.i,f);e.target.value='';return;}if(e.target.dataset.k==='clip')renderScenes();if(e.target.dataset.k)snap();});
 $('#scenes').addEventListener('click',e=>{const sc=e.target.closest('.scene');if(!sc)return;const i=+sc.dataset.i,s=P.scenes[i];const act=e.target.dataset.act;const capEl=e.target.closest('.cap');const ci=capEl?+capEl.dataset.ci:-1;
   if(act==='del'){delScene(i);return;}
+  if(act==='voiceDel'){snap();delete s.voice;renderScenes();autosave();return;}
+  if(act==='voiceNow'){const {si,local}=locate(cur);if(si!==i){toast('미리보기가 이 장면에 있을 때');return;}if(s.voice){snap();s.voice.at=+local.toFixed(1);renderScenes();autosave();toast('음성 시작 맞춤');}return;}
   if(act==='up'&&i>0){snap();[P.scenes[i-1],P.scenes[i]]=[P.scenes[i],P.scenes[i-1]];renderScenes();autosave();return;}
   if(act==='down'&&i<P.scenes.length-1){snap();[P.scenes[i+1],P.scenes[i]]=[P.scenes[i],P.scenes[i+1]];renderScenes();autosave();return;}
   if(act==='addCap'){snap();const last=s.caps[s.caps.length-1];s.caps.push({s:last?+last.e:0,e:last?Math.min(sceneDur(s),+(+last.e+1).toFixed(1)):1,who:'n',text:''});renderScenes();return;}
@@ -314,21 +326,79 @@ async function drawAt(t){await ready;cur=Math.min(Math.max(0,t),Math.max(0,total
   drawFrame(cur);$('#ph').style.left=(cur/(total()||1)*100)+'%';refreshTotal();}
 function seekTo(t){if(playing)stop();drawAt(t);}
 $('#jb').onclick=()=>seekTo(cur-0.5);$('#jf').onclick=()=>seekTo(cur+0.5);$('#jb1').onclick=()=>seekTo(cur-0.1);$('#jf1').onclick=()=>seekTo(cur+0.1);
-function ensureAudio(){if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)();streamDest=audioCtx.createMediaStreamDestination();}P.clips.forEach(c=>{const m=media[c.id];if(!m||m.gain)return;try{const src=audioCtx.createMediaElementSource(m.video);const g=audioCtx.createGain();g.gain.value=0;src.connect(g);g.connect(audioCtx.destination);g.connect(streamDest);m.gain=g;}catch(e){}});}
+function ensureAudio(){if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)();streamDest=audioCtx.createMediaStreamDestination();}Object.keys(voices).forEach(ensureVoiceAudio);P.clips.forEach(c=>{const m=media[c.id];if(!m||m.gain)return;try{const src=audioCtx.createMediaElementSource(m.video);const g=audioCtx.createGain();g.gain.value=0;src.connect(g);g.connect(audioCtx.destination);g.connect(streamDest);m.gain=g;}catch(e){}});}
+function ensureVoiceAudio(id){const v=voices[id];if(!v||v.gain||!audioCtx)return;try{const src=audioCtx.createMediaElementSource(v.audio);const g=audioCtx.createGain();g.gain.value=1;src.connect(g);g.connect(audioCtx.destination);g.connect(streamDest);v.gain=g;}catch(e){}}
+function attachVoice(i,f){const s=P.scenes[i];if(!s)return;snap();const id=(s.voice&&s.voice.id)||('a'+Date.now().toString(36));const url=URL.createObjectURL(f);const audio=new Audio(url);audio.preload='auto';voices[id]={audio,url,name:f.name};s.voice={id,name:f.name,at:s.voice?.at||0,vol:s.voice?.vol??1};if(audioCtx)ensureVoiceAudio(id);renderScenes();autosave();toast('음성 붙였어. 「지금」으로 시작 맞춰');}
+function stopVoices(){Object.values(voices).forEach(v=>{v.audio.pause();});}
 function setSceneAudio(s){P.clips.forEach(c=>{const m=media[c.id];if(m&&m.gain)m.gain.gain.value=(s&&c.id===s.clip)?(s.vol??(s.audio?1:0)):0;});}
 async function play(onDone){if(!P.scenes.length)return;ensureAudio();if(audioCtx.state==='suspended')await audioCtx.resume();playing=true;$('#pp').textContent='⏸ 정지';let startAbs=cur>=total()-0.05?0:cur;let {si,local}=locate(startAbs);
   const run=async()=>{if(!playing)return;if(si>=P.scenes.length){stop();drawAt(total());onDone&&onDone();return;}const s=P.scenes[si],m=media[s.clip];if(!m){si++;local=0;return run();}const v=m.video,offs=sceneOffsets();v.currentTime=+s.start+local;setSceneAudio(s);await new Promise(r=>{const h=()=>{v.removeEventListener('seeked',h);r();};v.addEventListener('seeked',h);setTimeout(r,500);});try{await v.play();}catch(e){}
     curScene=si;$$('.scene').forEach((d,i)=>d.classList.toggle('on',i===si));$$('.blk').forEach(b=>b.classList.toggle('on',+b.dataset.i===si));
-    await new Promise(res=>{const tick=()=>{if(!playing){v.pause();res();return;}const vt=v.currentTime;if(vt>=+s.end-0.02||v.ended){v.pause();res();return;}cur=offs[si]+(vt-+s.start);drawFrame(cur);$('#ph').style.left=(cur/(total()||1)*100)+'%';refreshTotal();rafId=requestAnimationFrame(tick);};tick();});si++;local=0;run();};run();}
-function stop(){playing=false;cancelAnimationFrame(rafId);P.clips.forEach(c=>media[c.id]&&media[c.id].video.pause());setSceneAudio(null);$('#pp').textContent='▶ 재생';}
+    const vc=s.voice&&voices[s.voice.id];let vcOn=false;if(vc){vc.audio.pause();if(vc.gain)vc.gain.gain.value=s.voice.vol??1;}
+    await new Promise(res=>{const tick=()=>{if(!playing){v.pause();if(vc)vc.audio.pause();res();return;}const vt=v.currentTime;if(vt>=+s.end-0.02||v.ended){v.pause();if(vc)vc.audio.pause();res();return;}const lt=vt-+s.start;if(vc&&!vcOn&&lt>=(+s.voice.at||0)-0.03){vcOn=true;try{vc.audio.currentTime=Math.max(0,lt-(+s.voice.at||0));vc.audio.play().catch(()=>{});}catch(e){}}cur=offs[si]+(vt-+s.start);drawFrame(cur);$('#ph').style.left=(cur/(total()||1)*100)+'%';refreshTotal();rafId=requestAnimationFrame(tick);};tick();});si++;local=0;run();};run();}
+function stop(){playing=false;cancelAnimationFrame(rafId);stopVoices();P.clips.forEach(c=>media[c.id]&&media[c.id].video.pause());setSceneAudio(null);$('#pp').textContent='▶ 재생';}
 $('#pp').onclick=()=>playing?stop():play();
 
 // ===== ④ 클로드에게 수정 요청 =====
-function sceneText(){const who=WHO();const out=[`제목: ${P.title}`];P.scenes.forEach((s,i)=>{out.push(`장면${i+1} ${s.clip} ${s.start}~${s.end} 얼굴 ${(+s.yoff).toFixed(2)}${s.audio?' 소리':''}`);s.caps.forEach(c=>out.push(`  ${c.s}~${c.e} ${who[c.who]||c.who} : ${c.text}`));});return out.join('\n');}
-$('#copyEdit').onclick=()=>{const pr=$('#editPrompt').value.trim();if(!pr){toast('어떻게 고칠지 써 줘');return;}copyText([`[쇼츠 수정 요청]`,`요청: ${pr}`,`지금 대본(요청한 것만 고치고 나머지는 그대로):`,sceneText(),'',`고친 대본을 같은 장면 표 형식([대본 후보] 안A 제목: … 부터)으로 코드 블록 하나로.`].join('\n'));};
-function parseEditReply(){const sec=splitSections($('#editReply').value);const get=n=>Object.keys(sec).find(x=>x.replace(/\s/g,'').includes(n));const d=get('대본후보')||get('대본');let props=d?parseProps(sec[d]):parseProps($('#editReply').value.replace(/```/g,'').split(/\r?\n/));props=props.filter(p=>p.scenes.length);return props;}
-$('#applyEdit').onclick=()=>{const props=parseEditReply();if(!props.length){toast('장면 표를 못 읽었어');return;}const p=props[0];P.scenes=JSON.parse(JSON.stringify(p.scenes));if(p.title)P.title=p.title;P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title});P.propSel=P.props.length-1;$('#editReply').value='';curScene=-1;curCap=null;renderScenes();drawAt(0);runChecks();autosave();toast('고친 대본으로 교체했어');};
+function sceneText(){const who=WHO();const out=[`제목: ${P.title}`];P.scenes.forEach((s,i)=>{out.push(`장면${i+1} ${s.clip} ${s.start}~${s.end} 얼굴 ${(+s.yoff).toFixed(2)}${s.audio?' 소리':''}${s.voice?` 음성 ${s.voice.at||0}`:''}`);s.caps.forEach(c=>out.push(`  ${c.s}~${c.e} ${who[c.who]||c.who} : ${c.text}`));});return out.join('\n');}
+function editText(pr){return [`[쇼츠 수정 요청]`,`요청: ${pr}`,`지금 대본(요청한 것만 고치고 나머지는 그대로):`,sceneText(),'',`원본 영상: ${P.clips.map(c=>`${c.id}=${c.name}(${c.dur}초)`).join(', ')||'-'}`,`고친 대본을 같은 장면 표 형식([대본 후보] 안A 제목: … 부터)으로 코드 블록 하나로.`].join('\n');}
+$('#copyEdit').onclick=()=>{const pr=$('#editPrompt').value.trim();if(!pr){toast('어떻게 고칠지 써 줘');return;}copyText(editText(pr));};
+function parseEditReply(raw){raw=raw??$('#editReply').value;const sec=splitSections(raw);const get=n=>Object.keys(sec).find(x=>x.replace(/\s/g,'').includes(n));const d=get('대본후보')||get('대본');let props=d?parseProps(sec[d]):parseProps(raw.replace(/```/g,'').split(/\r?\n/));props=props.filter(p=>p.scenes.length);return props;}
+function replaceScenes(sc){snap();const old=P.scenes;const nw=JSON.parse(JSON.stringify(sc));nw.forEach((s,i)=>{const o=old[i];if(o&&o.voice&&!s.voice&&o.clip===s.clip)s.voice=o.voice;});P.scenes=nw;}
+$('#applyEdit').onclick=()=>{const props=parseEditReply();if(!props.length){toast('장면 표를 못 읽었어');return;}const p=props[0];replaceScenes(p.scenes);if(p.title)P.title=p.title;P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title});P.propSel=P.props.length-1;$('#editReply').value='';curScene=-1;curCap=null;renderScenes();drawAt(0);runChecks();autosave();toast('고친 대본으로 교체했어');};
 $('#applyEditAsProp').onclick=()=>{const props=parseEditReply();if(!props.length){toast('장면 표를 못 읽었어');return;}props.forEach((p,i)=>P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title}));$('#editReply').value='';autosave();toast(`③에 ${props.length}안 추가`);};
+
+
+// ===== 클로드 연결 (브라우저에서 바로) =====
+const KEYS={api:'',yt:''};try{Object.assign(KEYS,JSON.parse(localStorage.getItem('shorts_studio_keys')||'{}'));}catch(e){}
+$('#apiKey').value=KEYS.api||'';$('#ytKey').value=KEYS.yt||'';
+['apiKey','ytKey'].forEach(id=>$('#'+id).oninput=e=>{KEYS[id==='apiKey'?'api':'yt']=e.target.value.trim();try{localStorage.setItem('shorts_studio_keys',JSON.stringify(KEYS));}catch(e){}});
+$('#btnKeys').onclick=()=>{go(1);setTimeout(()=>{$('#keysCard').scrollIntoView({behavior:'smooth'});$('#apiKey').focus();},50);};
+const RULES=`너는 쇼츠 제작 스킬(정답지)을 그대로 따르는 쇼츠 각색가다. 한국어 반말로, 머리글 블록 형식으로만 답한다. 숫자(조회수)는 검색으로 확인한 것만 쓰고, 못 찾으면 "확인 못 함"이라고 쓴다. 지어내지 않는다.
+규칙: 해설은 「~했는데 / ~했다네요」체(존댓말·음슴체 금지). 강아지(동물) 대사는 반말. 속마음은 *별표*. 자막 한 화면 9자 안쪽(일본어 11자). 말줄임표는 「..」. 제목은 상위 3개 결 그대로 단어만 바꿈, 결말 숨김, 쉬운 말, 화이트 템플릿은 한 줄 10자 안쪽. 동물 화이트 템플릿은 음성 없음, 한 원본 영상당 한 덩어리(잘게 자르지 않음, 전환 효과 없음), 얼굴이 화면 가운데. 길이 13~30초(20~23초 목표). 장면은 "장면N v번호 시작~끝 얼굴 0.35" 줄, 자막은 "  시작~끝 해설|강아지|속마음 : 글" 줄(초는 장면 안 기준).`;
+async function askClaude(user,opt={}){if(!KEYS.api){go(1);$('#apiKey').focus();throw new Error('클로드 API 키를 먼저 넣어 줘 (⚙ 클로드 연결)');}
+  const body={model:'claude-opus-5-5',max_tokens:opt.max_tokens||8000,system:RULES+(opt.system?'\n'+opt.system:''),messages:[{role:'user',content:user}],thinking:{type:'adaptive'}};
+  if(opt.search)body.tools=[{type:'web_search_20260209',name:'web_search',max_uses:opt.search}];
+  const hdr={'content-type':'application/json','x-api-key':KEYS.api,'anthropic-version':'2026-10-21','anthropic-dangerous-direct-browser-access':'true'};
+  let text='',loops=0,searches=0;
+  for(;;){opt.onStatus&&opt.onStatus(loops?`이어서 정리 중… (검색 ${searches}번)`:(opt.search?'유튜브 검색·대조 중…':'생각 중…'));
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:hdr,body:JSON.stringify(body)});
+    if(!r.ok){let msg='';try{msg=(await r.json()).error?.message||'';}catch(e){}throw new Error(`클로드 응답 오류 ${r.status}${msg?': '+msg:''}`);}
+    const j=await r.json();searches+=j.content.filter(b=>b.type==='server_tool_use').length;text+=j.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+    if(j.stop_reason==='pause_turn'&&loops++<6){body.messages.push({role:'assistant',content:j.content});continue;}
+    opt.onStatus&&opt.onStatus(`완료 (검색 ${searches}번 · 입력 ${j.usage?.input_tokens||0} · 출력 ${j.usage?.output_tokens||0} 토큰)`);return text;}}
+async function ytLookup(){if(!KEYS.yt)return '';const ids=P.refs.split(/\n+/).map(u=>(u.match(/(?:shorts\/|v=|youtu\.be\/)([\w-]{11})/)||[])[1]).filter(Boolean);if(!ids.length)return '';const out=[];
+  try{const r=await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${ids.join(',')}&key=${KEYS.yt}`);const j=await r.json();const items=j.items||[];
+    for(const it of items){out.push(`내 링크: ${it.snippet.title} | 조회수 ${(+it.statistics.viewCount).toLocaleString()} | https://youtube.com/shorts/${it.id} | 채널 ${it.snippet.channelTitle} | ${it.snippet.publishedAt.slice(0,10)}`);
+      const q=encodeURIComponent(it.snippet.title.replace(/[#|｜\[\]()]/g,' ').split(/\s+/).slice(0,5).join(' '));
+      const s=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoDuration=short&maxResults=25&q=${q}&key=${KEYS.yt}`);const sj=await s.json();const sids=(sj.items||[]).map(x=>x.id.videoId).filter(Boolean);
+      if(sids.length){const v=await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${sids.join(',')}&key=${KEYS.yt}`);const vj=await v.json();(vj.items||[]).sort((a,b)=>(+b.statistics.viewCount)-(+a.statistics.viewCount)).forEach(x=>out.push(`후보: ${x.snippet.title} | 조회수 ${(+x.statistics.viewCount).toLocaleString()} | https://youtube.com/shorts/${x.id} | 채널 ${x.snippet.channelTitle} | 썸네일 ${x.snippet.thumbnails?.high?.url||''}`));}}
+  }catch(e){out.push('(유튜브 API 조회 실패: '+e.message+')');}
+  return out.length?'\n[유튜브 API 조회 결과 — 같은 원본인지는 제목·썸네일로 대조해서 판단, 조회수는 이 숫자 사용]\n'+out.join('\n'):'';}
+let anaBusy=false;
+async function runAnalyze(){if(anaBusy)return;if(!P.refs.trim()&&!P.clips.length){toast('쇼츠 링크나 원본 영상 중 하나는 넣어 줘');return;}
+  anaBusy=true;const btn=$('#runAnalyze');btn.disabled=true;$('#anaProg').style.display='block';let pct=0;const tk=setInterval(()=>{pct=Math.min(92,pct+1.2);$('#anaProg i').style.width=pct+'%';},1200);const st=m=>{$('#anaStatus').textContent=m;$('#anaMeta').textContent=m;};
+  try{st('유튜브 조회 중…');const yt=await ytLookup();const txt=await askClaude(requestText()+yt,{search:15,max_tokens:12000,onStatus:st});P.ana.raw=txt;
+    if(ingestReply(txt)){$('#anaProg i').style.width='100%';go(2);}else{st('형식을 못 읽었어 — 「다시 분석」 눌러 줘');}}
+  catch(e){st('실패: '+e.message);toast(e.message);}
+  finally{clearInterval(tk);anaBusy=false;btn.disabled=false;setTimeout(()=>{$('#anaProg').style.display='none';$('#anaProg i').style.width='0';},800);}}
+$('#runAnalyze').onclick=runAnalyze;$('#reAnalyze').onclick=()=>{go(1);runAnalyze();};
+// ③ 다시 요청 → 바로 호출
+async function reqGo(){const b=$('#reqGo');if(b.disabled)return;b.disabled=true;const st=m=>$('#reqStatus').textContent=m;
+  try{const txt=await askClaude(reqText(),{max_tokens:4000,onStatus:st});if(!applyReqReply(txt))st('형식을 못 읽었어 — 한 번 더');else{st('');$('#reqWhy').value='';}}catch(e){st('실패: '+e.message);}
+  finally{b.disabled=false;}}
+$('#reqGo').onclick=reqGo;$('#reqWhy').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();reqGo();}});
+// ④ 편집기 안 프롬프트 → 바로 반영
+function chatAdd(cls,txt){const c=$('#chat');const d=document.createElement('div');d.className='m '+cls;d.textContent=txt;c.appendChild(d);c.scrollTop=c.scrollHeight;return d;}
+async function sendEdit(){const inp=$('#editPrompt');const pr=inp.value.trim();if(!pr){toast('어떻게 고칠지 써 줘');return;}if(!P.scenes.length&&!P.clips.length){toast('원본 영상이나 대본이 먼저 있어야 해');return;}
+  const box=$('#editBox');box.classList.add('busy');chatAdd('u',pr);const wait=chatAdd('a','고치는 중…');inp.value='';
+  try{const txt=await askClaude(editText(pr),{max_tokens:4000,onStatus:m=>wait.textContent=m});const props=parseEditReply(txt);
+    if(!props.length){wait.className='m w';wait.textContent='장면 표를 못 읽었어. 다시 말해 줘:\n'+txt.slice(0,300);return;}
+    const p=props[0];replaceScenes(p.scenes);if(p.title)P.title=p.title;P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title});P.propSel=P.props.length-1;
+    curScene=-1;curCap=null;renderScenes();drawAt(0);runChecks();autosave();wait.textContent='반영했어 ✓'+(p.compare?'\n'+p.compare:'')+'\n'+p.scenes.map((s,i)=>`장면${i+1} ${s.clip} ${s.start}~${s.end}`).join(' · ');}
+  catch(e){wait.className='m w';wait.textContent='실패: '+e.message;}
+  finally{box.classList.remove('busy');inp.focus();}}
+$('#sendEdit').onclick=sendEdit;$('#editPrompt').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendEdit();}});
 
 // ===== 검수 =====
 function runChecks(){const sp=SPEC[P.tpl];const T=total();const items=[];
@@ -344,7 +414,7 @@ function runChecks(){const sp=SPEC[P.tpl];const T=total();const items=[];
 
 // ===== ⑤ 완성 =====
 function pickMime(){return['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1','video/mp4','video/webm;codecs=h264','video/webm;codecs=vp9,opus','video/webm'].find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';}
-$('#btnRender').onclick=async()=>{if(!P.scenes.length){toast('장면이 없어');return;}if(P.scenes.some(s=>!media[s.clip])){toast('원본 영상을 넣어 줘 (① 자료 / ④ 영상 추가)');return;}if(!window.MediaRecorder){toast('이 브라우저는 저장이 안 돼');return;}
+$('#btnRender').onclick=async()=>{if(!P.scenes.length){toast('장면이 없어');return;}if(P.scenes.some(s=>!media[s.clip])){toast('원본 영상을 ① 자료에서 넣어 줘');return;}if(!window.MediaRecorder){toast('이 브라우저는 저장이 안 돼');return;}
   stop();ensureAudio();await drawAt(0);const mime=pickMime(),ext=mime.startsWith('video/mp4')?'mp4':'webm';const stream=cv.captureStream(FPS);streamDest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
   const rec=new MediaRecorder(stream,{mimeType:mime||undefined,videoBitsPerSecond:12_000_000});const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   const btn=$('#btnRender');btn.disabled=true;$('#prog').style.display='block';const T=total();const pr=setInterval(()=>{$('#prog i').style.width=Math.min(100,cur/T*100)+'%';$('#status').textContent=`만드는 중 ${fmt(cur)} / ${fmt(T)} — 영상 길이만큼 걸려. 탭을 그대로 둬.`;},200);
