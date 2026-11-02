@@ -283,7 +283,7 @@ function runChecks(){ const sp=SPEC[P.tpl]; const T=total(); const items=[];
   items.push({ok:T>=13&&T<=30,t:'길이 13~30초 (20~23초 목표)',d:`지금 ${T.toFixed(1)}초`});
   const short=P.scenes.filter(s=>sceneDur(s)<1).length; items.push({ok:!short,t:'잘게 자른 컷 없음 (깜빡임)',d:short?`${short}개 장면이 1초 미만`:'통과'});
   const tl=[...P.title].length; items.push({ok:P.tpl!=='white'||tl<=12,t:'제목 한 줄 (화이트 10자 안쪽)',d:P.title?`「${P.title}」 ${tl}자`:'제목 없음'});
-  items.push({ok:P.clips.every(c=>!c.w||c.w>=1080||c.h>=1080),t:'원본 화질 1080 이상',d:P.clips.map(c=>`${c.id} ${c.w}×${c.h}`).join(' · ')||'-'});
+  items.push({ok:P.clips.every(c=>!c.w||Math.min(c.w,c.h)>=1080),t:'원본 화질 가로 1080 이상 (아니면 고화질 요청)',d:P.clips.map(c=>`${c.id} ${c.w}×${c.h}`).join(' · ')||'-'});
   items.push({ok:null,t:'눈으로: 얼굴이 칸 가운데, 글씨가 칸에 안 걸침, 흰 프레임 없음',d:'STEP 4 미리보기로 처음~끝 한 번 보기'});
   $('#checks').innerHTML=items.map(i=>`<div class="check ${i.ok===true?'ok':i.ok===false?'bad':''}"><div class="ic">${i.ok===true?'✓':i.ok===false?'!':'👁'}</div><div>${i.t}<small>${esc(i.d)}</small></div></div>`).join(''); }
 function renderNotes(){ $('#notes').innerHTML=[...P.notes].sort((a,b)=>a.t-b.t).map(n=>`<li class="${n.done?'done':''}" data-id="${n.id}"><b>${fmt(n.t)}</b><span style="flex:1">${esc(n.text)}</span><span>${n.done?'✓':''}</span></li>`).join(''); }
