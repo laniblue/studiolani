@@ -81,7 +81,7 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 </style>
 
 <header><div class="wrap" style="padding-bottom:0">
-  <div class="topbar"><h1>쇼츠 제작실</h1><span class="sp"></span><button class="btn sm" id="btnKeys">⚙ 클로드 연결</button><button class="btn sm" id="btnSaveProj">저장</button><label class="btn sm">불러오기<input type="file" id="openProj" accept=".json"></label></div>
+  <div class="topbar"><h1>쇼츠 제작실</h1><span class="sp"></span><button class="btn sm primary" id="btnFull" style="display:none">⛶ 전체 화면</button><button class="btn sm" id="btnKeys">⚙ 클로드 연결</button><button class="btn sm" id="btnSaveProj">저장</button><label class="btn sm">불러오기<input type="file" id="openProj" accept=".json"></label></div>
   <div class="tabs" id="tabs"><div class="tab on" data-t="1">① 자료</div><div class="tab" data-t="2">② 분석</div><div class="tab" data-t="3">③ 각색</div><div class="tab" data-t="4">④ 제작·편집</div></div>
 </div></header>
 <div class="wrap">
@@ -394,6 +394,8 @@ const BASE=location.protocol==='file:'?'http://localhost:8765':'';
 function syncMode(){$('#artOn').style.display=ART?'':'none';$('#artOff').style.display=ART?'none':'';if(ART)$('#artOn').innerHTML='✓ 내 클로드 계정으로 연결됨. 유튜브 대조는 claude.ai 커넥터에 Uplika가 있으면 자동으로 써.';}
 async function checkCode(){const el=$('#codeStatus');el.textContent='클로드 코드 확인 중…';try{const r=await fetch(BASE+'/api/claude/status',{cache:'no-store'});const j=await r.json();el.innerHTML=j.ok?`✓ 연결됨 · Claude Code ${esc(j.version||'')} (구독으로 돌아감)${j.ipad?`<br>📱 아이패드: 사파리에 <b>${esc(j.ipad)}</b> 입력 → 공유 → 홈 화면에 추가 (같은 와이파이, 맥 켜 둔 채)`:''}`:`<span style="color:var(--red)">맥에 claude 명령이 없어: ${esc(j.error||'')}</span>`;return !!j.ok;}catch(e){el.innerHTML='<span style="color:var(--red)">맥의 제작실 서버가 꺼져 있어.</span><br>① 맥에서 <b>제작실_켜기.command</b>를 오른쪽 클릭 → 열기 (검은 창에 「켜짐」이 뜨면 됨)<br>② 그 창이 알려 주는 주소 <b>http://localhost:8765/</b> 로 열거나, 이 페이지를 새로고침<br>③ 아이패드는 같은 와이파이에서 그 창의 <b>192.168…</b> 주소로<br>맥 없이 쓰려면 위 <b>「claude.ai에서 열기」</b>';return false;}}
 syncMode();
+const ART_URL='https://claude.ai/artifact/3G78zZAasi8g3cMXKUmVgr';
+if(ART){$('#btnFull').style.display='';$('#btnFull').onclick=async()=>{const el=document.documentElement;try{if(document.fullscreenElement||document.webkitFullscreenElement){await (document.exitFullscreen||document.webkitExitFullscreen).call(document);return;}if(el.requestFullscreen)await el.requestFullscreen();else if(el.webkitRequestFullscreen)await el.webkitRequestFullscreen();else throw 0;toast('한 번 더 누르면 원래대로');}catch(e){const w=window.open(ART_URL,'_blank','noopener');if(!w)toast('전체 화면이 안 되는 화면이야. 사파리나 크롬 주소창에 claude.ai/artifact/3G78zZAasi8g3cMXKUmVgr 를 넣어 줘');}};}
 $('#btnKeys').onclick=()=>{go(1);setTimeout(()=>{$('#keysCard').scrollIntoView({behavior:'smooth'});$('#apiKey').focus();},50);};
 const RULES=`너는 쇼츠 제작 스킬(정답지)을 그대로 따르는 쇼츠 각색가다. 한국어 반말로, 머리글 블록 형식으로만 답한다. 숫자(조회수)는 검색으로 확인한 것만 쓰고, 못 찾으면 "확인 못 함"이라고 쓴다. 지어내지 않는다.
 규칙: 해설은 「~했는데 / ~했다네요」체(존댓말·음슴체 금지). 강아지(동물) 대사는 반말. 속마음은 *별표*. 자막 한 화면 9자 안쪽(일본어 11자). 말줄임표는 「..」. 제목은 상위 3개 결 그대로 단어만 바꿈, 결말 숨김, 쉬운 말, 화이트 템플릿은 한 줄 10자 안쪽. 동물 화이트 템플릿은 음성 없음, 한 원본 영상당 한 덩어리(잘게 자르지 않음, 전환 효과 없음), 얼굴이 화면 가운데. 길이 13~30초(20~23초 목표). 장면은 "장면N v번호 시작~끝 얼굴 0.35" 줄, 자막은 "  시작~끝 해설|강아지|속마음 : 글" 줄(초는 장면 안 기준).`;
