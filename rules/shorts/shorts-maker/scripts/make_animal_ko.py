@@ -49,7 +49,7 @@ def mind_png(path, text):
 
 # 제목 PNG (위 검정 띠 가운데, 2줄, 흰+노랑)
 def title_png(path):
-    tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 0, spacing=0, skew=0.22)
+    tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 2, spacing=0, skew=0.22)
     t = Image.open(path+".tmp.png")
     img = Image.new("RGBA", (W, TOP), (0,0,0,0)); img.paste(t, ((W-tw)//2, 455-th//2), t); img.save(path)
 
@@ -68,7 +68,7 @@ SCENES = [
     ("v2", 2.2, 4.8, 358, False, [(0.2,2.6,"눈나 안 줄 거야?","d")]),
 ]
 NAR_Y = 1594   # 영상 칸 아래 흰 바탕 (블로 화면 기준)   # 해설 자막 중심
-DOG_Y = 700
+DOG_Y = 1384   # 대사: 영상 칸 안 아래쪽 (대표님 화면 실측)
 MIND_Y = 1388  # 속마음 상자 세로 중심 (대표님 화면 실측)    # 강아지 자막(머리 위쪽)
 
 title_png(f"{OUT}/png/title.png")
@@ -80,9 +80,9 @@ for i,(src,s,e,cy,keep_audio,caps) in enumerate(SCENES):
     last="v1"; n=3
     for j,(cs,ce,txt,who) in enumerate(caps):
         p=f"{OUT}/png/c{i}_{j}.png"
-        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 72, "#111111", 0, spacing=-3); y=NAR_Y
+        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 72, "#111111", 2, spacing=-3); y=NAR_Y
         elif who=="m": tw,th = mind_png(p, txt); y=MIND_Y
-        else:        tw,th = text_png(p, txt, DOG_FONT, 92, WHITE, 10);  y=DOG_Y
+        else:        tw,th = text_png(p, txt, DOG_FONT, 74, WHITE, 8);  y=DOG_Y
         inputs += ["-i",p]
         fc += f";[{last}][{n}:v]overlay=(W-w)/2:{y - th//2}:enable='gte(t,{cs})*lt(t,{ce})'[v{n}]"
         last=f"v{n}"; n+=1
@@ -100,5 +100,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v15.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v16.mp4"],check=True)
 print("done")
