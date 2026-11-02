@@ -65,6 +65,7 @@ pre.out{background:#F9FAFB;border-radius:14px;padding:12px;font-size:13px;white-
 .memo{display:flex;gap:6px;margin-top:8px}.memo input{flex:1}.notes{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}.notes li{padding:9px 11px;border-radius:12px;background:#F9FAFB;font-size:13px;display:flex;gap:10px;cursor:pointer}.notes li b{color:var(--blue)}.notes li.done{opacity:.5}
 .chat{margin-top:10px;display:flex;flex-direction:column;gap:6px;max-height:200px;overflow:auto}.chat .m{font-size:13px;padding:8px 11px;border-radius:12px;max-width:92%;white-space:pre-wrap;word-break:break-word}.chat .u{background:var(--blue-bg);align-self:flex-end;color:var(--txt)}.chat .a{background:#F2F4F6;align-self:flex-start;color:var(--sub)}.chat .w{background:#FFF3E0;align-self:flex-start;color:#B25E00}
 .busy{opacity:.55;pointer-events:none}
+.final{display:grid;grid-template-columns:minmax(200px,280px) 1fr;gap:14px}.final video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#000;display:block}.fc{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;align-content:start}.fc .b{border:1.5px solid var(--line);border-radius:14px;padding:10px;font-size:13px;background:#fff}.fc .b.me{border-color:var(--blue);background:var(--blue-bg)}.fc .b img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;background:#000;display:block;margin-bottom:8px}.fc .b b{display:block;line-height:1.35}.fc .v{color:var(--muted);font-size:12px;margin-top:2px}.fc .ln{white-space:pre-wrap;color:var(--sub);margin-top:6px;line-height:1.5}@media (max-width:760px){.final{grid-template-columns:1fr}}
 .kbd{font-size:11px;color:var(--muted);margin-top:6px}.kbd b{display:inline-block;border:1px solid var(--line);border-radius:5px;padding:0 5px;background:#fff;font-weight:700;color:var(--sub)}
 body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 </style>
@@ -72,7 +73,7 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 <body>
 <header><div class="wrap" style="padding-bottom:0">
   <div class="topbar"><h1>쇼츠 제작실</h1><span class="sp"></span><button class="btn sm" id="btnKeys">⚙ 클로드 연결</button><button class="btn sm" id="btnSaveProj">저장</button><label class="btn sm">불러오기<input type="file" id="openProj" accept=".json"></label></div>
-  <div class="tabs" id="tabs"><div class="tab on" data-t="1">① 자료</div><div class="tab" data-t="2">② 분석</div><div class="tab" data-t="3">③ 각색</div><div class="tab" data-t="4">④ 제작·편집</div><div class="tab" data-t="5">⑤ 완성</div></div>
+  <div class="tabs" id="tabs"><div class="tab on" data-t="1">① 자료</div><div class="tab" data-t="2">② 분석</div><div class="tab" data-t="3">③ 각색</div><div class="tab" data-t="4">④ 제작·편집</div></div>
 </div></header>
 <div class="wrap">
 
@@ -87,10 +88,13 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
   <div class="card"><h3>원본 영상 <span class="r">선택 · 만들 때는 필요</span></h3>
     <label class="drop"><b>여기를 눌러 영상 넣기</b>또는 끌어다 놓기 · 넣은 순서대로 v1, v2, v3…<input type="file" id="addClips" accept="video/*" multiple></label>
     <div class="list" id="clips" style="margin-top:8px"></div></div>
-  <div class="card" id="keysCard"><h3>클로드 연결 <span class="r">한 번만 넣으면 이 기기에 저장</span></h3>
+  <div class="card" id="keysCard"><h3>클로드 연결 <span class="r">한 번만 고르면 이 기기에 저장</span></h3>
+    <div class="seg" id="modeSeg"><div class="opt on" data-v="code">클로드 코드 (구독)<small>맥에서 「제작실_켜기」 켜 두면 됨 · 추가 요금 없음</small></div><div class="opt" data-v="api">API 키<small>따로 과금 · 맥 없이도 됨</small></div></div>
+    <div class="lead" id="codeStatus" style="margin:10px 0 0;font-size:13px"></div>
+    <div id="apiWrap" style="display:none">
     <label class="f">클로드 API 키 <span style="font-weight:400;color:var(--muted)">(platform.claude.com → API keys)</span><input type="password" id="apiKey" placeholder="sk-ant-…" autocomplete="off"></label>
     <label class="f">유튜브 API 키 <span style="font-weight:400;color:var(--muted)">(선택 · 같은 원본 대조 정확도 ↑ · 무료)</span><input type="password" id="ytKey" placeholder="AIza…" autocomplete="off"></label>
-    <div class="lead" style="margin:8px 0 0;font-size:12px">분석 한 번에 보통 몇백 원~1천 원쯤(클로드 토큰 + 웹 검색). 키는 이 브라우저 안에만 저장되고 프로젝트 파일엔 안 들어가.</div></div>
+    <div class="lead" style="margin:8px 0 0;font-size:12px">분석 한 번에 보통 몇백 원~1천 원쯤(클로드 토큰 + 웹 검색). 키는 이 브라우저 안에만 저장되고 프로젝트 파일엔 안 들어가.</div></div></div>
   <div class="card"><h3>클로드 분석</h3>
     <div class="how"><div class="n">1</div><div>클로드가 정답지대로 바로: 원본 찾기 → 유튜브 대조로 <b>같은 원본 쓴 쇼츠</b> → <b>카테고리 훅·내용 공식</b> → <b>상위 3개 제목·내용 비교</b> → 제목·내용 각색안</div></div>
     <div class="how"><div class="n">2</div><div>끝나면 ② 분석·③ 각색이 자동으로 채워져 (1~3분)</div></div>
@@ -133,23 +137,21 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
       <div class="chat" id="chat"></div>
       <div class="memo" id="editBox"><input type="text" id="editPrompt" placeholder="클로드에게 바로 수정 요청 · 예: 덥석 0.3초 더 길게, 마지막 해설 짧게 (Enter)"><button class="btn primary sm" id="sendEdit">보내기</button></div>
       <div class="kbd">보내면 클로드가 지금 대본을 고쳐서 바로 반영해. 마음에 안 들면 <b>↶</b> 되돌리기</div>
+      <div class="ctrl" style="margin-top:12px"><button class="btn primary" id="btnRender">편집 완료 → 최종 영상 만들기</button><span class="lead" id="status" style="margin:0;font-size:13px"></span></div><div class="prog" id="prog"><i></i></div>
     </div>
     <div>
       <div id="scenes"></div>
     </div>
   </div>
+  <div class="card" id="finalCard" style="margin-top:12px;display:none"><h3>최종 영상 <span class="r">상위 3개랑 나란히 · 누르면 저장</span></h3>
+    <div class="final">
+      <div><video id="finalVideo" controls playsinline></video><button class="btn primary block" id="dlFinal" style="margin-top:8px">영상 다운로드</button><div class="thumbs" id="thumbs"></div></div>
+      <div class="fc" id="finalCmp"></div></div>
+    <div class="ctrl" style="margin-top:12px"><button class="btn sm" id="copyTitle">제목 복사</button><button class="btn sm" id="copySrc">출처 복사</button><button class="btn sm" id="copyTags">해시태그 복사</button><button class="btn sm" id="copyUpload">업로드 글 전체 복사</button><button class="btn sm ghost" id="copyFinal">확정본 복사 → 스킬 저장</button></div>
+    <pre class="out" id="uploadText" style="margin-top:8px"></pre></div>
   <span id="clipHint" style="display:none"></span><input type="file" id="addClips2" style="display:none"><button id="addScene" style="display:none"></button><textarea id="editReply" style="display:none"></textarea><button id="copyEdit" style="display:none"></button><button id="applyEdit" style="display:none"></button><button id="applyEditAsProp" style="display:none"></button>
-  <div class="card" style="margin-top:12px"><h3>검수 <span class="r">넘기기 전</span></h3><div id="checks"></div></div>
 </section>
 
-<!-- ⑤ 완성 -->
-<section class="page" id="p5">
-  <h2>완성</h2><p class="lead">영상 길이만큼 기다리면 mp4가 저장돼.</p>
-  <div class="card"><button class="btn primary block" id="btnRender">영상 만들기 (mp4 저장)</button><div class="prog" id="prog"><i></i></div><div class="lead" id="status" style="margin:6px 0 0;font-size:13px"></div></div>
-  <div class="card"><h3>썸네일 후보 <span class="r">누르면 저장</span></h3><div class="thumbs" id="thumbs"></div></div>
-  <div class="card"><h3>업로드 글</h3><pre class="out" id="uploadText"></pre><div class="ctrl"><button class="btn sm" id="copyUpload">복사</button><button class="btn sm" id="copyFinal">확정본 복사 → 스킬 저장</button></div></div>
-  <div class="card"><h3>수정 요청 메모 <span class="r">시간 붙여서 클로드한테</span></h3><div class="memo"><input type="text" id="memo" placeholder="④에서 멈춘 시간에 메모 (Enter)"><button class="btn sm" id="memoSave">저장</button></div><ul class="notes" id="notes"></ul><button class="btn sm ghost" id="memoCopy" style="margin-top:6px">피드백 복사</button></div>
-</section>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -174,7 +176,7 @@ const ready=(async()=>{await Promise.all(['66px "BMDoHyeon"','72px "NarrKo"','74
 
 // ===== 탭 =====
 function go(n){P.tab=n;$$('.page').forEach(p=>p.classList.toggle('on',p.id==='p'+n));$$('.tab').forEach(t=>{const k=+t.dataset.t;t.classList.toggle('on',k===n);t.classList.toggle('done',k<n);});window.scrollTo({top:0});
-  if(n===2)renderAna();if(n===3){renderTitles();renderProps();renderCmp();}if(n===4){renderScenes();drawAt(cur);runChecks();}if(n===5){renderUpload();buildThumbs();renderNotes();}autosave();}
+  if(n===2)renderAna();if(n===3){renderTitles();renderProps();renderCmp();}if(n===4){renderScenes();drawAt(cur);}autosave();}
 $$('.tab').forEach(t=>t.onclick=()=>go(+t.dataset.t));
 
 // ===== ① 자료 =====
@@ -220,7 +222,6 @@ function renderAna(){const a=P.ana;let h='';
   if(a.cat)h+=`<div class="card"><h3>큰 주제(카테고리) 훅·내용 공식</h3><pre class="out">${esc(a.cat)}</pre></div>`;
   if(a.top3.length)h+=`<div class="card"><h3>같은 원본 상위 3개 · 제목·내용·편집</h3><div class="top3">${a.top3.map(t=>`<div class="b"><b>${t.rank}위 · ${esc(t.title)}</b><div class="ln">${esc(t.lines)}</div>${t.edit?`<div class="ln" style="margin-top:6px;color:var(--muted)">편집: ${esc(t.edit)}</div>`:''}</div>`).join('')}</div></div>`;
   $('#anaView').innerHTML=h||'<div class="card"><div class="lead" style="margin:0">아직 분석이 없어. ① 자료에서 「클로드 분석 시작」</div></div>';
-  const ytid=u=>{const m=(u||'').match(/(?:shorts\/|v=|youtu\.be\/)([\w-]{11})/);return m?m[1]:null;};
   const vids=[...a.top3.map(t=>({id:ytid(t.url),cap:`${t.rank}위 · ${t.title}${t.views?' · '+t.views:''}`})),...a.same.map(x=>({id:ytid(x.url),cap:`${x.views} · ${x.title}`})),...P.refs.split(/\n+/).map(u=>({id:ytid(u),cap:'내가 보낸 링크'}))].filter(v=>v.id);
   const seen=new Set();const uniq=vids.filter(v=>!seen.has(v.id)&&seen.add(v.id));
   $('#watchCard').style.display=uniq.length?'':'none';$('#embeds').innerHTML=uniq.map(v=>`<div><div class="e"><iframe src="https://www.youtube.com/embed/${v.id}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div><div class="cap">${esc(v.cap)}</div></div>`).join('');}
@@ -345,18 +346,23 @@ function editText(pr){return [`[쇼츠 수정 요청]`,`요청: ${pr}`,`지금 �
 $('#copyEdit').onclick=()=>{const pr=$('#editPrompt').value.trim();if(!pr){toast('어떻게 고칠지 써 줘');return;}copyText(editText(pr));};
 function parseEditReply(raw){raw=raw??$('#editReply').value;const sec=splitSections(raw);const get=n=>Object.keys(sec).find(x=>x.replace(/\s/g,'').includes(n));const d=get('대본후보')||get('대본');let props=d?parseProps(sec[d]):parseProps(raw.replace(/```/g,'').split(/\r?\n/));props=props.filter(p=>p.scenes.length);return props;}
 function replaceScenes(sc){snap();const old=P.scenes;const nw=JSON.parse(JSON.stringify(sc));nw.forEach((s,i)=>{const o=old[i];if(o&&o.voice&&!s.voice&&o.clip===s.clip)s.voice=o.voice;});P.scenes=nw;}
-$('#applyEdit').onclick=()=>{const props=parseEditReply();if(!props.length){toast('장면 표를 못 읽었어');return;}const p=props[0];replaceScenes(p.scenes);if(p.title)P.title=p.title;P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title});P.propSel=P.props.length-1;$('#editReply').value='';curScene=-1;curCap=null;renderScenes();drawAt(0);runChecks();autosave();toast('고친 대본으로 교체했어');};
+$('#applyEdit').onclick=()=>{const props=parseEditReply();if(!props.length){toast('장면 표를 못 읽었어');return;}const p=props[0];replaceScenes(p.scenes);if(p.title)P.title=p.title;P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title});P.propSel=P.props.length-1;$('#editReply').value='';curScene=-1;curCap=null;renderScenes();drawAt(0);autosave();toast('고친 대본으로 교체했어');};
 $('#applyEditAsProp').onclick=()=>{const props=parseEditReply();if(!props.length){toast('장면 표를 못 읽었어');return;}props.forEach((p,i)=>P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title}));$('#editReply').value='';autosave();toast(`③에 ${props.length}안 추가`);};
 
 
 // ===== 클로드 연결 (브라우저에서 바로) =====
-const KEYS={api:'',yt:''};try{Object.assign(KEYS,JSON.parse(localStorage.getItem('shorts_studio_keys')||'{}'));}catch(e){}
+const KEYS={mode:'code',api:'',yt:''};try{Object.assign(KEYS,JSON.parse(localStorage.getItem('shorts_studio_keys')||'{}'));}catch(e){}
 $('#apiKey').value=KEYS.api||'';$('#ytKey').value=KEYS.yt||'';
 ['apiKey','ytKey'].forEach(id=>$('#'+id).oninput=e=>{KEYS[id==='apiKey'?'api':'yt']=e.target.value.trim();try{localStorage.setItem('shorts_studio_keys',JSON.stringify(KEYS));}catch(e){}});
+const BASE=location.protocol==='file:'?'http://localhost:8765':'';
+function syncMode(){$$('#modeSeg .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===KEYS.mode));$('#apiWrap').style.display=KEYS.mode==='api'?'':'none';$('#codeStatus').style.display=KEYS.mode==='code'?'':'none';}
+$$('#modeSeg .opt').forEach(o=>o.onclick=()=>{KEYS.mode=o.dataset.v;try{localStorage.setItem('shorts_studio_keys',JSON.stringify(KEYS));}catch(e){}syncMode();if(KEYS.mode==='code')checkCode();});
+async function checkCode(){const el=$('#codeStatus');el.textContent='클로드 코드 확인 중…';try{const r=await fetch(BASE+'/api/claude/status',{cache:'no-store'});const j=await r.json();el.innerHTML=j.ok?`✓ 연결됨 · Claude Code ${esc(j.version||'')} (구독으로 돌아감)`:`<span style="color:var(--red)">맥에 claude 명령이 없어: ${esc(j.error||'')}</span>`;return !!j.ok;}catch(e){el.innerHTML='<span style="color:var(--red)">꺼져 있어.</span> 맥에서 <b>제작실_켜기.command</b>를 더블클릭해서 켜 줘 (아이패드는 맥 주소로 열기)';return false;}}
+syncMode();if(KEYS.mode==='code')checkCode();
 $('#btnKeys').onclick=()=>{go(1);setTimeout(()=>{$('#keysCard').scrollIntoView({behavior:'smooth'});$('#apiKey').focus();},50);};
 const RULES=`너는 쇼츠 제작 스킬(정답지)을 그대로 따르는 쇼츠 각색가다. 한국어 반말로, 머리글 블록 형식으로만 답한다. 숫자(조회수)는 검색으로 확인한 것만 쓰고, 못 찾으면 "확인 못 함"이라고 쓴다. 지어내지 않는다.
 규칙: 해설은 「~했는데 / ~했다네요」체(존댓말·음슴체 금지). 강아지(동물) 대사는 반말. 속마음은 *별표*. 자막 한 화면 9자 안쪽(일본어 11자). 말줄임표는 「..」. 제목은 상위 3개 결 그대로 단어만 바꿈, 결말 숨김, 쉬운 말, 화이트 템플릿은 한 줄 10자 안쪽. 동물 화이트 템플릿은 음성 없음, 한 원본 영상당 한 덩어리(잘게 자르지 않음, 전환 효과 없음), 얼굴이 화면 가운데. 길이 13~30초(20~23초 목표). 장면은 "장면N v번호 시작~끝 얼굴 0.35" 줄, 자막은 "  시작~끝 해설|강아지|속마음 : 글" 줄(초는 장면 안 기준).`;
-async function askClaude(user,opt={}){if(!KEYS.api){go(1);$('#apiKey').focus();throw new Error('클로드 API 키를 먼저 넣어 줘 (⚙ 클로드 연결)');}
+async function askClaude(user,opt={}){if(KEYS.mode!=='api')return askCode(user,opt);if(!KEYS.api){go(1);$('#apiKey').focus();throw new Error('클로드 API 키를 먼저 넣어 줘 (⚙ 클로드 연결)');}
   const body={model:'claude-opus-5-5',max_tokens:opt.max_tokens||8000,system:RULES+(opt.system?'\n'+opt.system:''),messages:[{role:'user',content:user}],thinking:{type:'adaptive'}};
   if(opt.search)body.tools=[{type:'web_search_20260209',name:'web_search',max_uses:opt.search}];
   const hdr={'content-type':'application/json','x-api-key':KEYS.api,'anthropic-version':'2026-10-21','anthropic-dangerous-direct-browser-access':'true'};
@@ -367,6 +373,10 @@ async function askClaude(user,opt={}){if(!KEYS.api){go(1);$('#apiKey').focus();t
     const j=await r.json();searches+=j.content.filter(b=>b.type==='server_tool_use').length;text+=j.content.filter(b=>b.type==='text').map(b=>b.text).join('');
     if(j.stop_reason==='pause_turn'&&loops++<6){body.messages.push({role:'assistant',content:j.content});continue;}
     opt.onStatus&&opt.onStatus(`완료 (검색 ${searches}번 · 입력 ${j.usage?.input_tokens||0} · 출력 ${j.usage?.output_tokens||0} 토큰)`);return text;}}
+async function askCode(user,opt={}){opt.onStatus&&opt.onStatus(opt.search?'클로드 코드가 유튜브 검색·대조 중… (몇 분 걸려)':'클로드 코드가 생각 중…');let r;
+  try{r=await fetch(BASE+'/api/claude',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({prompt:user,system:RULES+(opt.system?'\n'+opt.system:''),search:!!opt.search})});}
+  catch(e){go(1);checkCode();throw new Error('맥의 제작실 서버가 안 켜져 있어. 「제작실_켜기.command」를 켜 줘');}
+  const j=await r.json();if(!r.ok||j.error)throw new Error(j.error||('서버 오류 '+r.status));opt.onStatus&&opt.onStatus(`완료 (${j.seconds||0}초)`);return j.text||'';}
 async function ytLookup(){if(!KEYS.yt)return '';const ids=P.refs.split(/\n+/).map(u=>(u.match(/(?:shorts\/|v=|youtu\.be\/)([\w-]{11})/)||[])[1]).filter(Boolean);if(!ids.length)return '';const out=[];
   try{const r=await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${ids.join(',')}&key=${KEYS.yt}`);const j=await r.json();const items=j.items||[];
     for(const it of items){out.push(`내 링크: ${it.snippet.title} | 조회수 ${(+it.statistics.viewCount).toLocaleString()} | https://youtube.com/shorts/${it.id} | 채널 ${it.snippet.channelTitle} | ${it.snippet.publishedAt.slice(0,10)}`);
@@ -395,46 +405,37 @@ async function sendEdit(){const inp=$('#editPrompt');const pr=inp.value.trim();i
   try{const txt=await askClaude(editText(pr),{max_tokens:4000,onStatus:m=>wait.textContent=m});const props=parseEditReply(txt);
     if(!props.length){wait.className='m w';wait.textContent='장면 표를 못 읽었어. 다시 말해 줘:\n'+txt.slice(0,300);return;}
     const p=props[0];replaceScenes(p.scenes);if(p.title)P.title=p.title;P.props.push({...p,name:String.fromCharCode(65+P.props.length),title:p.title||P.title});P.propSel=P.props.length-1;
-    curScene=-1;curCap=null;renderScenes();drawAt(0);runChecks();autosave();wait.textContent='반영했어 ✓'+(p.compare?'\n'+p.compare:'')+'\n'+p.scenes.map((s,i)=>`장면${i+1} ${s.clip} ${s.start}~${s.end}`).join(' · ');}
+    curScene=-1;curCap=null;renderScenes();drawAt(0);autosave();wait.textContent='반영했어 ✓'+(p.compare?'\n'+p.compare:'')+'\n'+p.scenes.map((s,i)=>`장면${i+1} ${s.clip} ${s.start}~${s.end}`).join(' · ');}
   catch(e){wait.className='m w';wait.textContent='실패: '+e.message;}
   finally{box.classList.remove('busy');inp.focus();}}
 $('#sendEdit').onclick=sendEdit;$('#editPrompt').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendEdit();}});
 
-// ===== 검수 =====
-function runChecks(){const sp=SPEC[P.tpl];const T=total();const items=[];
-  const over=[];P.scenes.forEach((s,i)=>s.caps.forEach(c=>{if([...c.text.replace(/\s/g,'')].length>sp.maxChars)over.push(`장면${i+1} 「${c.text}」`);}));items.push({ok:!over.length,t:`자막 한 줄 ${sp.maxChars}자 안쪽`,d:over.length?over.join(', '):'통과'});
-  const dots=[];P.scenes.forEach((s,i)=>s.caps.forEach(c=>{if(/…/.test(c.text))dots.push(`장면${i+1}`);}));items.push({ok:!dots.length,t:'말줄임표는 「..」',d:dots.length?dots.join(', '):'통과'});
-  const ov=[];P.scenes.forEach((s,i)=>{const cs=[...s.caps].sort((a,b)=>a.s-b.s);for(let k=1;k<cs.length;k++)if(cs[k].s<cs[k-1].e-1e-6&&cs[k].who===cs[k-1].who)ov.push(`장면${i+1}`);if(cs.some(c=>c.e-c.s<0.45))ov.push(`장면${i+1}(0.45초 미만)`);if(cs.some(c=>c.e>sceneDur(s)+0.05))ov.push(`장면${i+1}(장면 밖)`);});items.push({ok:!ov.length,t:'자막 겹침·0.45초·장면 안',d:ov.length?[...new Set(ov)].join(', '):'통과'});
-  items.push({ok:T>=13&&T<=30,t:'길이 13~30초 (20~23초 목표)',d:`지금 ${T.toFixed(1)}초`});
-  const short=P.scenes.filter(s=>sceneDur(s)<1).length;items.push({ok:!short,t:'잘게 자른 컷 없음 (깜빡임)',d:short?`${short}개 장면이 1초 미만`:'통과'});
-  const tl=[...P.title].length;items.push({ok:!!P.title&&(P.tpl!=='white'||tl<=12),t:'제목 (화이트 한 줄 10자 안쪽)',d:P.title?`「${P.title}」 ${tl}자`:'제목 없음 — ③에서 고르기'});
-  items.push({ok:P.clips.length?P.clips.every(c=>!c.w||Math.min(c.w,c.h)>=1080):null,t:'원본 화질 가로 1080 이상',d:P.clips.map(c=>`${c.id} ${c.w}×${c.h}`).join(' · ')||'영상 없음'});
-  items.push({ok:null,t:'눈으로: 얼굴 가운데 · 글씨 칸 안 · 흰 프레임 없음',d:'재생해서 처음~끝 한 번'});
-  $('#checks').innerHTML=items.map(i=>`<div class="check ${i.ok===true?'ok':i.ok===false?'bad':''}"><div class="ic">${i.ok===true?'✓':i.ok===false?'!':'👁'}</div><div>${i.t}<small>${esc(i.d)}</small></div></div>`).join('');}
 
-// ===== ⑤ 완성 =====
+// ===== 최종 =====
+let finalURL='',finalExt='mp4';
+$('#dlFinal').onclick=()=>{if(!finalURL)return;const a=document.createElement('a');a.href=finalURL;a.download=((P.title||'쇼츠').replace(/[\\/:*?"<>|]/g,'').replace(/[. ]+$/,'')||'쇼츠')+'.'+finalExt;a.click();};
+const ytid=u=>{const m=(u||'').match(/(?:shorts\/|v=|youtu\.be\/)([\w-]{11})/);return m?m[1]:null;};
+function renderFinalCmp(){const who=WHO();const mine=P.scenes.flatMap(s=>s.caps.map(c=>`${who[c.who]||c.who} : ${c.text}`)).join('\n');const top=P.ana.top3.slice(0,3);
+  const me=`<div class="b me"><img id="meThumb" alt=""><b>우리 · ${esc(P.title||'(제목 없음)')}</b><div class="v">${P.scenes.length}장면 · ${total().toFixed(1)}초 · 전환 없음</div><div class="ln">${esc(mine)}</div></div>`;
+  const tops=top.map(t=>{const id=ytid(t.url);const img=id?`<a href="${esc(t.url)}" target="_blank"><img src="https://i.ytimg.com/vi/${id}/oardefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'" alt=""></a>`:'';return `<div class="b">${img}<b>${t.rank}위 · ${esc(t.title)}</b><div class="v">${esc(t.views||'조회수 확인 못 함')}</div><div class="ln">${esc(t.lines)}</div>${t.edit?`<div class="v" style="margin-top:6px">편집: ${esc(t.edit)}</div>`:''}</div>`;}).join('');
+  $('#finalCmp').innerHTML=me+(tops||'<div class="b"><div class="ln">② 분석에 상위 3개가 있으면 여기 나란히 떠</div></div>');const mt=$('#thumbs img');if(mt)$('#meThumb').src=mt.src;}
 function pickMime(){return['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1','video/mp4','video/webm;codecs=h264','video/webm;codecs=vp9,opus','video/webm'].find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';}
 $('#btnRender').onclick=async()=>{if(!P.scenes.length){toast('장면이 없어');return;}if(P.scenes.some(s=>!media[s.clip])){toast('원본 영상을 ① 자료에서 넣어 줘');return;}if(!window.MediaRecorder){toast('이 브라우저는 저장이 안 돼');return;}
   stop();ensureAudio();await drawAt(0);const mime=pickMime(),ext=mime.startsWith('video/mp4')?'mp4':'webm';const stream=cv.captureStream(FPS);streamDest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
   const rec=new MediaRecorder(stream,{mimeType:mime||undefined,videoBitsPerSecond:12_000_000});const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
-  const btn=$('#btnRender');btn.disabled=true;$('#prog').style.display='block';const T=total();const pr=setInterval(()=>{$('#prog i').style.width=Math.min(100,cur/T*100)+'%';$('#status').textContent=`만드는 중 ${fmt(cur)} / ${fmt(T)} — 영상 길이만큼 걸려. 탭을 그대로 둬.`;},200);
-  rec.onstop=()=>{clearInterval(pr);$('#prog').style.display='none';btn.disabled=false;$('#status').textContent='저장됐어. 다운로드 폴더를 봐.';const blob=new Blob(chunks,{type:mime||'video/webm'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(P.title||'쇼츠').replace(/[\\/:*?"<>|]/g,'')+'.'+ext;a.click();if(ext==='webm')toast('크롬은 webm(유튜브 OK). mp4는 사파리에서');};
+  const btn=$('#btnRender');btn.disabled=true;$('#editBox').classList.add('busy');$('#prog').style.display='block';const T=total();const pr=setInterval(()=>{$('#prog i').style.width=Math.min(100,cur/T*100)+'%';$('#status').textContent=`만드는 중 ${fmt(cur)} / ${fmt(T)} — 영상 길이만큼 걸려. 탭을 그대로 둬.`;},200);
+  rec.onstop=async()=>{clearInterval(pr);$('#prog').style.display='none';btn.disabled=false;$('#editBox').classList.remove('busy');$('#status').textContent=`완성 ${fmt(T)}`+(ext==='webm'?' · 크롬은 webm(유튜브 OK), mp4는 사파리':'');const blob=new Blob(chunks,{type:mime||'video/webm'});if(finalURL)URL.revokeObjectURL(finalURL);finalURL=URL.createObjectURL(blob);finalExt=ext;$('#finalVideo').src=finalURL;$('#finalCard').style.display='';await buildThumbs();renderFinalCmp();$('#uploadText').textContent=uploadText();await drawAt(0);$('#finalCard').scrollIntoView({behavior:'smooth'});toast('최종 영상 완성');};
   rec.start(250);cur=0;await play(()=>setTimeout(()=>rec.stop(),300));};
 async function buildThumbs(){const el=$('#thumbs');if(!P.scenes.length||P.scenes.some(s=>!media[s.clip])){el.innerHTML='<div class="lead" style="margin:0">영상이 있어야 썸네일을 뽑아</div>';return;}const offs=sceneOffsets();const picks=[];P.scenes.forEach((s,i)=>s.caps.forEach(c=>{if(c.who!=='n')picks.push({t:offs[i]+(+c.s+ +c.e)/2,label:c.text});}));picks.push({t:total()-0.3,label:'마지막'});const sel=[picks[0],picks[Math.floor(picks.length/2)],picks[picks.length-1]].filter(Boolean);el.innerHTML='';
-  for(const [i,p] of sel.entries()){await drawAt(p.t);const url=cv.toDataURL('image/jpeg',0.85);const d=document.createElement('div');d.innerHTML=`<img src="${url}"><span>${'ABC'[i]} · ${esc(p.label)}</span>`;d.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=`${P.title||'쇼츠'}_썸네일_${'ABC'[i]}.jpg`;a.click();$$('.thumbs div').forEach(x=>x.classList.remove('on'));d.classList.add('on');};el.appendChild(d);}}
+  for(const [i,p] of sel.entries()){await drawAt(p.t);const url=cv.toDataURL('image/jpeg',0.85);const d=document.createElement('div');d.innerHTML=`<img src="${url}"><span>${'ABC'[i]} · ${esc(p.label)}</span>`;d.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=`${P.title||'쇼츠'}_썸네일_${'ABC'[i]}.jpg`;a.click();$$('.thumbs div').forEach(x=>x.classList.remove('on'));d.classList.add('on');};el.appendChild(d);}const mt=$('#thumbs img');if(mt&&$('#meThumb'))$('#meThumb').src=mt.src;}
 function uploadText(){const who=WHO();const lines=[P.title,''].concat(...P.scenes.map(s=>s.caps.map(c=>`${who[c.who]||c.who} : ${c.text}`)));lines.push('',`원본 영상 : ${P.src||'-'}`,P.upload.tags||(P.tpl==='ja'?'#面白い動画 #海外面白動画':'#웃긴영상 #강아지'));return lines.join('\n');}
-function renderUpload(){$('#uploadText').textContent=uploadText();}$('#copyUpload').onclick=()=>copyText(uploadText(),'업로드 글 복사됨');
+$('#copyUpload').onclick=()=>copyText(uploadText(),'업로드 글 복사됨');$('#copyTitle').onclick=()=>copyText(P.title||'','제목 복사됨');$('#copySrc').onclick=()=>copyText(`원본 영상 : ${P.src||'-'}`,'출처 복사됨');$('#copyTags').onclick=()=>copyText(P.upload.tags||(P.tpl==='ja'?'#面白い動画 #海外面白動画':'#웃긴영상 #강아지'),'해시태그 복사됨');
 function finalText(){const who=WHO();const lines=[`[쇼츠 확정본] ${new Date().toISOString().slice(0,10)}`,`템플릿: ${({white:'한국어 화이트',black:'한국어 블랙',ja:'일본어'})[P.tpl]}`,`제목: ${P.title}`,`원본: ${P.clips.map(c=>`${c.id}=${c.name}(${c.dur}초)`).join(', ')}`,`출처: ${P.src||'-'}`];P.scenes.forEach((s,i)=>{lines.push(`장면${i+1} ${s.clip} ${s.start}~${s.end} 얼굴 ${(+s.yoff).toFixed(2)}${s.audio?' 소리':''}`);s.caps.forEach(c=>lines.push(`  ${c.s}~${c.e} ${who[c.who]||c.who} : ${c.text}`));});lines.push('','이 확정본을 쇼츠 스킬에 예시로 저장하고, 다음에도 해당하는 규칙은 12절에 적어 줘.');return lines.join('\n');}
 $('#copyFinal').onclick=()=>copyText(finalText(),'확정본 복사됨. 클로드한테 붙여넣어');
-function renderNotes(){$('#notes').innerHTML=[...P.notes].sort((a,b)=>a.t-b.t).map(n=>`<li class="${n.done?'done':''}" data-id="${n.id}"><b>${fmt(n.t)}</b><span style="flex:1">${esc(n.text)}</span></li>`).join('');}
-function saveMemo(){const t=$('#memo').value.trim();if(!t)return;P.notes.push({id:Date.now().toString(36),t:+cur.toFixed(2),text:t,done:false});$('#memo').value='';renderNotes();autosave();toast('메모 저장');}
-$('#memoSave').onclick=saveMemo;$('#memo').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveMemo();}});
-$('#notes').onclick=e=>{const li=e.target.closest('li');if(!li)return;const n=P.notes.find(x=>x.id===li.dataset.id);if(e.metaKey||e.ctrlKey){n.done=!n.done;renderNotes();}else{go(4);seekTo(n.t);}};
-$('#memoCopy').onclick=()=>{if(!P.notes.length){toast('메모가 없어');return;}copyText(`[쇼츠 피드백] ${P.title}\n`+[...P.notes].sort((a,b)=>a.t-b.t).map(n=>`${n.done?'[완료] ':''}${fmt(n.t)} ${n.text}`).join('\n'));};
 
 // ===== 저장 =====
 function autosave(){try{localStorage.setItem('shorts_studio_v3',JSON.stringify(P));}catch(e){}}
-function applyProject(o){P={...P,...o};syncSeg();['refs','src'].forEach(id=>$('#'+id).value=P[id]||'');renderClips();go(P.tab||1);}
+function applyProject(o){P={...P,...o};syncSeg();['refs','src'].forEach(id=>$('#'+id).value=P[id]||'');renderClips();go(Math.min(4,P.tab||1));}
 $('#btnSaveProj').onclick=()=>{const blob=new Blob([JSON.stringify(P,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(P.title||'쇼츠')+'_프로젝트.json';a.click();toast('프로젝트 저장');};
 function loadProjectFile(f){const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(o.scenes)applyProject(o);}catch(e){toast('프로젝트 파일이 아니에요');}};r.readAsText(f);}
 $('#openProj').onchange=e=>{if(e.target.files[0])loadProjectFile(e.target.files[0]);e.target.value='';};
