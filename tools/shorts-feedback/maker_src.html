@@ -103,13 +103,10 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
   <div class="card"><h3>원본 영상 <span class="r">선택 · 만들 때는 필요</span></h3>
     <label class="drop"><b>여기를 눌러 영상 넣기</b>또는 끌어다 놓기 · 넣은 순서대로 v1, v2, v3…<input type="file" id="addClips" accept="video/*" multiple></label>
     <div class="list" id="clips" style="margin-top:8px"></div></div>
-  <div class="card" id="keysCard"><h3>클로드 연결 <span class="r">한 번만 고르면 이 기기에 저장</span></h3>
-    <div class="seg" id="modeSeg"><div class="opt" data-v="art">claude.ai에서 열기<small>로그인만 하면 됨 · 아이패드·맥 어디서나 · 추천</small></div><div class="opt on" data-v="code">클로드 코드 (구독)<small>맥에서 「제작실_켜기」 켜 둔 채 쓰기</small></div><div class="opt" data-v="api">API 키<small>따로 과금</small></div></div>
-    <div class="lead" id="codeStatus" style="margin:10px 0 0;font-size:13px"></div>
-    <div id="apiWrap" style="display:none">
-    <label class="f">클로드 API 키 <span style="font-weight:400;color:var(--muted)">(platform.claude.com → API keys)</span><input type="password" id="apiKey" placeholder="sk-ant-…" autocomplete="off"></label>
-    <label class="f">유튜브 API 키 <span style="font-weight:400;color:var(--muted)">(선택 · 같은 원본 대조 정확도 ↑ · 무료)</span><input type="password" id="ytKey" placeholder="AIza…" autocomplete="off"></label>
-    <div class="lead" style="margin:8px 0 0;font-size:12px">분석 한 번에 보통 몇백 원~1천 원쯤(클로드 토큰 + 웹 검색). 키는 이 브라우저 안에만 저장되고 프로젝트 파일엔 안 들어가.</div></div></div>
+  <div class="card" id="keysCard"><h3>클로드 연결</h3>
+    <div id="artOn" style="display:none" class="lead" style="margin:0;font-size:14px"></div>
+    <div id="artOff"><a class="btn primary block" href="https://claude.ai/artifact/3G78zZAasi8g3cMXKUmVgr" target="_blank" rel="noopener" id="openArt">claude.ai에서 열기</a><div class="lead" style="margin:8px 0 0;font-size:13px">클로드 로그인만 하면 돼. 아이패드·맥 어디서나. 이 파일은 거기로 가는 입구야.</div></div>
+    <div id="modeSeg" style="display:none"></div><div id="codeStatus" style="display:none"></div><div id="apiWrap" style="display:none"><input type="hidden" id="apiKey"><input type="hidden" id="ytKey"></div></div>
   <div class="card"><h3>클로드 분석</h3>
     <div id="anaHow"></div>
     <div class="ctrl" style="margin-top:6px"><button class="btn primary" id="runAuto" style="flex:1">한 번에 끝까지 (분석 → 제목·대본 A안 → ④ 편집)</button><button class="btn" id="runAnalyze">분석만 보기</button></div>
@@ -399,14 +396,13 @@ const KEYS={mode:'code',api:'',yt:''};try{Object.assign(KEYS,JSON.parse(localSto
 $('#apiKey').value=KEYS.api||'';$('#ytKey').value=KEYS.yt||'';
 ['apiKey','ytKey'].forEach(id=>$('#'+id).oninput=e=>{KEYS[id==='apiKey'?'api':'yt']=e.target.value.trim();try{localStorage.setItem('shorts_studio_keys',JSON.stringify(KEYS));}catch(e){}});
 const BASE=location.protocol==='file:'?'http://localhost:8765':'';
-function syncMode(){if(ART){$('#modeSeg').style.display='none';$('#apiWrap').style.display='none';$('#codeStatus').style.display='';$('#codeStatus').innerHTML='✓ 내 클로드 계정으로 연결됨 (claude.ai 안에서 돌아감 · 추가 요금 없음). 유튜브 대조는 claude.ai 커넥터에 Uplika가 연결돼 있으면 자동으로 써.';return;}$$('#modeSeg .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===KEYS.mode));$('#apiWrap').style.display=KEYS.mode==='api'?'':'none';$('#codeStatus').style.display=KEYS.mode==='code'?'':'none';}
-$$('#modeSeg .opt').forEach(o=>o.onclick=()=>{if(o.dataset.v==='art'){window.open('https://claude.ai/artifact/3G78zZAasi8g3cMXKUmVgr','_blank');toast('claude.ai에 로그인돼 있으면 바로 열려');return;}KEYS.mode=o.dataset.v;try{localStorage.setItem('shorts_studio_keys',JSON.stringify(KEYS));}catch(e){}syncMode();if(KEYS.mode==='code')checkCode();});
+function syncMode(){$('#artOn').style.display=ART?'':'none';$('#artOff').style.display=ART?'none':'';if(ART)$('#artOn').innerHTML='✓ 내 클로드 계정으로 연결됨. 유튜브 대조는 claude.ai 커넥터에 Uplika가 있으면 자동으로 써.';}
 async function checkCode(){const el=$('#codeStatus');el.textContent='클로드 코드 확인 중…';try{const r=await fetch(BASE+'/api/claude/status',{cache:'no-store'});const j=await r.json();el.innerHTML=j.ok?`✓ 연결됨 · Claude Code ${esc(j.version||'')} (구독으로 돌아감)${j.ipad?`<br>📱 아이패드: 사파리에 <b>${esc(j.ipad)}</b> 입력 → 공유 → 홈 화면에 추가 (같은 와이파이, 맥 켜 둔 채)`:''}`:`<span style="color:var(--red)">맥에 claude 명령이 없어: ${esc(j.error||'')}</span>`;return !!j.ok;}catch(e){el.innerHTML='<span style="color:var(--red)">맥의 제작실 서버가 꺼져 있어.</span><br>① 맥에서 <b>제작실_켜기.command</b>를 오른쪽 클릭 → 열기 (검은 창에 「켜짐」이 뜨면 됨)<br>② 그 창이 알려 주는 주소 <b>http://localhost:8765/</b> 로 열거나, 이 페이지를 새로고침<br>③ 아이패드는 같은 와이파이에서 그 창의 <b>192.168…</b> 주소로<br>맥 없이 쓰려면 위 <b>「claude.ai에서 열기」</b>';return false;}}
-syncMode();if(!ART&&KEYS.mode==='code')checkCode();
+syncMode();
 $('#btnKeys').onclick=()=>{go(1);setTimeout(()=>{$('#keysCard').scrollIntoView({behavior:'smooth'});$('#apiKey').focus();},50);};
 const RULES=`너는 쇼츠 제작 스킬(정답지)을 그대로 따르는 쇼츠 각색가다. 한국어 반말로, 머리글 블록 형식으로만 답한다. 숫자(조회수)는 검색으로 확인한 것만 쓰고, 못 찾으면 "확인 못 함"이라고 쓴다. 지어내지 않는다.
 규칙: 해설은 「~했는데 / ~했다네요」체(존댓말·음슴체 금지). 강아지(동물) 대사는 반말. 속마음은 *별표*. 자막 한 화면 9자 안쪽(일본어 11자). 말줄임표는 「..」. 제목은 상위 3개 결 그대로 단어만 바꿈, 결말 숨김, 쉬운 말, 화이트 템플릿은 한 줄 10자 안쪽. 동물 화이트 템플릿은 음성 없음, 한 원본 영상당 한 덩어리(잘게 자르지 않음, 전환 효과 없음), 얼굴이 화면 가운데. 길이 13~30초(20~23초 목표). 장면은 "장면N v번호 시작~끝 얼굴 0.35" 줄, 자막은 "  시작~끝 해설|강아지|속마음 : 글" 줄(초는 장면 안 기준).`;
-async function askClaude(user,opt={}){if(ART)return askArt(user,opt);if(KEYS.mode!=='api')return askCode(user,opt);if(!KEYS.api){go(1);$('#apiKey').focus();throw new Error('클로드 API 키를 먼저 넣어 줘 (⚙ 클로드 연결)');}
+async function askClaude(user,opt={}){if(ART)return askArt(user,opt);go(1);$('#keysCard').scrollIntoView({behavior:'smooth'});throw new Error('클로드는 claude.ai에서 열어야 써. 「claude.ai에서 열기」를 눌러 줘');if(KEYS.mode!=='api')return askCode(user,opt);if(!KEYS.api){go(1);$('#apiKey').focus();throw new Error('클로드 API 키를 먼저 넣어 줘 (⚙ 클로드 연결)');}
   const body={model:'claude-opus-5-5',max_tokens:opt.max_tokens||8000,system:RULES+(opt.system?'\n'+opt.system:''),messages:[{role:'user',content:user}],thinking:{type:'adaptive'}};
   if(opt.search)body.tools=[{type:'web_search_20260209',name:'web_search',max_uses:opt.search}];
   const hdr={'content-type':'application/json','x-api-key':KEYS.api,'anthropic-version':'2026-10-21','anthropic-dangerous-direct-browser-access':'true'};
@@ -444,7 +440,7 @@ async function ytLookup(){if(!KEYS.yt)return '';const ids=P.refs.split(/\n+/).ma
   return out.length?'\n[유튜브 API 조회 결과 — 같은 원본인지는 제목·썸네일로 대조해서 판단, 조회수는 이 숫자 사용]\n'+out.join('\n'):'';}
 let anaBusy=false,autoMode=false;
 $('#runAuto').onclick=()=>{autoMode=true;runAnalyze();};
-async function runAnalyze(){if(anaBusy)return;if(!P.refs.trim()&&!P.clips.length){toast('쇼츠 링크나 원본 영상 중 하나는 넣어 줘');return;}if(catMode()&&!P.desc.trim()&&!ART){toast('링크가 없으면 「영상 내용 한 줄」을 써 줘');$('#desc').focus();return;}
+async function runAnalyze(){if(anaBusy)return;if(!P.refs.trim()&&!P.clips.length){toast('쇼츠 링크나 원본 영상 중 하나는 넣어 줘');return;}
   anaBusy=true;const btn=$('#runAnalyze');btn.disabled=true;$('#anaProg').style.display='block';let pct=0;const tk=setInterval(()=>{pct=Math.min(92,pct+1.2);$('#anaProg i').style.width=pct+'%';},1200);const st=m=>{$('#anaStatus').textContent=m;$('#anaMeta').textContent=m;};
   try{st('유튜브 조회 중…');const yt=await ytLookup();const mode=catMode()?'cat':'same';const txt=await askClaude(requestText()+yt,{search:15,max_tokens:12000,onStatus:st,frames:true});P.ana.raw=txt;P.ana.mode=mode;
     if(ingestReply(txt)){$('#anaProg i').style.width='100%';if(autoMode&&P.scenes.length){go(4);toast('A안으로 ④에 들어왔어. 제목·대본 바꾸려면 ③');}else go(2);}else{st('형식을 못 읽었어 — 「다시 분석」 눌러 줘');}}
