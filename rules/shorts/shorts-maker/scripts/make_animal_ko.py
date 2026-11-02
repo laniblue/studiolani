@@ -13,7 +13,7 @@ BX, BW, BH = 52, 976, 1019   # 템플릿 투명 칸
 VH = H - TOP - BOT             # 1134
 TITLE_FONT = f"{F}/f2.ttf"     # Gothic A1 ExtraBold
 NAR_FONT = f"{F}/f2.ttf"
-DOG_FONT = f"{F}/f3.ttf"       # Jua (배민 주아 대체)
+DOG_FONT = f"{F}/GriunYeeun-Rg.ttf"   # 그리운 예은 (대표님 지정, 강아지 1번·사람 대사)
 WHITE, YELLOW, MINT = "#FFFFFF", "#FFE006", "#8CE99A"
 
 TITLE = ["눈나가 간식 꺼냈더니..", "시바견의 반응"]
@@ -64,7 +64,7 @@ for i,(src,s,e,cy,keep_audio,caps) in enumerate(SCENES):
     for j,(cs,ce,txt,who) in enumerate(caps):
         p=f"{OUT}/png/c{i}_{j}.png"
         if who=="n": tw,th = text_png(p, txt, NAR_FONT, 76, WHITE, 10); y=NAR_Y
-        else:        tw,th = text_png(p, txt, DOG_FONT, 80, MINT, 10);  y=DOG_Y
+        else:        tw,th = text_png(p, txt, DOG_FONT, 113, WHITE, 12);  y=DOG_Y
         inputs += ["-i",p]
         fc += f";[{last}][{n}:v]overlay=(W-w)/2:{y - th//2}:enable='gte(t,{cs})*lt(t,{ce})'[v{n}]"
         last=f"v{n}"; n+=1
@@ -82,5 +82,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v6.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v7.mp4"],check=True)
 print("done")
