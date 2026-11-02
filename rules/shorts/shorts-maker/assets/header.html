@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Display";
+          src: url("__FONT__");
+          font-weight: 700;
+          font-display: block;
+        }
+        /* Title band, fixed for the whole film: solid black by default
+           (--header-style sky adds the cloud gradient), 2-line headline in
+           white / accent. */
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: __H__px;
+          overflow: hidden;
+          background: __BG__;
+          /*__SKY_PHOTO__*/
+        }
+        #hd-sky {
+          position: absolute;
+          inset: 0;
+          display: __CLOUDS__;
+        }
+        .cloud {
+          position: absolute;
+          border-radius: 50%;
+          background: #f4f6fa;
+          filter: blur(18px);
+        }
+        #hd-c1 { left: 300px; top: 40px; width: 420px; height: 120px; opacity: 0.85; }
+        #hd-c2 { left: 430px; top: 6px; width: 220px; height: 120px; opacity: 0.9; }
+        #hd-c3 { left: 120px; top: 90px; width: 300px; height: 70px; opacity: 0.55; }
+        #hd-c4 { left: 680px; top: 80px; width: 340px; height: 80px; opacity: 0.6; }
+        #hd-c5 { left: -40px; top: 120px; width: 1160px; height: 90px; background: #9fb1c8; opacity: 0.5; }
+        #hd-fade {
+          display: __CLOUDS__;
+          position: absolute;
+          left: 0;
+          top: 120px;
+          width: 1080px;
+          height: 200px;
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 90%);
+        }
+        #hd-title {
+          position: absolute;
+          left: 60px;
+          bottom: 34px;
+          width: 960px;
+          text-align: center;
+          font-family: "Display", sans-serif;
+          font-weight: 700;
+          font-size: 92px;
+          line-height: 1.22;
+          letter-spacing: -2px;
+          word-break: keep-all;
+        }
+        #hd-l1 {
+          display: block;
+          color: #ffffff;
+        }
+        #hd-l2 {
+          display: block;
+          color: __ACCENT__;
+        }
+      </style>
+      <div id="root" data-composition-id="header" data-width="1080" data-height="__H__">
+        <div id="hd-sky">
+          <div class="cloud" id="hd-c5" data-layout-allow-overflow></div>
+          <div class="cloud" id="hd-c1"></div>
+          <div class="cloud" id="hd-c2"></div>
+          <div class="cloud" id="hd-c3"></div>
+          <div class="cloud" id="hd-c4"></div>
+        </div>
+        <div id="hd-fade"></div>
+        <div id="hd-title">
+          <span id="hd-l1">__LINE1__</span>
+          <span id="hd-l2">__LINE2__</span>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        // slow drift keeps the sky from looking frozen
+        tl.fromTo("#hd-sky", { x: 0 }, { x: 60, duration: __DUR__, ease: "none" }, 0);
+        window.__timelines["header"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

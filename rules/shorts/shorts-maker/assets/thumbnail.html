@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <style>
+      /* Thumbnail still: copy to <project>/thumb/index.html, put the chosen
+         frame next to it as frame.jpg, copy the display font to
+         thumb/Display.ttf (or .otf) and vendor/gsap.min.js to thumb/gsap.min.js,
+         replace __LINE1__/__LINE2__/__ACCENT__, then from the project folder:
+         npx hyperframes snapshot thumb --at 0.5 --no-end */
+      @font-face {
+        font-family: "Display";
+        src: url("Display.ttf");
+        font-weight: 700;
+        font-display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      #frame {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      #shade {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 760px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0) 100%);
+      }
+      #title {
+        position: absolute;
+        left: 70px;
+        top: 230px;
+        width: 940px;
+        text-align: center;
+        font-family: "Display", sans-serif;
+        font-weight: 700;
+        font-size: 128px;
+        line-height: 1.15;
+        letter-spacing: -3px;
+        word-break: keep-all;
+        -webkit-text-stroke: 18px #000;
+        paint-order: stroke fill;
+      }
+      #l1 {
+        display: block;
+        color: #fff;
+      }
+      #l2 {
+        display: block;
+        color: __ACCENT__;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="thumb" data-start="0" data-duration="1" data-width="1080" data-height="1920">
+      <img id="frame" src="frame.jpg" alt="" />
+      <div id="shade"></div>
+      <div id="title"><span id="l1">__LINE1__</span><span id="l2">__LINE2__</span></div>
+    </div>
+    <script src="gsap.min.js"></script>
+    <script>
+      window.__timelines["thumb"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
