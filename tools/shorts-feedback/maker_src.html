@@ -40,8 +40,8 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}table.t th{text-align
 .embeds{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.embeds>div{min-width:0}.embeds .e{border-radius:12px;overflow:hidden;background:#000;aspect-ratio:9/16;position:relative}.embeds iframe{width:100%;height:100%;border:0}.embeds .cap{font-size:12px;color:var(--sub);margin-top:4px;line-height:1.3}
 table.cmp td,table.cmp th{min-width:150px;font-size:12px;vertical-align:top}table.cmp td.me{background:var(--blue-bg)}
 .radio .opt .lines{margin:8px 0 0 38px;font-size:13px;color:var(--sub);white-space:pre-wrap;max-height:160px;overflow:auto}
-.ed{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,380px);gap:12px}@media (max-width:1100px){.ed{grid-template-columns:1fr}.ed .card.pvc{position:static!important}}
-canvas#cv{width:100%;max-width:calc(56vh * 9 / 16);aspect-ratio:9/16;background:#fff;border-radius:16px;display:block;margin:0 auto;box-shadow:0 0 0 1px var(--line)}
+.ed{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:12px}@media (max-width:1100px){.ed{grid-template-columns:1fr}.ed .card.pvc{position:static!important}}
+canvas#cv{width:100%;max-width:calc(52vh * 9 / 16);margin:0 auto;aspect-ratio:9/16;background:#fff;border-radius:16px;display:block;margin:0 auto;box-shadow:0 0 0 1px var(--line)}
 .ctrl{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}.time{font-variant-numeric:tabular-nums;font-size:17px;font-weight:800}
 .tl{margin-top:8px;position:relative;height:54px;background:#F2F4F6;border-radius:12px;overflow:hidden;cursor:pointer;user-select:none}
 .tl .blk{position:absolute;top:6px;bottom:6px;border-radius:8px;background:#CFE3FF;border:2px solid #9CC4FF;font-size:11px;font-weight:700;color:#1B4F9C;padding:2px 6px;overflow:hidden;white-space:nowrap}
@@ -66,6 +66,19 @@ pre.out{background:#F9FAFB;border-radius:14px;padding:12px;font-size:13px;white-
 .chat{margin-top:10px;display:flex;flex-direction:column;gap:6px;max-height:200px;overflow:auto}.chat .m{font-size:13px;padding:8px 11px;border-radius:12px;max-width:92%;white-space:pre-wrap;word-break:break-word}.chat .u{background:var(--blue-bg);align-self:flex-end;color:var(--txt)}.chat .a{background:#F2F4F6;align-self:flex-start;color:var(--sub)}.chat .w{background:#FFF3E0;align-self:flex-start;color:#B25E00}
 .busy{opacity:.55;pointer-events:none}
 .final{display:grid;grid-template-columns:minmax(200px,280px) 1fr;gap:14px}.final video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#000;display:block}.fc{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;align-content:start}.fc .b{border:1.5px solid var(--line);border-radius:14px;padding:10px;font-size:13px;background:#fff}.fc .b.me{border-color:var(--blue);background:var(--blue-bg)}.fc .b img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;background:#000;display:block;margin-bottom:8px}.fc .b b{display:block;line-height:1.35}.fc .v{color:var(--muted);font-size:12px;margin-top:2px}.fc .ln{white-space:pre-wrap;color:var(--sub);margin-top:6px;line-height:1.5}@media (max-width:760px){.final{grid-template-columns:1fr}}
+.tlx{display:flex;margin-top:8px;gap:4px}.tll{width:40px;flex:none;font-size:11px;color:var(--muted);font-weight:700}.tll .r{height:18px}.tll div:not(.r){height:44px;display:flex;align-items:center;justify-content:center;border-top:1px solid transparent}
+.tlw{flex:1;min-width:0;overflow-x:auto;overflow-y:hidden;background:#F2F4F6;border-radius:12px;position:relative;touch-action:pan-x}.tlw.drag{touch-action:none}.tli{position:relative;min-width:100%;height:150px}
+.ruler{height:18px;position:relative;font-size:10px;color:var(--muted);border-bottom:1px solid #E5E8EB}.ruler i{position:absolute;top:0;bottom:0;border-left:1px solid #D5D9E0;padding-left:3px;font-style:normal;line-height:18px}
+.trk{position:relative;height:44px;border-top:1px solid #E5E8EB}
+.trk .blk{position:absolute;top:5px;bottom:5px;border-radius:7px;font-size:11px;font-weight:600;padding:0 8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:grab;user-select:none;-webkit-user-select:none;display:flex;align-items:center;box-sizing:border-box;border:2px solid transparent}
+.trk .blk.v{background:#CFE3FF;border-color:#9CC4FF;color:#1B3A6B}.trk .blk.v.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.trk .blk.c{background:#E8EAED;border-color:#D5D9E0;color:#333}.trk .blk.c.d{background:#DDEBFF;border-color:#B7D3FF}.trk .blk.c.m{background:#FFF4B8;border-color:#F3DF7A}.trk .blk.c.on{outline:2px solid var(--blue);outline-offset:-2px}
+.trk .blk.o{background:#F7F7F7;border:1.5px dashed #CDD2DA;color:var(--muted);cursor:default}.trk .blk.a{background:#BFEFD2;border-color:#5BC48A;color:#14532D}.trk .blk.a.on{outline:2px solid #16A34A;outline-offset:-2px}
+.trk .blk .h{position:absolute;top:0;bottom:0;width:10px;cursor:ew-resize;background:rgba(0,0,0,.08)}.trk .blk .h.l{left:0}.trk .blk .h.r{right:0}
+.tli .ph{position:absolute;top:0;bottom:0;width:2px;background:var(--red);pointer-events:none;z-index:3}
+.zoom{display:flex;align-items:center;gap:4px;font-size:12px}.zoom input{width:90px}
+.vtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.vt{padding:6px 12px;border-radius:999px;background:#F2F4F6;font-size:13px;font-weight:700;cursor:pointer;color:var(--sub)}.vt.on{background:var(--blue);color:#fff}
+#verView video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#000;display:block}
 .kbd{font-size:11px;color:var(--muted);margin-top:6px}.kbd b{display:inline-block;border:1px solid var(--line);border-radius:5px;padding:0 5px;background:#fff;font-weight:700;color:var(--sub)}
 body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 </style>
@@ -126,27 +139,26 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 
 <!-- ④ 제작·편집 -->
 <section class="page" id="p4">
-  <h2>제작 · 편집</h2><p class="lead">타임라인 블록을 누르면 그 장면. 구간 자르기·삭제, 자막·음성 싱크는 「지금」 버튼으로. 말로 고치려면 미리보기 아래 칸에.</p>
+  <h2>제작 · 편집</h2><p class="lead">아래 타임라인에서 영상·자막·음성 블록을 끌어서 맞춰. 말로 고치려면 미리보기 아래 칸. 「편집 완료」 누를 때마다 오른쪽에 버전이 쌓여.</p>
   <div class="ed">
-    <div class="card pvc" style="position:sticky;top:110px">
+    <div class="card">
       <canvas id="cv" width="1080" height="1920"></canvas>
-      <div class="ctrl"><button class="btn sm" id="pp">▶ 재생</button><span class="time" id="tm">00:00.0 / 00:00.0</span><span style="flex:1"></span><button class="btn xs" id="jb1">◀ 0.1</button><button class="btn xs" id="jb">◀ 0.5</button><button class="btn xs" id="jf">0.5 ▶</button><button class="btn xs" id="jf1">0.1 ▶</button></div>
-      <div class="tl" id="tl"><div class="ph" id="ph"></div></div>
-      <div class="ctrl"><button class="btn sm" id="undo" title="되돌리기 (Ctrl+Z)">↶</button><button class="btn sm" id="redo" title="다시 (Ctrl+Shift+Z)">↷</button><button class="btn sm" id="splitHere">✂ 자르기</button><button class="btn sm" id="setIn">[ 시작=지금</button><button class="btn sm" id="setOut">] 끝=지금</button><button class="btn sm" id="dupCur">복제</button><button class="btn sm danger" id="delCur">삭제</button></div>
-      <div class="kbd">타임라인: 블록 끌어서 이동 · 양끝 끌어서 길이 · 빨간 선 끌어서 탐색 · <b>Space</b> 재생 · <b>←</b><b>→</b> 0.1초 · <b>I</b>/<b>O</b> 시작/끝=지금 · <b>[</b>/<b>]</b> 자막 시작/끝 · <b>S</b> 자르기 · <b>Delete</b> 장면 삭제 · <b>⌘Z</b> 되돌리기</div>
+      <div class="ctrl" style="justify-content:center"><button class="btn xs" id="jb">◀ 0.5</button><button class="btn xs" id="jb1">◀ 0.1</button><button class="btn sm primary" id="pp" style="min-width:96px">▶ 재생</button><button class="btn xs" id="jf1">0.1 ▶</button><button class="btn xs" id="jf">0.5 ▶</button><span class="time" id="tm">00:00.0 / 00:00.0</span></div>
+      <div class="ctrl" style="justify-content:center"><button class="btn sm" id="undo" title="되돌리기 (⌘Z)">↶</button><button class="btn sm" id="redo" title="다시">↷</button><button class="btn sm" id="splitHere">✂ 자르기</button><button class="btn sm" id="setIn">[ 시작=지금</button><button class="btn sm" id="setOut">] 끝=지금</button><button class="btn sm" id="dupCur">복제</button><button class="btn sm danger" id="delCur">삭제</button><button class="btn sm" id="addCapBtn">+ 자막</button><label class="btn sm">🎙 음성<input type="file" id="voiceFile" accept="audio/*,.m4a,.mp3,.wav,.aac"></label><label class="zoom">🔍<input type="range" id="zoom" min="0" max="200" step="5" value="0"></label></div>
+      <div class="tlx"><div class="tll"><div class="r"></div><div>영상</div><div>자막</div><div>음성</div></div>
+        <div class="tlw" id="tlw"><div class="tli" id="tli"><div class="ruler" id="ruler"></div><div class="trk" id="trkV"></div><div class="trk" id="trkC"></div><div class="trk" id="trkA"></div><div class="ph" id="ph"></div></div></div></div>
+      <div class="kbd">블록 끌면 이동 · 양끝 끌면 길이 · 자막·음성 블록을 끌어서 영상에 싱크 · <b>Space</b> 재생 · <b>←</b><b>→</b> 0.1초 · <b>I</b>/<b>O</b> 장면 시작/끝=지금 · <b>[</b>/<b>]</b> 자막 시작/끝=지금 · <b>S</b> 자르기 · <b>Delete</b> 삭제 · <b>⌘Z</b> 되돌리기</div>
+      <div id="scenes"></div>
       <div class="chat" id="chat"></div>
       <div class="memo" id="editBox"><input type="text" id="editPrompt" placeholder="클로드에게 바로 수정 요청 · 예: 덥석 0.3초 더 길게, 마지막 해설 짧게 (Enter)"><button class="btn primary sm" id="sendEdit">보내기</button></div>
-      <div class="kbd">보내면 클로드가 지금 대본을 고쳐서 바로 반영해. 마음에 안 들면 <b>↶</b> 되돌리기</div>
       <div class="ctrl" style="margin-top:12px"><button class="btn primary" id="btnRender">편집 완료 → 최종 영상 만들기</button><span class="lead" id="status" style="margin:0;font-size:13px"></span></div><div class="prog" id="prog"><i></i></div>
     </div>
-    <div>
-      <div id="scenes"></div>
-    </div>
+    <div class="card" id="verCard" style="position:sticky;top:110px"><h3>최종 영상 <span class="r">편집 완료마다 버전 추가</span></h3>
+      <div class="vtabs" id="vtabs"></div>
+      <div id="verView"></div></div>
   </div>
-  <div class="card" id="finalCard" style="margin-top:12px;display:none"><h3>최종 영상 <span class="r">상위 3개랑 나란히 · 누르면 저장</span></h3>
-    <div class="final">
-      <div><video id="finalVideo" controls playsinline></video><button class="btn primary block" id="dlFinal" style="margin-top:8px">영상 다운로드</button><div class="thumbs" id="thumbs"></div></div>
-      <div class="fc" id="finalCmp"></div></div>
+  <div class="card" id="finalCard" style="margin-top:12px;display:none"><h3>같은 원본 상위 3개 vs 우리 <span class="r">제목 · 내용 구조 · 편집</span></h3>
+    <div class="fc" id="finalCmp"></div>
     <div class="ctrl" style="margin-top:12px"><button class="btn sm" id="copyTitle">제목 복사</button><button class="btn sm" id="copySrc">출처 복사</button><button class="btn sm" id="copyTags">해시태그 복사</button><button class="btn sm" id="copyUpload">업로드 글 전체 복사</button><button class="btn sm ghost" id="copyFinal">확정본 복사 → 스킬 저장</button></div>
     <pre class="out" id="uploadText" style="margin-top:8px"></pre></div>
   <span id="clipHint" style="display:none"></span><input type="file" id="addClips2" style="display:none"><button id="addScene" style="display:none"></button><textarea id="editReply" style="display:none"></textarea><button id="copyEdit" style="display:none"></button><button id="applyEdit" style="display:none"></button><button id="applyEditAsProp" style="display:none"></button>
@@ -176,7 +188,7 @@ const ready=(async()=>{await Promise.all(['66px "BMDoHyeon"','72px "NarrKo"','74
 
 // ===== 탭 =====
 function go(n){P.tab=n;$$('.page').forEach(p=>p.classList.toggle('on',p.id==='p'+n));$$('.tab').forEach(t=>{const k=+t.dataset.t;t.classList.toggle('on',k===n);t.classList.toggle('done',k<n);});window.scrollTo({top:0});
-  if(n===2)renderAna();if(n===3){renderTitles();renderProps();renderCmp();}if(n===4){renderScenes();drawAt(cur);}autosave();}
+  if(n===2)renderAna();if(n===3){renderTitles();renderProps();renderCmp();}if(n===4){renderScenes();drawAt(cur);renderVers();}autosave();}
 $$('.tab').forEach(t=>t.onclick=()=>go(+t.dataset.t));
 
 // ===== ① 자료 =====
@@ -261,27 +273,49 @@ $('#undo').onclick=undo;$('#redo').onclick=redo;
 // ===== ④ 제작·편집 =====
 const sceneDur=s=>Math.max(0,(+s.end)-(+s.start));const sceneOffsets=()=>{let t=0;return P.scenes.map(s=>{const o=t;t+=sceneDur(s);return o;});};const total=()=>P.scenes.reduce((a,s)=>a+sceneDur(s),0);
 const whoOptions=sel=>Object.entries(WHO()).map(([k,v])=>`<option value="${k}"${k===sel?' selected':''}>${v}</option>`).join('');
-function renderTL(){const T=total()||1;const offs=sceneOffsets();const tl=$('#tl');tl.querySelectorAll('.blk').forEach(b=>b.remove());P.scenes.forEach((s,i)=>{const b=document.createElement('div');b.className='blk'+(i===curScene?' on':'');b.style.left=(offs[i]/T*100)+'%';b.style.width=(sceneDur(s)/T*100)+'%';b.dataset.i=i;b.innerHTML=`<div class="h l"></div><div class="h r"></div>${i+1} · ${s.clip}<div class="c">${s.caps.map(c=>`<i style="left:${c.s/sceneDur(s)*100}%;width:${Math.max(1,(c.e-c.s)/sceneDur(s)*100)}%"></i>`).join('')}</div>`;tl.appendChild(b);});$('#ph').style.left=(cur/T*100)+'%';}
-(function(){const tl=$('#tl');let drag=null;
-tl.addEventListener('pointerdown',e=>{const r=tl.getBoundingClientRect();const T=total()||1;const x=(e.clientX-r.left)/r.width*T;const blk=e.target.closest('.blk');
-  if(blk&&e.target.classList.contains('h')){const i=+blk.dataset.i;snap();drag={type:e.target.classList.contains('l')?'l':'r',i,x0:x,s0:P.scenes[i].start,e0:P.scenes[i].end};}
-  else if(blk){const i=+blk.dataset.i;drag={type:'move',i,x0:x,moved:false};}
-  else drag={type:'seek'};
-  tl.classList.add('drag');tl.setPointerCapture(e.pointerId);if(drag.type==='seek')seekTo(x);});
-tl.addEventListener('pointermove',e=>{if(!drag)return;const r=tl.getBoundingClientRect();const T=total()||1;const x=(e.clientX-r.left)/r.width*T;
-  if(drag.type==='seek'){seekTo(x);return;}const s=P.scenes[drag.i];const d=+(x-drag.x0).toFixed(1);
-  if(drag.type==='l'){const ns=Math.max(0,Math.min(drag.e0-0.3,+(drag.s0+d).toFixed(1)));const sh=ns-s.start;if(sh){s.start=ns;s.caps.forEach(c=>{c.s=Math.max(0,+(c.s-sh).toFixed(1));c.e=Math.max(0,+(c.e-sh).toFixed(1));});}renderTL();refreshTotal();}
-  else if(drag.type==='r'){const cd=P.clips.find(c=>c.id===s.clip)?.dur||999;s.end=Math.min(cd,Math.max(drag.s0+0.3,+(drag.e0+d).toFixed(1)));renderTL();refreshTotal();}
-  else if(drag.type==='move'){if(Math.abs(d)>0.2)drag.moved=true;const offs=sceneOffsets();let j=offs.findIndex((o,k)=>x<o+sceneDur(P.scenes[k]));if(j<0)j=P.scenes.length-1;if(drag.moved&&j!==drag.i){snap();const [m]=P.scenes.splice(drag.i,1);P.scenes.splice(j,0,m);drag.i=j;renderTL();}}});
-tl.addEventListener('pointerup',e=>{if(!drag)return;const r=tl.getBoundingClientRect();if(drag.type==='move'&&!drag.moved){seekTo(sceneOffsets()[drag.i]);}if(drag.type!=='seek'){renderScenes();drawAt(cur);autosave();}drag=null;tl.classList.remove('drag');});})();
-function renderScenes(){$('#scenes').innerHTML=P.scenes.map((s,i)=>`<div class="scene ${i===curScene?'on':''}" data-i="${i}">
-  <div class="hd"><b>장면 ${i+1}</b><select data-k="clip">${P.clips.map(c=>`<option value="${c.id}"${c.id===s.clip?' selected':''}>${c.id} (${c.dur}초)</option>`).join('')||`<option>${s.clip}</option>`}</select><span style="flex:1"></span><button class="btn xs" data-act="up">↑</button><button class="btn xs" data-act="down">↓</button><button class="btn xs danger" data-act="del">삭제</button></div>
-  <div class="io"><div><label>시작(초)</label><div class="f2"><input type="number" step="0.1" min="0" value="${s.start}" data-k="start"><button class="btn xs" data-act="setStart">지금</button></div></div><div><label>끝(초)</label><div class="f2"><input type="number" step="0.1" min="0" value="${s.end}" data-k="end"><button class="btn xs" data-act="setEnd">지금</button></div></div></div>
-  <div class="face">얼굴 위치 (위 ← → 아래) · ${sceneDur(s).toFixed(1)}초<input type="range" min="0" max="1" step="0.01" value="${s.yoff}" data-k="yoff"></div>
-  <div class="face">원본 소리 ${Math.round((s.vol??(s.audio?1:0))*100)}%<input type="range" min="0" max="1" step="0.05" value="${s.vol??(s.audio?1:0)}" data-k="vol"></div>
-  <div class="ctrl" style="margin-top:6px;align-items:center"><label class="btn xs">🎙 음성 파일${s.voice?'':' 붙이기'}<input type="file" data-act="voice" accept="audio/*,.m4a,.mp3,.wav,.aac"></label>${s.voice?`<span style="font-size:12px;color:var(--sub);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.voice.name)}${voices[s.voice.id]?'':' (다시 넣기)'}</span><label style="font-size:11px;color:var(--muted)">시작 <input type="number" step="0.1" min="0" value="${s.voice.at||0}" data-k="voiceAt" style="width:62px;padding:5px 6px;font-size:12px;display:inline-block">초</label><button class="btn xs" data-act="voiceNow" title="음성 시작=지금">지금</button><label style="font-size:11px;color:var(--muted)">소리 <input type="number" step="10" min="0" max="200" value="${Math.round((s.voice.vol??1)*100)}" data-k="voiceVol" style="width:56px;padding:5px 6px;font-size:12px;display:inline-block">%</label><button class="btn xs" data-act="voiceDel">✕</button>`:''}</div>
-  <div class="caps">${s.caps.map((c,ci)=>`<div class="cap ${curCap&&curCap[0]===i&&curCap[1]===ci?'cur':''}" data-ci="${ci}"><input type="number" step="0.1" min="0" value="${c.s}" data-ck="s"><input type="number" step="0.1" min="0" value="${c.e}" data-ck="e"><select data-ck="who">${whoOptions(c.who)}</select><input type="text" value="${esc(c.text)}" data-ck="text"><div class="ops"><button data-act="capIn" title="시작=지금">[</button><button data-act="capOut" title="끝=지금">]</button><button data-act="delCap">✕</button></div></div>`).join('')}</div>
-  <button class="btn xs ghost" data-act="addCap" style="margin-top:6px">+ 자막 줄</button></div>`).join('')||'<div class="card"><div class="lead" style="margin:0">장면이 없어. ③에서 대본을 고르거나 아래 칸에 클로드한테 요청</div></div>';refreshTotal();renderTL();}
+let pps=0;function PPS(){const T=total()||1;return pps||Math.max(8,(($('#tlw').clientWidth||600)-6)/T);}
+function setPH(){const x=cur*PPS();$('#ph').style.left=x+'px';const w=$('#tlw');if(x<w.scrollLeft+4||x>w.scrollLeft+w.clientWidth-12)w.scrollLeft=Math.max(0,x-60);}
+$('#zoom').oninput=e=>{pps=+e.target.value;renderTL();};
+function renderTL(){const T=total()||1,p=PPS(),offs=sceneOffsets();$('#tli').style.width=(T*p+4)+'px';
+  const step=p>=70?1:p>=30?2:p>=12?5:10;let r='';for(let t=0;t<=T;t+=step)r+=`<i style="left:${t*p}px">${t}s</i>`;$('#ruler').innerHTML=r;
+  const vs=[],cs=[],as=[];P.scenes.forEach((s,i)=>{const o=offs[i],sd=sceneDur(s);vs.push(`<div class="blk v ${i===curScene?'on':''}" data-t="v" data-i="${i}" style="left:${o*p}px;width:${sd*p}px"><div class="h l"></div><div class="h r"></div>${i+1} · ${s.clip} · ${sd.toFixed(1)}s</div>`);
+    s.caps.forEach((c,ci)=>cs.push(`<div class="blk c ${c.who==='n'?'n':c.who==='m'?'m':'d'} ${curCap&&curCap[0]===i&&curCap[1]===ci?'on':''}" data-t="c" data-i="${i}" data-ci="${ci}" style="left:${(o+ +c.s)*p}px;width:${Math.max(8,(c.e-c.s)*p)}px"><div class="h l"></div><div class="h r"></div>${esc(c.text)||'(빈 자막)'}</div>`));
+    const ov=s.vol??(s.audio?1:0);if(ov>0)as.push(`<div class="blk o" style="left:${o*p}px;width:${sd*p}px">원본 소리 ${Math.round(ov*100)}%</div>`);
+    if(s.voice){const dur=voices[s.voice.id]?.dur||2;const at=+s.voice.at||0;as.push(`<div class="blk a ${curVoice===i?'on':''}" data-t="a" data-i="${i}" style="left:${(o+at)*p}px;width:${Math.max(10,Math.min(dur,sd-at)*p)}px">🎙 ${esc(s.voice.name)}</div>`);}});
+  $('#trkV').innerHTML=vs.join('');$('#trkC').innerHTML=cs.join('');$('#trkA').innerHTML=as.join('');setPH();}
+let curVoice=-1;
+(function(){const tli=$('#tli'),tlw=$('#tlw');let drag=null;const X=e=>{const r=tli.getBoundingClientRect();return (e.clientX-r.left)/PPS();};
+tli.addEventListener('pointerdown',e=>{const x=X(e);const blk=e.target.closest('.blk');const h=e.target.classList.contains('h')?(e.target.classList.contains('l')?'l':'r'):'';
+  if(!blk||blk.classList.contains('o')){drag={type:'seek'};seekTo(x);}
+  else{const t=blk.dataset.t,i=+blk.dataset.i,ci=+blk.dataset.ci;const s=P.scenes[i];curVoice=-1;
+    if(t==='v'){curScene=i;curCap=null;drag=h?{type:'v'+h,i,x0:x,s0:+s.start,e0:+s.end}:{type:'vmove',i,x0:x,moved:false};}
+    else if(t==='c'){const c=s.caps[ci];curScene=i;curCap=[i,ci];drag={type:'c'+(h||'move'),i,ci,x0:x,s0:+c.s,e0:+c.e};}
+    else if(t==='a'&&s.voice){curScene=i;curCap=null;curVoice=i;drag={type:'amove',i,x0:x,a0:+s.voice.at||0};}
+    renderScenes();}
+  if(drag){tlw.classList.add('drag');try{tli.setPointerCapture(e.pointerId);}catch(_){}}});
+tli.addEventListener('pointermove',e=>{if(!drag)return;const x=X(e);if(drag.type==='seek'){seekTo(x);return;}const d=+(x-drag.x0).toFixed(1);const s=P.scenes[drag.i];const sd=sceneDur(s);
+  if(drag.type==='vmove'){if(Math.abs(d)>0.2)drag.moved=true;const offs=sceneOffsets();let j=offs.findIndex((o,k)=>x<o+sceneDur(P.scenes[k]));if(j<0)j=P.scenes.length-1;if(drag.moved&&j!==drag.i){snap();const [m]=P.scenes.splice(drag.i,1);P.scenes.splice(j,0,m);drag.i=j;curScene=j;renderTL();}return;}
+  if(!d&&!drag.snapped)return;if(!drag.snapped){snap();drag.snapped=true;}
+  if(drag.type==='vl'){const ns=Math.max(0,Math.min(drag.e0-0.3,+(drag.s0+d).toFixed(1)));const sh=ns-s.start;if(sh){s.start=ns;s.caps.forEach(c=>{c.s=Math.max(0,+(c.s-sh).toFixed(1));c.e=Math.max(0,+(c.e-sh).toFixed(1));});if(s.voice)s.voice.at=Math.max(0,+((+s.voice.at||0)-sh).toFixed(1));}}
+  else if(drag.type==='vr'){const cd=P.clips.find(c=>c.id===s.clip)?.dur||999;s.end=Math.min(cd,Math.max(drag.s0+0.3,+(drag.e0+d).toFixed(1)));}
+  else if(drag.type==='cmove'){const c=s.caps[drag.ci];const len=+(drag.e0-drag.s0).toFixed(1);c.s=Math.max(0,Math.min(+(sd-len).toFixed(1),+(drag.s0+d).toFixed(1)));c.e=+(c.s+len).toFixed(1);}
+  else if(drag.type==='cl'){const c=s.caps[drag.ci];c.s=Math.max(0,Math.min(drag.e0-0.3,+(drag.s0+d).toFixed(1)));}
+  else if(drag.type==='cr'){const c=s.caps[drag.ci];c.e=Math.min(+sd.toFixed(1),Math.max(drag.s0+0.3,+(drag.e0+d).toFixed(1)));}
+  else if(drag.type==='amove'){s.voice.at=Math.max(0,Math.min(+(sd-0.1).toFixed(1),+(drag.a0+d).toFixed(1)));}
+  renderTL();refreshTotal();if(drag.type!=='amove')drawFrame(cur);});
+const up=e=>{if(!drag)return;const offs=sceneOffsets();const s=P.scenes[drag.i];
+  if(drag.type==='vmove'&&!drag.moved)seekTo(offs[drag.i]);else if(drag.type==='cmove'&&!drag.snapped)seekTo(offs[drag.i]+ +s.caps[drag.ci].s);else if(drag.type==='amove'&&!drag.snapped)seekTo(offs[drag.i]+(+s.voice.at||0));
+  if(drag.type!=='seek'){renderScenes();drawAt(cur);autosave();}drag=null;tlw.classList.remove('drag');};
+tli.addEventListener('pointerup',up);tli.addEventListener('pointercancel',up);})();
+function renderScenes(){const i=curScene;const s=P.scenes[i];$('#scenes').innerHTML=!s?'':`<div class="scene on" data-i="${i}">
+  <div class="hd"><b>장면 ${i+1}</b><select data-k="clip">${P.clips.map(c=>`<option value="${c.id}"${c.id===s.clip?' selected':''}>${c.id} (${c.dur}초)</option>`).join('')||`<option>${s.clip}</option>`}</select><span style="flex:1"></span><button class="btn xs" data-act="up">↑ 앞으로</button><button class="btn xs" data-act="down">↓ 뒤로</button><button class="btn xs danger" data-act="del">장면 삭제</button></div>
+  <div class="io"><div><label>원본에서 시작(초)</label><div class="f2"><input type="number" step="0.1" min="0" value="${s.start}" data-k="start"><button class="btn xs" data-act="setStart">지금</button></div></div><div><label>원본에서 끝(초)</label><div class="f2"><input type="number" step="0.1" min="0" value="${s.end}" data-k="end"><button class="btn xs" data-act="setEnd">지금</button></div></div></div>
+  <div class="io"><div class="face">얼굴 위치 (위 ← → 아래) · ${sceneDur(s).toFixed(1)}초<input type="range" min="0" max="1" step="0.01" value="${s.yoff}" data-k="yoff"></div>
+  <div class="face">원본 소리 ${Math.round((s.vol??(s.audio?1:0))*100)}%<input type="range" min="0" max="1" step="0.05" value="${s.vol??(s.audio?1:0)}" data-k="vol"></div></div>
+  ${s.voice?`<div class="ctrl" style="margin-top:6px;align-items:center"><span class="tag" style="background:#BFEFD2;color:#14532D">🎙</span><span style="font-size:12px;color:var(--sub);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.voice.name)}${voices[s.voice.id]?'':' (다시 넣기)'}</span><label style="font-size:11px;color:var(--muted)">시작 <input type="number" step="0.1" min="0" value="${s.voice.at||0}" data-k="voiceAt" style="width:62px;padding:5px 6px;font-size:12px;display:inline-block">초</label><button class="btn xs" data-act="voiceNow" title="음성 시작=지금">지금</button><label style="font-size:11px;color:var(--muted)">소리 <input type="number" step="10" min="0" max="200" value="${Math.round((s.voice.vol??1)*100)}" data-k="voiceVol" style="width:56px;padding:5px 6px;font-size:12px;display:inline-block">%</label><label class="btn xs">바꾸기<input type="file" data-act="voice" accept="audio/*,.m4a,.mp3,.wav,.aac"></label><button class="btn xs" data-act="voiceDel">✕</button></div>`:''}
+  <div class="caps">${s.caps.map((c,ci)=>`<div class="cap ${curCap&&curCap[0]===i&&curCap[1]===ci?'cur':''}" data-ci="${ci}"><input type="number" step="0.1" min="0" value="${c.s}" data-ck="s"><input type="number" step="0.1" min="0" value="${c.e}" data-ck="e"><select data-ck="who">${whoOptions(c.who)}</select><input type="text" value="${esc(c.text)}" data-ck="text"><div class="ops"><button data-act="capIn" title="시작=지금">[</button><button data-act="capOut" title="끝=지금">]</button><button data-act="delCap">✕</button></div></div>`).join('')}</div></div>`;refreshTotal();renderTL();}
+$('#addCapBtn').onclick=()=>{const {si,local}=locate(cur);if(si<0){toast('장면이 있어야 자막을 넣어');return;}snap();const s=P.scenes[si];const st=+local.toFixed(1);s.caps.push({s:st,e:Math.min(+sceneDur(s).toFixed(1),+(st+1).toFixed(1)),who:'n',text:''});curScene=si;curCap=[si,s.caps.length-1];renderScenes();autosave();const inp=$$('#scenes .cap input[type=text]').pop();if(inp)inp.focus();};
+$('#voiceFile').onchange=e=>{const f=e.target.files[0];const {si}=locate(cur);if(f&&si>=0)attachVoice(si,f);else if(f)toast('장면이 있어야 음성을 붙여');e.target.value='';};
 $('#scenes').addEventListener('input',e=>{const sc=e.target.closest('.scene');if(!sc)return;if(!e.target._snapped){snap();e.target._snapped=true;setTimeout(()=>e.target._snapped=false,800);}const s=P.scenes[+sc.dataset.i];const k=e.target.dataset.k,ck=e.target.dataset.ck;
   if(k){if(k==='vol'){s.vol=+e.target.value;s.audio=s.vol>0;e.target.previousSibling.textContent=`원본 소리 ${Math.round(s.vol*100)}%`;}else if(k==='clip')s.clip=e.target.value;else if(k==='voiceAt'){if(s.voice)s.voice.at=+e.target.value;}else if(k==='voiceVol'){if(s.voice)s.voice.vol=+e.target.value/100;}else s[k]=+e.target.value;refreshTotal();renderTL();drawAt(cur);}
   if(ck){const c=s.caps[+e.target.closest('.cap').dataset.ci];c[ck]=(ck==='s'||ck==='e')?+e.target.value:e.target.value;renderTL();drawAt(cur);}autosave();});
@@ -322,21 +356,21 @@ function drawCaption(c,sp){ctx.save();ctx.textAlign='center';ctx.textBaseline='m
   if(c.who==='n'){ctx.font=fitFont(sp.narr.font,c.text,P.tpl==='white'?980:900);ctx.lineWidth=sp.narr.stroke*2;ctx.strokeStyle=P.tpl==='white'?sp.narr.color:'#000';ctx.fillStyle=sp.narr.color;drawTextLS(c.text,W/2,sp.narr.y,sp.narr.ls||0);}
   else if(c.who!=='m'){ctx.font=fitFont(sp.dog.font,c.text,900);ctx.lineWidth=sp.dog.stroke*2;ctx.strokeStyle='#000';ctx.fillStyle=(sp.colors&&sp.colors[c.who])||sp.dog.color||'#fff';ctx.strokeText(c.text,W/2,sp.dog.y);ctx.fillText(c.text,W/2,sp.dog.y);}
   else{ctx.font=fitFont(sp.mind.font,c.text,860);const tw=ctx.measureText(c.text).width,th=+ctx.font.match(/^(\d+)px/)[1];const bw=tw+sp.mind.padX*2,bh=th+sp.mind.padY*2;ctx.fillStyle='#000';ctx.fillRect(W/2-bw/2,sp.mind.y-bh/2,bw,bh);ctx.lineWidth=2;ctx.strokeStyle=sp.mind.color;ctx.fillStyle=sp.mind.color;ctx.strokeText(c.text,W/2,sp.mind.y+2);ctx.fillText(c.text,W/2,sp.mind.y+2);}ctx.restore();}
-async function drawAt(t){await ready;cur=Math.min(Math.max(0,t),Math.max(0,total()));const {si,local}=locate(cur);if(si!==curScene){curScene=si;$$('.scene').forEach((d,i)=>d.classList.toggle('on',i===si));$$('.blk').forEach(b=>b.classList.toggle('on',+b.dataset.i===si));}
+async function drawAt(t){await ready;cur=Math.min(Math.max(0,t),Math.max(0,total()));const {si,local}=locate(cur);if(si!==curScene){curScene=si;curCap=null;curVoice=-1;renderScenes();}
   const s=P.scenes[si];const m=s&&media[s.clip];if(m&&!playing){const v=m.video;const want=+s.start+local;if(Math.abs(v.currentTime-want)>0.03){v.currentTime=want;await new Promise(r=>{const h=()=>{v.removeEventListener('seeked',h);r();};v.addEventListener('seeked',h);setTimeout(r,400);});}}
-  drawFrame(cur);$('#ph').style.left=(cur/(total()||1)*100)+'%';refreshTotal();}
+  drawFrame(cur);setPH();refreshTotal();}
 function seekTo(t){if(playing)stop();drawAt(t);}
 $('#jb').onclick=()=>seekTo(cur-0.5);$('#jf').onclick=()=>seekTo(cur+0.5);$('#jb1').onclick=()=>seekTo(cur-0.1);$('#jf1').onclick=()=>seekTo(cur+0.1);
 function ensureAudio(){if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)();streamDest=audioCtx.createMediaStreamDestination();}Object.keys(voices).forEach(ensureVoiceAudio);P.clips.forEach(c=>{const m=media[c.id];if(!m||m.gain)return;try{const src=audioCtx.createMediaElementSource(m.video);const g=audioCtx.createGain();g.gain.value=0;src.connect(g);g.connect(audioCtx.destination);g.connect(streamDest);m.gain=g;}catch(e){}});}
 function ensureVoiceAudio(id){const v=voices[id];if(!v||v.gain||!audioCtx)return;try{const src=audioCtx.createMediaElementSource(v.audio);const g=audioCtx.createGain();g.gain.value=1;src.connect(g);g.connect(audioCtx.destination);g.connect(streamDest);v.gain=g;}catch(e){}}
-function attachVoice(i,f){const s=P.scenes[i];if(!s)return;snap();const id=(s.voice&&s.voice.id)||('a'+Date.now().toString(36));const url=URL.createObjectURL(f);const audio=new Audio(url);audio.preload='auto';voices[id]={audio,url,name:f.name};s.voice={id,name:f.name,at:s.voice?.at||0,vol:s.voice?.vol??1};if(audioCtx)ensureVoiceAudio(id);renderScenes();autosave();toast('음성 붙였어. 「지금」으로 시작 맞춰');}
+function attachVoice(i,f){const s=P.scenes[i];if(!s)return;snap();const id=(s.voice&&s.voice.id)||('a'+Date.now().toString(36));const url=URL.createObjectURL(f);const audio=new Audio(url);audio.preload='auto';voices[id]={audio,url,name:f.name,dur:0};audio.addEventListener('loadedmetadata',()=>{voices[id].dur=audio.duration;renderTL();});s.voice={id,name:f.name,at:s.voice?.at||0,vol:s.voice?.vol??1};if(audioCtx)ensureVoiceAudio(id);renderScenes();autosave();toast('음성 붙였어. 「지금」으로 시작 맞춰');}
 function stopVoices(){Object.values(voices).forEach(v=>{v.audio.pause();});}
 function setSceneAudio(s){P.clips.forEach(c=>{const m=media[c.id];if(m&&m.gain)m.gain.gain.value=(s&&c.id===s.clip)?(s.vol??(s.audio?1:0)):0;});}
 async function play(onDone){if(!P.scenes.length)return;ensureAudio();if(audioCtx.state==='suspended')await audioCtx.resume();playing=true;$('#pp').textContent='⏸ 정지';let startAbs=cur>=total()-0.05?0:cur;let {si,local}=locate(startAbs);
   const run=async()=>{if(!playing)return;if(si>=P.scenes.length){stop();drawAt(total());onDone&&onDone();return;}const s=P.scenes[si],m=media[s.clip];if(!m){si++;local=0;return run();}const v=m.video,offs=sceneOffsets();v.currentTime=+s.start+local;setSceneAudio(s);await new Promise(r=>{const h=()=>{v.removeEventListener('seeked',h);r();};v.addEventListener('seeked',h);setTimeout(r,500);});try{await v.play();}catch(e){}
-    curScene=si;$$('.scene').forEach((d,i)=>d.classList.toggle('on',i===si));$$('.blk').forEach(b=>b.classList.toggle('on',+b.dataset.i===si));
+    if(curScene!==si){curScene=si;curCap=null;curVoice=-1;renderScenes();}
     const vc=s.voice&&voices[s.voice.id];let vcOn=false;if(vc){vc.audio.pause();if(vc.gain)vc.gain.gain.value=s.voice.vol??1;}
-    await new Promise(res=>{const tick=()=>{if(!playing){v.pause();if(vc)vc.audio.pause();res();return;}const vt=v.currentTime;if(vt>=+s.end-0.02||v.ended){v.pause();if(vc)vc.audio.pause();res();return;}const lt=vt-+s.start;if(vc&&!vcOn&&lt>=(+s.voice.at||0)-0.03){vcOn=true;try{vc.audio.currentTime=Math.max(0,lt-(+s.voice.at||0));vc.audio.play().catch(()=>{});}catch(e){}}cur=offs[si]+(vt-+s.start);drawFrame(cur);$('#ph').style.left=(cur/(total()||1)*100)+'%';refreshTotal();rafId=requestAnimationFrame(tick);};tick();});si++;local=0;run();};run();}
+    await new Promise(res=>{const tick=()=>{if(!playing){v.pause();if(vc)vc.audio.pause();res();return;}const vt=v.currentTime;if(vt>=+s.end-0.02||v.ended){v.pause();if(vc)vc.audio.pause();res();return;}const lt=vt-+s.start;if(vc&&!vcOn&&lt>=(+s.voice.at||0)-0.03){vcOn=true;try{vc.audio.currentTime=Math.max(0,lt-(+s.voice.at||0));vc.audio.play().catch(()=>{});}catch(e){}}cur=offs[si]+(vt-+s.start);drawFrame(cur);setPH();refreshTotal();rafId=requestAnimationFrame(tick);};tick();});si++;local=0;run();};run();}
 function stop(){playing=false;cancelAnimationFrame(rafId);stopVoices();P.clips.forEach(c=>media[c.id]&&media[c.id].video.pause());setSceneAudio(null);$('#pp').textContent='▶ 재생';}
 $('#pp').onclick=()=>playing?stop():play();
 
@@ -413,22 +447,27 @@ $('#sendEdit').onclick=sendEdit;$('#editPrompt').addEventListener('keydown',e=>{
 
 
 // ===== 최종 =====
-let finalURL='',finalExt='mp4';
-$('#dlFinal').onclick=()=>{if(!finalURL)return;const a=document.createElement('a');a.href=finalURL;a.download=((P.title||'쇼츠').replace(/[\\/:*?"<>|]/g,'').replace(/[. ]+$/,'')||'쇼츠')+'.'+finalExt;a.click();};
+const VERS=[];let verSel=-1;
 const ytid=u=>{const m=(u||'').match(/(?:shorts\/|v=|youtu\.be\/)([\w-]{11})/);return m?m[1]:null;};
 function renderFinalCmp(){const who=WHO();const mine=P.scenes.flatMap(s=>s.caps.map(c=>`${who[c.who]||c.who} : ${c.text}`)).join('\n');const top=P.ana.top3.slice(0,3);
   const me=`<div class="b me"><img id="meThumb" alt=""><b>우리 · ${esc(P.title||'(제목 없음)')}</b><div class="v">${P.scenes.length}장면 · ${total().toFixed(1)}초 · 전환 없음</div><div class="ln">${esc(mine)}</div></div>`;
   const tops=top.map(t=>{const id=ytid(t.url);const img=id?`<a href="${esc(t.url)}" target="_blank"><img src="https://i.ytimg.com/vi/${id}/oardefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'" alt=""></a>`:'';return `<div class="b">${img}<b>${t.rank}위 · ${esc(t.title)}</b><div class="v">${esc(t.views||'조회수 확인 못 함')}</div><div class="ln">${esc(t.lines)}</div>${t.edit?`<div class="v" style="margin-top:6px">편집: ${esc(t.edit)}</div>`:''}</div>`;}).join('');
-  $('#finalCmp').innerHTML=me+(tops||'<div class="b"><div class="ln">② 분석에 상위 3개가 있으면 여기 나란히 떠</div></div>');const mt=$('#thumbs img');if(mt)$('#meThumb').src=mt.src;}
+  $('#finalCmp').innerHTML=me+(tops||'<div class="b"><div class="ln">② 분석에 상위 3개가 있으면 여기 나란히 떠</div></div>');const v=VERS[verSel];if(v&&v.thumbs[0])$('#meThumb').src=v.thumbs[0].url;}
 function pickMime(){return['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1','video/mp4','video/webm;codecs=h264','video/webm;codecs=vp9,opus','video/webm'].find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';}
 $('#btnRender').onclick=async()=>{if(!P.scenes.length){toast('장면이 없어');return;}if(P.scenes.some(s=>!media[s.clip])){toast('원본 영상을 ① 자료에서 넣어 줘');return;}if(!window.MediaRecorder){toast('이 브라우저는 저장이 안 돼');return;}
   stop();ensureAudio();await drawAt(0);const mime=pickMime(),ext=mime.startsWith('video/mp4')?'mp4':'webm';const stream=cv.captureStream(FPS);streamDest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
   const rec=new MediaRecorder(stream,{mimeType:mime||undefined,videoBitsPerSecond:12_000_000});const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   const btn=$('#btnRender');btn.disabled=true;$('#editBox').classList.add('busy');$('#prog').style.display='block';const T=total();const pr=setInterval(()=>{$('#prog i').style.width=Math.min(100,cur/T*100)+'%';$('#status').textContent=`만드는 중 ${fmt(cur)} / ${fmt(T)} — 영상 길이만큼 걸려. 탭을 그대로 둬.`;},200);
-  rec.onstop=async()=>{clearInterval(pr);$('#prog').style.display='none';btn.disabled=false;$('#editBox').classList.remove('busy');$('#status').textContent=`완성 ${fmt(T)}`+(ext==='webm'?' · 크롬은 webm(유튜브 OK), mp4는 사파리':'');const blob=new Blob(chunks,{type:mime||'video/webm'});if(finalURL)URL.revokeObjectURL(finalURL);finalURL=URL.createObjectURL(blob);finalExt=ext;$('#finalVideo').src=finalURL;$('#finalCard').style.display='';await buildThumbs();renderFinalCmp();$('#uploadText').textContent=uploadText();await drawAt(0);$('#finalCard').scrollIntoView({behavior:'smooth'});toast('최종 영상 완성');};
+  rec.onstop=async()=>{clearInterval(pr);$('#prog').style.display='none';btn.disabled=false;$('#editBox').classList.remove('busy');$('#status').textContent=`완성 ${fmt(T)}`+(ext==='webm'?' · 크롬은 webm(유튜브 OK), mp4는 사파리':'');const blob=new Blob(chunks,{type:mime||'video/webm'});const url=URL.createObjectURL(blob);const thumbs=await buildThumbs();VERS.push({n:VERS.length+1,url,ext,thumbs,title:P.title,dur:fmt(T),at:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}),scenes:JSON.parse(JSON.stringify(P.scenes))});verSel=VERS.length-1;renderVers();$('#finalCard').style.display='';renderFinalCmp();$('#uploadText').textContent=uploadText();await drawAt(0);toast(`v${VERS.length} 완성 — 오른쪽에서 보고 저장`);};
   rec.start(250);cur=0;await play(()=>setTimeout(()=>rec.stop(),300));};
-async function buildThumbs(){const el=$('#thumbs');if(!P.scenes.length||P.scenes.some(s=>!media[s.clip])){el.innerHTML='<div class="lead" style="margin:0">영상이 있어야 썸네일을 뽑아</div>';return;}const offs=sceneOffsets();const picks=[];P.scenes.forEach((s,i)=>s.caps.forEach(c=>{if(c.who!=='n')picks.push({t:offs[i]+(+c.s+ +c.e)/2,label:c.text});}));picks.push({t:total()-0.3,label:'마지막'});const sel=[picks[0],picks[Math.floor(picks.length/2)],picks[picks.length-1]].filter(Boolean);el.innerHTML='';
-  for(const [i,p] of sel.entries()){await drawAt(p.t);const url=cv.toDataURL('image/jpeg',0.85);const d=document.createElement('div');d.innerHTML=`<img src="${url}"><span>${'ABC'[i]} · ${esc(p.label)}</span>`;d.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=`${P.title||'쇼츠'}_썸네일_${'ABC'[i]}.jpg`;a.click();$$('.thumbs div').forEach(x=>x.classList.remove('on'));d.classList.add('on');};el.appendChild(d);}const mt=$('#thumbs img');if(mt&&$('#meThumb'))$('#meThumb').src=mt.src;}
+async function buildThumbs(){if(!P.scenes.length||P.scenes.some(s=>!media[s.clip]))return [];const offs=sceneOffsets();const picks=[];P.scenes.forEach((s,i)=>s.caps.forEach(c=>{if(c.who!=='n')picks.push({t:offs[i]+(+c.s+ +c.e)/2,label:c.text});}));picks.push({t:total()-0.3,label:'마지막'});const sel=[picks[0],picks[Math.floor(picks.length/2)],picks[picks.length-1]].filter(Boolean);const out=[];
+  for(const p of sel){await drawAt(p.t);out.push({url:cv.toDataURL('image/jpeg',0.85),label:p.label});}return out;}
+function renderVers(){$('#vtabs').innerHTML=VERS.map((v,i)=>`<div class="vt ${i===verSel?'on':''}" data-i="${i}">v${v.n}</div>`).join('');const v=VERS[verSel];
+  $('#verView').innerHTML=v?`<video src="${v.url}" controls playsinline></video><div class="ctrl"><button class="btn primary sm" data-act="dl">v${v.n} 다운로드</button><button class="btn sm ghost" data-act="restore">이 버전 대본으로</button></div><div class="lead" style="margin:4px 0 0;font-size:12px">${esc(v.title)} · ${v.dur} · ${esc(v.at)}</div><div class="thumbs">${v.thumbs.map((t,k)=>`<div data-k="${k}"><img src="${t.url}"><span>${'ABC'[k]} · ${esc(t.label)}</span></div>`).join('')}</div><div class="lead" style="margin:4px 0 0;font-size:12px">썸네일 누르면 저장</div>`:'<div class="lead" style="margin:0;font-size:13px">「편집 완료」 누르면 여기에 v1이 떠. 고치고 또 누르면 v2, v3…</div>';}
+$('#verCard').addEventListener('click',e=>{const t=e.target.closest('.vt');if(t){verSel=+t.dataset.i;renderVers();renderFinalCmp();return;}const v=VERS[verSel];if(!v)return;const act=e.target.dataset.act;const th=e.target.closest('.thumbs div');
+  if(act==='dl'){const a=document.createElement('a');a.href=v.url;a.download=((v.title||'쇼츠').replace(/[\\/:*?"<>|]/g,'').replace(/[. ]+$/,'')||'쇼츠')+`_v${v.n}.`+v.ext;a.click();}
+  else if(act==='restore'){replaceScenes(v.scenes);if(v.title)P.title=v.title;curScene=-1;curCap=null;renderScenes();drawAt(0);autosave();toast(`v${v.n} 대본으로 되돌렸어`);}
+  else if(th){const k=+th.dataset.k;const a=document.createElement('a');a.href=v.thumbs[k].url;a.download=`${(v.title||'쇼츠').replace(/[. ]+$/,'')}_v${v.n}_썸네일_${'ABC'[k]}.jpg`;a.click();}});
 function uploadText(){const who=WHO();const lines=[P.title,''].concat(...P.scenes.map(s=>s.caps.map(c=>`${who[c.who]||c.who} : ${c.text}`)));lines.push('',`원본 영상 : ${P.src||'-'}`,P.upload.tags||(P.tpl==='ja'?'#面白い動画 #海外面白動画':'#웃긴영상 #강아지'));return lines.join('\n');}
 $('#copyUpload').onclick=()=>copyText(uploadText(),'업로드 글 복사됨');$('#copyTitle').onclick=()=>copyText(P.title||'','제목 복사됨');$('#copySrc').onclick=()=>copyText(`원본 영상 : ${P.src||'-'}`,'출처 복사됨');$('#copyTags').onclick=()=>copyText(P.upload.tags||(P.tpl==='ja'?'#面白い動画 #海外面白動画':'#웃긴영상 #강아지'),'해시태그 복사됨');
 function finalText(){const who=WHO();const lines=[`[쇼츠 확정본] ${new Date().toISOString().slice(0,10)}`,`템플릿: ${({white:'한국어 화이트',black:'한국어 블랙',ja:'일본어'})[P.tpl]}`,`제목: ${P.title}`,`원본: ${P.clips.map(c=>`${c.id}=${c.name}(${c.dur}초)`).join(', ')}`,`출처: ${P.src||'-'}`];P.scenes.forEach((s,i)=>{lines.push(`장면${i+1} ${s.clip} ${s.start}~${s.end} 얼굴 ${(+s.yoff).toFixed(2)}${s.audio?' 소리':''}`);s.caps.forEach(c=>lines.push(`  ${c.s}~${c.e} ${who[c.who]||c.who} : ${c.text}`));});lines.push('','이 확정본을 쇼츠 스킬에 예시로 저장하고, 다음에도 해당하는 규칙은 12절에 적어 줘.');return lines.join('\n');}
