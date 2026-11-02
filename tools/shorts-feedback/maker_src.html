@@ -79,6 +79,7 @@ pre.out{background:#F9FAFB;border-radius:14px;padding:12px;font-size:13px;white-
 .zoom{display:flex;align-items:center;gap:4px;font-size:12px}.zoom input{width:90px}
 .vtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.vt{padding:6px 12px;border-radius:999px;background:#F2F4F6;font-size:13px;font-weight:700;cursor:pointer;color:var(--sub)}.vt.on{background:var(--blue);color:#fff}
 #verView video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#000;display:block}
+.keys{margin-top:10px;background:#F9FAFB;border-radius:14px;padding:12px 14px}.keys .tip{font-size:13px;color:var(--sub);font-weight:600;margin-bottom:8px}.keys .row{display:flex;flex-wrap:wrap;gap:6px 14px}.keys .row span{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--muted);white-space:nowrap}.keys kbd{font:inherit;font-size:11px;font-weight:700;color:var(--txt);background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:2px 7px;min-width:14px;text-align:center}
 .kbd{font-size:11px;color:var(--muted);margin-top:6px}.kbd b{display:inline-block;border:1px solid var(--line);border-radius:5px;padding:0 5px;background:#fff;font-weight:700;color:var(--sub)}
 body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 </style>
@@ -147,7 +148,8 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
       <div class="ctrl" style="justify-content:center"><button class="btn sm" id="undo" title="되돌리기 (⌘Z)">↶</button><button class="btn sm" id="redo" title="다시">↷</button><button class="btn sm" id="splitHere">✂ 자르기</button><button class="btn sm" id="setIn">[ 시작=지금</button><button class="btn sm" id="setOut">] 끝=지금</button><button class="btn sm" id="dupCur">복제</button><button class="btn sm danger" id="delCur">삭제</button><button class="btn sm" id="addCapBtn">+ 자막</button><label class="btn sm">🎙 음성<input type="file" id="voiceFile" accept="audio/*,.m4a,.mp3,.wav,.aac"></label><label class="zoom">🔍<input type="range" id="zoom" min="0" max="200" step="5" value="0"></label></div>
       <div class="tlx"><div class="tll"><div class="r"></div><div>영상</div><div>자막</div><div>음성</div></div>
         <div class="tlw" id="tlw"><div class="tli" id="tli"><div class="ruler" id="ruler"></div><div class="trk" id="trkV"></div><div class="trk" id="trkC"></div><div class="trk" id="trkA"></div><div class="ph" id="ph"></div></div></div></div>
-      <div class="kbd">블록 끌면 이동 · 양끝 끌면 길이 · 자막·음성 블록을 끌어서 영상에 싱크 · <b>Space</b> 재생 · <b>←</b><b>→</b> 0.1초 · <b>I</b>/<b>O</b> 장면 시작/끝=지금 · <b>[</b>/<b>]</b> 자막 시작/끝=지금 · <b>S</b> 자르기 · <b>Delete</b> 삭제 · <b>⌘Z</b> 되돌리기</div>
+      <div class="keys"><div class="tip">블록을 끌면 이동, 양끝을 끌면 길이. 자막·음성 블록을 끌어서 영상에 맞춰.</div>
+        <div class="row"><span><kbd>Space</kbd>재생</span><span><kbd>←</kbd><kbd>→</kbd>0.1초</span><span><kbd>I</kbd><kbd>O</kbd>장면 시작·끝</span><span><kbd>[</kbd><kbd>]</kbd>자막 시작·끝</span><span><kbd>S</kbd>자르기</span><span><kbd>Delete</kbd>삭제</span><span><kbd>⌘Z</kbd>되돌리기</span></div></div>
       <div id="scenes"></div>
       <div class="chat" id="chat"></div>
       <div class="memo" id="editBox"><input type="text" id="editPrompt" placeholder="클로드에게 바로 수정 요청 · 예: 덥석 0.3초 더 길게, 마지막 해설 짧게 (Enter)"><button class="btn primary sm" id="sendEdit">보내기</button></div>
