@@ -38,18 +38,18 @@ def text_png(path, text, font_path, size, color, stroke=10, spacing=0, skew=0.0)
         img = img.crop(img.getbbox())
     img.save(path); return img.size
 
-def mind_png(path, text):
+def mind_png(path, text, color="#FF2006"):
     font = ImageFont.truetype(MIND_FONT, 64)
     d0 = ImageDraw.Draw(Image.new("RGBA",(10,10)))
     x0,y0,x1,y1 = d0.textbbox((0,0), text, font=font); tw,th = x1-x0, y1-y0
     px,py = 30,24
     img = Image.new("RGBA", (tw+px*2, th+py*2), (0,0,0,255)); d = ImageDraw.Draw(img)
-    d.text((px-x0, py-y0), text, font=font, fill="#FFE006")
+    d.text((px-x0, py-y0), text, font=font, fill=color, stroke_width=1, stroke_fill=color)
     img.save(path); return img.size
 
 # 제목 PNG (위 검정 띠 가운데, 2줄, 흰+노랑)
 def title_png(path):
-    tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 2, spacing=0, skew=0.22)
+    tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 1, spacing=0, skew=0.22)
     t = Image.open(path+".tmp.png")
     img = Image.new("RGBA", (W, TOP), (0,0,0,0)); img.paste(t, ((W-tw)//2, 455-th//2), t); img.save(path)
 
@@ -82,7 +82,7 @@ for i,(src,s,e,cy,keep_audio,caps) in enumerate(SCENES):
         p=f"{OUT}/png/c{i}_{j}.png"
         if who=="n": tw,th = text_png(p, txt, NAR_FONT, 72, "#111111", 2, spacing=-3); y=NAR_Y
         elif who=="m": tw,th = mind_png(p, txt); y=MIND_Y
-        else:        tw,th = text_png(p, txt, DOG_FONT, 74, WHITE, 8);  y=DOG_Y
+        else:        tw,th = text_png(p, txt, DOG_FONT, 74, WHITE, 10);  y=DOG_Y
         inputs += ["-i",p]
         fc += f";[{last}][{n}:v]overlay=(W-w)/2:{y - th//2}:enable='gte(t,{cs})*lt(t,{ce})'[v{n}]"
         last=f"v{n}"; n+=1
@@ -100,5 +100,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v16.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v17.mp4"],check=True)
 print("done")
