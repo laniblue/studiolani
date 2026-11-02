@@ -93,7 +93,8 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
     <div class="seg" id="langSeg"><div class="opt on" data-v="ko">한국어<small>강아지·고양이</small></div><div class="opt" data-v="ja">일본어<small>해외 웃긴 영상</small></div></div>
     <div id="tplWrap" style="margin-top:10px"><div class="seg" id="tplSeg"><div class="opt on" data-v="white">화이트<small>멍냥한입 · 음성 없음</small></div><div class="opt" data-v="black">블랙<small>검정 띠</small></div></div></div></div>
   <div class="card"><h3>발견한 쇼츠 링크 <span class="r">선택 · 여러 줄</span></h3><textarea id="refs" placeholder="https://youtube.com/shorts/…&#10;같은 원본을 쓴 다른 쇼츠 링크도 알면 같이"></textarea>
-    <label class="f">원본 출처 (알면)<input type="text" id="src" placeholder="틱톡 @petticszfw9"></label></div>
+    <label class="f">원본 출처 (알면)<input type="text" id="src" placeholder="틱톡 @petticszfw9"></label>
+    <label class="f">영상 내용 한 줄 <span style="font-weight:400;color:var(--muted)">(링크 없이 영상만 넣을 때 꼭)</span><input type="text" id="desc" placeholder="예: 시바견이 간식 달라고 눈나 코를 계속 핥음"></label></div>
   <div class="card"><h3>원본 영상 <span class="r">선택 · 만들 때는 필요</span></h3>
     <label class="drop"><b>여기를 눌러 영상 넣기</b>또는 끌어다 놓기 · 넣은 순서대로 v1, v2, v3…<input type="file" id="addClips" accept="video/*" multiple></label>
     <div class="list" id="clips" style="margin-top:8px"></div></div>
@@ -105,9 +106,8 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
     <label class="f">유튜브 API 키 <span style="font-weight:400;color:var(--muted)">(선택 · 같은 원본 대조 정확도 ↑ · 무료)</span><input type="password" id="ytKey" placeholder="AIza…" autocomplete="off"></label>
     <div class="lead" style="margin:8px 0 0;font-size:12px">분석 한 번에 보통 몇백 원~1천 원쯤(클로드 토큰 + 웹 검색). 키는 이 브라우저 안에만 저장되고 프로젝트 파일엔 안 들어가.</div></div></div>
   <div class="card"><h3>클로드 분석</h3>
-    <div class="how"><div class="n">1</div><div>클로드가 정답지대로 바로: 원본 찾기 → 유튜브 대조로 <b>같은 원본 쓴 쇼츠</b> → <b>카테고리 훅·내용 공식</b> → <b>상위 3개 제목·내용 비교</b> → 제목·내용 각색안</div></div>
-    <div class="how"><div class="n">2</div><div>끝나면 ② 분석·③ 각색이 자동으로 채워져 (1~3분)</div></div>
-    <div class="ctrl" style="margin-top:6px"><button class="btn primary" id="runAuto" style="flex:1">한 번에 끝까지 (분석 → 제목·대본 A안 → ④ 편집)</button><button class="btn" id="runAnalyze">분석만</button></div>
+    <div id="anaHow"></div>
+    <div class="ctrl" style="margin-top:6px"><button class="btn primary" id="runAuto" style="flex:1">한 번에 끝까지 (분석 → 제목·대본 A안 → ④ 편집)</button><button class="btn" id="runAnalyze">분석만 보기</button></div>
     <div class="prog" id="anaProg"><i></i></div><div class="lead" id="anaStatus" style="margin:8px 0 0;font-size:13px"></div>
     <button id="copyReq" style="display:none"></button></div>
 </section>
@@ -156,7 +156,7 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
       <div class="vtabs" id="vtabs"></div>
       <div id="verView"></div></div>
   </div>
-  <div class="card" id="finalCard" style="margin-top:12px;display:none"><h3>같은 원본 상위 3개 vs 우리 <span class="r">제목 · 내용 구조 · 편집</span></h3>
+  <div class="card" id="finalCard" style="margin-top:12px;display:none"><h3 id="finalCmpTitle">상위 3개 vs 우리 <span class="r">제목 · 내용 구조 · 편집</span></h3>
     <div class="fc" id="finalCmp"></div>
     <div class="ctrl" style="margin-top:12px"><button class="btn sm" id="copyTitle">제목 복사</button><button class="btn sm" id="copySrc">출처 복사</button><button class="btn sm" id="copyTags">해시태그 복사</button><button class="btn sm" id="copyUpload">업로드 글 전체 복사</button><button class="btn sm ghost" id="copyFinal">확정본 복사 → 스킬 저장</button></div>
     <pre class="out" id="uploadText" style="margin-top:8px"></pre></div>
@@ -180,7 +180,7 @@ function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clea
 async function copyText(txt,msg){try{await navigator.clipboard.writeText(txt);toast(msg||'복사됐어. 클로드 채팅에 붙여넣어');}catch(e){prompt('아래 글을 복사해',txt);}}
 const WHO_KO={n:'해설',d:'강아지',m:'속마음'},WHO_JA={n:'해설',d:'남자',d2:'남자2',f:'여자',em:'강조',m:'속마음'};
 const WHO_R={'해설':'n','강아지':'d','속마음':'m','사람':'d','고양이':'d','효과':'m','남자':'d','남자2':'d2','여자':'f','강조':'em','엄마':'f','아빠':'d','아들':'d2','딸':'f','ママ':'f','パパ':'d','息子':'d2','娘':'f'};
-let P={tpl:'white',title:'',titles:[],titleSel:-1,props:[],propSel:-1,clips:[],scenes:[],notes:[],refs:'',src:'',ana:{same:[],cat:'',top3:[]},upload:{tags:''},tab:1};
+let P={tpl:'white',title:'',titles:[],titleSel:-1,props:[],propSel:-1,clips:[],scenes:[],notes:[],refs:'',src:'',desc:'',ana:{same:[],cat:'',top3:[]},upload:{tags:''},tab:1};
 const media={},voices={};let tplImg=null,playing=false,cur=0,curScene=-1,curCap=null,rafId=0,audioCtx=null,streamDest=null;
 const WHO=()=>P.tpl==='ja'?WHO_JA:WHO_KO;
 const ready=(async()=>{await Promise.all(['66px "BMDoHyeon"','72px "NarrKo"','74px "Griun"','64px "HSHwalkong"','104px "MPlusR"'].map(f=>document.fonts.load(f,'가')));tplImg=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=TEMPLATE_PNG;});})();
@@ -194,7 +194,9 @@ $$('.tab').forEach(t=>t.onclick=()=>go(+t.dataset.t));
 function syncSeg(){$$('#langSeg .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===(P.tpl==='ja'?'ja':'ko')));$$('#tplSeg .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===P.tpl));$('#tplWrap').style.display=P.tpl==='ja'?'none':'';}
 $$('#langSeg .opt').forEach(o=>o.onclick=()=>{P.tpl=o.dataset.v==='ja'?'ja':'white';syncSeg();autosave();});
 $$('#tplSeg .opt').forEach(o=>o.onclick=()=>{P.tpl=o.dataset.v;syncSeg();autosave();});
-['refs','src'].forEach(id=>{$('#'+id).oninput=e=>{P[id]=e.target.value;autosave();};});
+['refs','src','desc'].forEach(id=>{$('#'+id).oninput=e=>{P[id]=e.target.value;autosave();setAnaLabels();};});
+function catMode(){return !P.refs.trim();}
+function setAnaLabels(){const c=catMode();$('#runAuto').textContent=c?'한 번에 끝까지 (카테고리 분석 → 3초 훅 제목·내용 → ④ 편집)':'한 번에 끝까지 (같은 원본 대조 → 제목·대본 A안 → ④ 편집)';$('#runAnalyze').textContent=c?'기획만 보기':'분석만 보기';$('#anaHow').innerHTML=c?'<div class="how"><div class="n">1</div><div>링크가 없으니 <b>큰 카테고리</b>(강아지·고양이·해외 웃긴 영상…)에서 터진 쇼츠를 유튜브로 훑어 <b>3초 훅 제목 공식·내용 전개 공식</b>을 뽑고</div></div><div class="how"><div class="n">2</div><div>네 영상 내용에 맞춰 <b>훅 제목 3개 · 내용(대본) 2~3안</b>을 써 줘. 끝나면 ②·③이 채워져 (1~3분)</div></div>':'<div class="how"><div class="n">1</div><div>클로드가 정답지대로 바로: 원본 찾기 → 유튜브 대조로 <b>같은 원본 쓴 쇼츠</b> → <b>카테고리 훅·내용 공식</b> → <b>상위 3개 제목·내용 비교</b> → 제목·내용 각색안</div></div><div class="how"><div class="n">2</div><div>끝나면 ② 분석·③ 각색이 자동으로 채워져 (1~3분)</div></div>';}
 function addClipFiles(files){[...files].filter(f=>f.type.startsWith('video/')||/\.(mp4|mov|m4v|webm)$/i.test(f.name)).forEach(f=>{let c=P.clips.find(x=>x.name===f.name&&!media[x.id]);if(!c){c={id:'v'+(P.clips.length+1),name:f.name,dur:0,w:0,h:0};P.clips.push(c);}
   const url=URL.createObjectURL(f);const video=document.createElement('video');video.src=url;video.preload='auto';video.playsInline=true;media[c.id]={video,url};
   video.addEventListener('loadedmetadata',()=>{c.dur=+video.duration.toFixed(2);c.w=video.videoWidth;c.h=video.videoHeight;renderClips();autosave();if(P.tab===4){renderScenes();drawAt(cur);}});});renderClips();}
@@ -203,7 +205,10 @@ $('#addClips').onchange=e=>{addClipFiles(e.target.files);e.target.value='';};$('
 document.addEventListener('drop',e=>{const fs=[...e.dataTransfer.files];const j=fs.find(x=>/\.json$/i.test(x.name));if(j)loadProjectFile(j);addClipFiles(fs);});
 function renderClips(){const h=P.clips.map(c=>`<div class="item"><span class="tag">${c.id}</span><span class="grow">${esc(c.name)}</span><span style="color:var(--muted)">${c.dur?c.dur+'초 · '+c.w+'×'+c.h:''}</span>${media[c.id]?'':'<span style="color:var(--red);font-weight:700">다시 넣기</span>'}</div>`).join('');$('#clips').innerHTML=h||'<div class="lead" style="margin:0">아직 없음</div>';$('#clipHint').textContent=P.clips.length?P.clips.map(c=>`${c.id}=${c.name}`).join(' · '):'원본 영상이 없어. ① 자료에서 넣어 줘';}
 function requestText(){const lang=P.tpl==='ja'?'일본어':'한국어',tpl=P.tpl==='ja'?'일본어 템플릿':(P.tpl==='white'?'한국어 화이트(동물·멍냥한입·음성 없음)':'한국어 블랙');
-  return [`[쇼츠 제작 요청]`,`언어: ${lang}`,`템플릿: ${tpl}`,`발견한 쇼츠 링크: ${P.refs.trim().split(/\n+/).filter(Boolean).join(', ')||'-'}`,`원본 출처: ${P.src||'-'}`,`원본 영상: ${P.clips.map(c=>`${c.id}=${c.name}(${c.dur}초)`).join(', ')||'(없음 — 링크로 찾아 줘)'}`,``,
+  if(catMode())return [`[쇼츠 제작 요청 · 카테고리 기획]`,`언어: ${lang}`,`템플릿: ${tpl}`,`발견한 쇼츠 링크: 없음 (원본 영상만 있음)`,`원본 출처: ${P.src||'-'}`,`영상 내용: ${P.desc||'(설명 없음 — 첨부 장면 이미지로 판단)'}`,`원본 영상: ${P.clips.map(c=>`${c.id}=${c.name}(${c.dur}초)`).join(', ')||'-'}`,``,
+  `링크가 없으니 같은 원본 대조는 건너뛰고: ① 이 영상이 속하는 큰 카테고리(예: 강아지 반응, 고양이 집사, 해외 웃긴 영상)를 정하고 ② 유튜브에서 그 카테고리 100만+ 쇼츠를 검색어를 바꿔 가며 20개 넘게 훑어 ③ 3초 훅 제목 공식(어떤 말로 시작하고 무엇을 숨기는지)과 내용 전개 공식(상황→반전 예고→대사→리액션→끝 펀치)을 뽑고 ④ 그중 이 영상 내용과 제일 가까운 상위 3개를 제목·줄마다 내용·편집으로 정리하고 ⑤ 그 결 그대로 3초 훅 제목 후보 3개(결말 숨김, 쉬운 말, 화이트는 한 줄 10자 안쪽) ⑥ 내용(대본) 후보 2~3안(해설 「~했는데/~했다네요」, 강아지 대사 반말, 속마음 *별표*, 한 화면 9자, 말줄임 「..」, 13~23초, 포인트 행동 중심, 안마다 상위 3개와 비교 한 줄). 장면은 원본 영상 v번호와 초를 실제 길이 안에서 쓰고, 한 원본 한 덩어리, 얼굴 가운데. 조회수는 검색으로 본 것만, 못 봤으면 「확인 못 함」. 마지막에 아래 형식 코드 블록 하나로:`,
+  `[같은 원본]`,`(없음)`,`[카테고리]`,`카테고리 이름 / 3초 훅 제목 공식 / 내용 전개 공식 몇 줄`,`[상위3]`,`1위 제목: …`,`조회수: …`,`링크: https://…`,`내용: 줄1 / 줄2 / 줄3`,`편집: …`,`2위 …`,`3위 …`,`[제목 후보]`,`A: … (근거: 1위 결)`,`B: …`,`C: …`,`[대본 후보]`,`안A 제목: …`,`장면1 v1 0~5 얼굴 0.35`,`  0~1.2 해설 : …`,`  2.8~4.8 강아지 : …`,`비교: 1위=… / 우리=…`,`안B 제목: …`,`장면1 …`,`[업로드]`,`출처: …`,`해시태그: …`].join('\n');
+  return [`[쇼츠 제작 요청]`,`언어: ${lang}`,`템플릿: ${tpl}`,`발견한 쇼츠 링크: ${P.refs.trim().split(/\n+/).filter(Boolean).join(', ')||'-'}`,`원본 출처: ${P.src||'-'}`,`영상 내용: ${P.desc||'-'}`,`원본 영상: ${P.clips.map(c=>`${c.id}=${c.name}(${c.dur}초)`).join(', ')||'(없음 — 링크로 찾아 줘)'}`,``,
   `쇼츠 스킬 정답지(shorts-maker/references/쇼츠-정답지.md + white-template-ko-animal.md)를 끝까지 읽고 그대로: ① 원본 직접 찾기(1080 미만이면 알림) ② 유튜브 대조로 같은 원본 쓴 쇼츠 전부(검색어 30개·썸네일 대조·재업로드 제외, 언어별 표, 100만+ 표시) ③ 큰 주제(카테고리) 100만+ 20개 훅·내용 공식 ④ 같은 원본 상위 3개 제목·줄마다 내용·편집 비교 ⑤ 제목 후보 3개 = 상위 3개 결 그대로 단어만 바꿈, 결말 숨김, 쉬운 말, 줄마다 1위 +2자 이내(화이트는 한 줄 10자 안쪽) ⑥ 내용(대본) 후보 2~3안 = 1·2위 흐름에 표현만, 번역 금지, 해설 필수(상황→반전 예고→대사→리액션→끝 펀치), 해설은 「~했는데/~했다네요」(존댓말·음슴체 X), 강아지 대사 반말, 속마음은 *별표*, 한 화면 9자 안쪽, 말줄임 「..」, 첫 3초 궁금증, 13~23초, 포인트 행동 중심, 안마다 1·2·3위와 비교 한 줄 ⑦ 업로드 글(출처·해시태그 #웃긴영상). 장면은 한 원본 한 덩어리(잘게 X), 얼굴 가운데. 과정·표는 채팅에 보여 주고, 마지막에 아래 형식 코드 블록 하나로 (제작실 페이지가 읽어):`,
   `[같은 원본]`,`조회수 | 제목 | 링크 | 언어`,`[카테고리]`,`훅·내용 공식 몇 줄`,`[상위3]`,`1위 제목: …`,`조회수: …`,`링크: https://…`,`내용: 줄1 / 줄2 / 줄3`,`편집: …`,`2위 제목: …`,`조회수: …`,`링크: …`,`내용: …`,`편집: …`,`3위 …`,`[제목 후보]`,`A: … (근거: 1위 결)`,`B: …`,`C: …`,`[대본 후보]`,`안A 제목: …`,`장면1 v1 0~5 얼굴 0.35`,`  0~1.2 해설 : …`,`  2.8~4.8 강아지 : …`,`비교: 1위=… / 우리=…`,`안B 제목: …`,`장면1 …`,`[업로드]`,`출처: …`,`해시태그: …`].join('\n');}
 $('#copyReq').onclick=()=>copyText(requestText());
@@ -231,7 +236,7 @@ function ingestReply(raw){const txt=(raw||'').replace(/```/g,'');if(!txt.trim())
 function renderAna(){const a=P.ana;let h='';
   if(a.same.length)h+=`<div class="card"><h3>같은 원본을 쓴 쇼츠 <span class="r">${a.same.length}개 · 100만+ 표시</span></h3><table class="t"><tr><th>조회수</th><th>제목</th><th>언어</th></tr>${a.same.map(s=>`<tr><td style="white-space:nowrap">${esc(s.views)}</td><td>${s.url?`<a href="${esc(s.url)}" target="_blank">${esc(s.title)}</a>`:esc(s.title)}</td><td>${esc(s.lang)}</td></tr>`).join('')}</table></div>`;
   if(a.cat)h+=`<div class="card"><h3>큰 주제(카테고리) 훅·내용 공식</h3><pre class="out">${esc(a.cat)}</pre></div>`;
-  if(a.top3.length)h+=`<div class="card"><h3>같은 원본 상위 3개 · 제목·내용·편집</h3><div class="top3">${a.top3.map(t=>`<div class="b"><b>${t.rank}위 · ${esc(t.title)}</b><div class="ln">${esc(t.lines)}</div>${t.edit?`<div class="ln" style="margin-top:6px;color:var(--muted)">편집: ${esc(t.edit)}</div>`:''}</div>`).join('')}</div></div>`;
+  if(a.top3.length)h+=`<div class="card"><h3>${a.mode==='cat'?'카테고리 상위 3개':'같은 원본 상위 3개'} · 제목·내용·편집</h3><div class="top3">${a.top3.map(t=>`<div class="b"><b>${t.rank}위 · ${esc(t.title)}</b><div class="ln">${esc(t.lines)}</div>${t.edit?`<div class="ln" style="margin-top:6px;color:var(--muted)">편집: ${esc(t.edit)}</div>`:''}</div>`).join('')}</div></div>`;
   $('#anaView').innerHTML=h||'<div class="card"><div class="lead" style="margin:0">아직 분석이 없어. ① 자료에서 「클로드 분석 시작」</div></div>';
   const vids=[...a.top3.map(t=>({id:ytid(t.url),cap:`${t.rank}위 · ${t.title}${t.views?' · '+t.views:''}`})),...a.same.map(x=>({id:ytid(x.url),cap:`${x.views} · ${x.title}`})),...P.refs.split(/\n+/).map(u=>({id:ytid(u),cap:'내가 보낸 링크'}))].filter(v=>v.id);
   const seen=new Set();const uniq=vids.filter(v=>!seen.has(v.id)&&seen.add(v.id));
@@ -408,11 +413,13 @@ async function askClaude(user,opt={}){if(ART)return askArt(user,opt);if(KEYS.mod
     if(j.stop_reason==='pause_turn'&&loops++<6){body.messages.push({role:'assistant',content:j.content});continue;}
     opt.onStatus&&opt.onStatus(`완료 (검색 ${searches}번 · 입력 ${j.usage?.input_tokens||0} · 출력 ${j.usage?.output_tokens||0} 토큰)`);return text;}}
 function condenseYT(pl){const r=(pl&&pl.results)||[];if(!r.length)return '결과 없음';return r.map(v=>`${v.title} | 조회수 ${Number(v.views||0).toLocaleString()} | ${v.url} | 채널 ${v.channel} | ${v.publishedAt||''} | ${v.durationSec||''}초`).join('\n');}
+async function clipFrames(){const out=[];const c2=document.createElement('canvas');c2.width=270;c2.height=480;const x=c2.getContext('2d');for(const c of P.clips){const m=media[c.id];if(!m)continue;for(const f of [0.3,0.7]){const v=m.video;v.currentTime=(c.dur||1)*f;await new Promise(r=>{const h=()=>{v.removeEventListener('seeked',h);r();};v.addEventListener('seeked',h);setTimeout(r,600);});const vw=v.videoWidth||9,vh=v.videoHeight||16;const sc=Math.max(270/vw,480/vh);x.fillStyle='#000';x.fillRect(0,0,270,480);try{x.drawImage(v,(270-vw*sc)/2,(480-vh*sc)/2,vw*sc,vh*sc);}catch(e){}const b=await new Promise(r=>c2.toBlob(r,'image/jpeg',0.7));if(b)out.push(b);}}return out;}
 async function askArt(user,opt={}){const sample=await claude.use('sample');if(!sample)throw new Error('여기선 클로드를 못 써. claude.ai에서 이 제작실을 열어 줘');
   const o={modelTier:'complex',cache:false,onText:({text})=>opt.onStatus&&opt.onStatus(`쓰는 중… ${text.length}자`)};let used=0;
   if(opt.search){const mcp=await claude.use('mcp');if(mcp){o.tools=[{name:'search_youtube',description:'유튜브 쇼츠 검색. 검색어 하나를 주면 조회수 순으로 최대 25개(제목 | 조회수 | 링크 | 채널 | 게시일 | 길이)를 돌려준다. 같은 원본을 쓴 쇼츠 대조·카테고리 공식 찾기에 쓴다. 검색어를 바꿔 가며 최대 10번.',inputSchema:{type:'object',properties:{q:{type:'string',description:'검색어'}},required:['q']},
       execute:async({q})=>{if(++used>10)throw new Error('검색 한도(10번) 다 썼어. 지금까지 결과로 정리해');opt.onStatus&&opt.onStatus(`유튜브 검색 ${used}: ${q}`);try{const r=await mcp.callTool('uplika','search_youtube_videos',{q:String(q),max:25,format:'shorts'});return condenseYT(r.payload);}catch(e){throw new Error('검색 실패 '+(e.code||'')+' '+(e.message||''));}}}];}
     else user+='\n\n(유튜브 검색 도구가 없어서 조회수는 확인 못 한다. 아는 대로 쓰되 숫자는 「확인 못 함」으로 적어라.)';}
+  if(opt.frames&&P.clips.length){try{const lim=await sample.limits();if(lim&&lim.images){opt.onStatus&&opt.onStatus('영상 장면 뽑는 중…');const fr=await clipFrames();if(fr.length){o.images=fr.slice(0,lim.images.maxCount||6);user+=`\n\n(첨부 이미지는 원본 영상 ${P.clips.map(c=>c.id).join(', ')}의 장면을 순서대로 각 2장씩 뽑은 것. 영상 내용 파악에 써라.)`;}}}catch(e){}}
   opt.onStatus&&opt.onStatus(opt.search?'클로드가 유튜브 대조·분석 중… (1~3분)':'클로드가 생각 중…');
   try{const {text,truncated}=await sample(RULES+'\n\n'+user,o);opt.onStatus&&opt.onStatus('완료'+(truncated?' (길어서 잘림)':''));return text;}
   catch(e){const m={not_granted:'클로드 사용을 허용해 줘 (화면 위 허용 창)',rate_limited:'사용량 한도야. 잠시 뒤에 다시',session_expired:'claude.ai에 다시 로그인해 줘',refused:'클로드가 이 요청을 거절했어. 다르게 말해 줘',prompt_too_large:'내용이 너무 길어. 장면을 줄여 줘'}[e.code];throw new Error(m||('클로드 오류: '+(e.message||e.code||e)));}}
@@ -432,9 +439,9 @@ async function ytLookup(){if(!KEYS.yt)return '';const ids=P.refs.split(/\n+/).ma
   return out.length?'\n[유튜브 API 조회 결과 — 같은 원본인지는 제목·썸네일로 대조해서 판단, 조회수는 이 숫자 사용]\n'+out.join('\n'):'';}
 let anaBusy=false,autoMode=false;
 $('#runAuto').onclick=()=>{autoMode=true;runAnalyze();};
-async function runAnalyze(){if(anaBusy)return;if(!P.refs.trim()&&!P.clips.length){toast('쇼츠 링크나 원본 영상 중 하나는 넣어 줘');return;}
+async function runAnalyze(){if(anaBusy)return;if(!P.refs.trim()&&!P.clips.length){toast('쇼츠 링크나 원본 영상 중 하나는 넣어 줘');return;}if(catMode()&&!P.desc.trim()&&!ART){toast('링크가 없으면 「영상 내용 한 줄」을 써 줘');$('#desc').focus();return;}
   anaBusy=true;const btn=$('#runAnalyze');btn.disabled=true;$('#anaProg').style.display='block';let pct=0;const tk=setInterval(()=>{pct=Math.min(92,pct+1.2);$('#anaProg i').style.width=pct+'%';},1200);const st=m=>{$('#anaStatus').textContent=m;$('#anaMeta').textContent=m;};
-  try{st('유튜브 조회 중…');const yt=await ytLookup();const txt=await askClaude(requestText()+yt,{search:15,max_tokens:12000,onStatus:st});P.ana.raw=txt;
+  try{st('유튜브 조회 중…');const yt=await ytLookup();const mode=catMode()?'cat':'same';const txt=await askClaude(requestText()+yt,{search:15,max_tokens:12000,onStatus:st,frames:true});P.ana.raw=txt;P.ana.mode=mode;
     if(ingestReply(txt)){$('#anaProg i').style.width='100%';if(autoMode&&P.scenes.length){go(4);toast('A안으로 ④에 들어왔어. 제목·대본 바꾸려면 ③');}else go(2);}else{st('형식을 못 읽었어 — 「다시 분석」 눌러 줘');}}
   catch(e){st('실패: '+e.message);toast(e.message);}
   finally{clearInterval(tk);anaBusy=false;autoMode=false;btn.disabled=false;setTimeout(()=>{$('#anaProg').style.display='none';$('#anaProg i').style.width='0';},800);}}
@@ -486,9 +493,9 @@ $('#copyFinal').onclick=()=>copyText(finalText(),'확정본 복사됨. 클로드
 
 // ===== 저장 =====
 function autosave(){try{localStorage.setItem('shorts_studio_v3',JSON.stringify(P));}catch(e){}}
-function applyProject(o){P={...P,...o};syncSeg();['refs','src'].forEach(id=>$('#'+id).value=P[id]||'');renderClips();go(Math.min(4,P.tab||1));}
+function applyProject(o){P={...P,...o};syncSeg();['refs','src','desc'].forEach(id=>$('#'+id).value=P[id]||'');setAnaLabels();renderClips();go(Math.min(4,P.tab||1));}
 $('#btnSaveProj').onclick=()=>{saveFile(((P.title||'쇼츠').replace(/[. ]+$/,'')||'쇼츠')+'_프로젝트.json',new Blob([JSON.stringify(P,null,2)],{type:'application/json'}));};
 function loadProjectFile(f){const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(o.scenes)applyProject(o);}catch(e){toast('프로젝트 파일이 아니에요');}};r.readAsText(f);}
 $('#openProj').onchange=e=>{if(e.target.files[0])loadProjectFile(e.target.files[0]);e.target.value='';};
-(function init(){try{const o=JSON.parse(localStorage.getItem('shorts_studio_v3')||'null');if(o&&(o.scenes?.length||o.clips?.length||o.titles?.length)){applyProject(o);if(o.clips?.length)toast('지난 작업 불러옴 — 원본 영상만 다시 넣어 줘');return;}}catch(e){}syncSeg();renderClips();go(1);})();
+(function init(){try{const o=JSON.parse(localStorage.getItem('shorts_studio_v3')||'null');if(o&&(o.scenes?.length||o.clips?.length||o.titles?.length)){applyProject(o);if(o.clips?.length)toast('지난 작업 불러옴 — 원본 영상만 다시 넣어 줘');return;}}catch(e){}syncSeg();renderClips();setAnaLabels();go(1);})();
 </script>
