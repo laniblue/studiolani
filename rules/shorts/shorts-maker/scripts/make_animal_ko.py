@@ -13,6 +13,7 @@ BX, BW, BH = 52, 976, 1019   # 템플릿 투명 칸
 VH = H - TOP - BOT             # 1134
 TITLE_FONT = f"{F}/BMDOHYEON.ttf"   # 배민 도현 (대표님 지정, 제목 105)
 NAR_FONT = f"{F}/narration.ttf"   # 해설 (대표님 지정)
+MIND_FONT = f"{F}/HSHwalkong.ttf"   # 강아지 2번 속마음 (노랑 글씨+검정 상자)
 DOG_FONT = f"{F}/GriunYeeun-Rg.ttf"   # 그리운 예은 (대표님 지정, 강아지 1번·사람 대사)
 WHITE, YELLOW, MINT = "#FFFFFF", "#FFE006", "#8CE99A"
 
@@ -37,6 +38,15 @@ def text_png(path, text, font_path, size, color, stroke=10, spacing=0, skew=0.0)
         img = img.crop(img.getbbox())
     img.save(path); return img.size
 
+def mind_png(path, text):
+    font = ImageFont.truetype(MIND_FONT, 64)
+    d0 = ImageDraw.Draw(Image.new("RGBA",(10,10)))
+    x0,y0,x1,y1 = d0.textbbox((0,0), text, font=font); tw,th = x1-x0, y1-y0
+    px,py = 30,24
+    img = Image.new("RGBA", (tw+px*2, th+py*2), (0,0,0,255)); d = ImageDraw.Draw(img)
+    d.text((px-x0, py-y0), text, font=font, fill="#FFE006")
+    img.save(path); return img.size
+
 # 제목 PNG (위 검정 띠 가운데, 2줄, 흰+노랑)
 def title_png(path):
     tw,th = text_png(path+".tmp.png", TITLE[0], TITLE_FONT, 66, "#111111", 0, spacing=0, skew=0.22)
@@ -47,7 +57,7 @@ def title_png(path):
 SCENES = [
     ("v3", 0.0, 2.4, 520, False, [(0.0,1.2,"눈나가 간식을","n"),(1.2,2.4,"꺼냈는데","n")]),
     ("v3", 3.0, 5.0, 520, False, [(0.2,2.0,"눈나 그거 뭐야","d")]),
-    ("v3", 8.3, 10.2, 350, True,  [(0.0,0.7,"(덥석!)","n"),(0.7,1.9,"내 거!","d")]),
+    ("v3", 8.3, 10.2, 350, True,  [(0.0,0.7,"*덥석*","m"),(0.7,1.9,"내 거!","d")]),
     ("v1", 0.8, 3.0, 358, False, [(0.0,1.0,"못 받자 코만","n"),(1.0,2.2,"계속 핥았다네요","n")]),
     ("v1", 4.8, 6.6, 358, False, [(0.2,1.8,"눈나 한 입만","d")]),
     ("v1", 7.3, 8.1, 358, False, [(0.0,0.8,"핥으면 나오는 줄","n")]),
@@ -58,7 +68,8 @@ SCENES = [
     ("v2", 2.2, 4.8, 358, False, [(0.2,2.6,"눈나 안 줄 거야?","d")]),
 ]
 NAR_Y = 1594   # 영상 칸 아래 흰 바탕 (블로 화면 기준)   # 해설 자막 중심
-DOG_Y = 700    # 강아지 자막(머리 위쪽)
+DOG_Y = 700
+MIND_Y = 1388  # 속마음 상자 세로 중심 (대표님 화면 실측)    # 강아지 자막(머리 위쪽)
 
 title_png(f"{OUT}/png/title.png")
 segs = []
@@ -70,6 +81,7 @@ for i,(src,s,e,cy,keep_audio,caps) in enumerate(SCENES):
     for j,(cs,ce,txt,who) in enumerate(caps):
         p=f"{OUT}/png/c{i}_{j}.png"
         if who=="n": tw,th = text_png(p, txt, NAR_FONT, 72, "#111111", 0, spacing=-3); y=NAR_Y
+        elif who=="m": tw,th = mind_png(p, txt); y=MIND_Y
         else:        tw,th = text_png(p, txt, DOG_FONT, 92, WHITE, 10);  y=DOG_Y
         inputs += ["-i",p]
         fc += f";[{last}][{n}:v]overlay=(W-w)/2:{y - th//2}:enable='gte(t,{cs})*lt(t,{ce})'[v{n}]"
@@ -88,5 +100,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v14.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v15.mp4"],check=True)
 print("done")
