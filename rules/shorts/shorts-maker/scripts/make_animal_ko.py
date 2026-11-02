@@ -12,11 +12,11 @@ TOP, BOT = 516, 0
 BX, BW, BH = 52, 976, 1019   # 템플릿 투명 칸
 VH = H - TOP - BOT             # 1134
 TITLE_FONT = f"{F}/BMDOHYEON.ttf"   # 배민 도현 (대표님 지정, 제목 105)
-NAR_FONT = f"{F}/f2.ttf"
+NAR_FONT = f"{F}/narration.ttf"   # 해설 (대표님 지정)
 DOG_FONT = f"{F}/GriunYeeun-Rg.ttf"   # 그리운 예은 (대표님 지정, 강아지 1번·사람 대사)
 WHITE, YELLOW, MINT = "#FFFFFF", "#FFE006", "#8CE99A"
 
-TITLE = ["눈나가 간식 꺼냈더니..", "시바견의 반응"]
+TITLE = ["눈나가 간식 꺼냈더니.."]
 
 def text_png(path, text, font_path, size, color, stroke=10):
     font = ImageFont.truetype(font_path, size)
@@ -31,8 +31,8 @@ def text_png(path, text, font_path, size, color, stroke=10):
 def title_png(path):
     img = Image.new("RGBA", (W, TOP), (0,0,0,0)); d = ImageDraw.Draw(img)
     font = ImageFont.truetype(TITLE_FONT, 105)
-    ys = [330, 440]
-    for line, col, y in zip(TITLE, ["#111111", "#111111"], ys):
+    ys = [400]
+    for line, col, y in zip(TITLE, ["#111111"], ys):
         x0,y0,x1,y1 = d.textbbox((0,0), line, font=font)
         d.text(((W-(x1-x0))//2 - x0, y), line, font=font, fill=col)
     img.save(path)
@@ -51,7 +51,7 @@ SCENES = [
     ("v2", 0.0, 2.2, 358, False, [(0.0,1.0,"코가 다 닳도록","n"),(1.0,2.2,"핥았는데","n")]),
     ("v2", 2.2, 4.8, 358, False, [(0.2,2.6,"눈나 안 줄 거야?","d")]),
 ]
-NAR_Y = 1430   # 해설 자막 중심
+NAR_Y = 1610   # 영상 칸 아래 흰 바탕 (블로 화면 기준)   # 해설 자막 중심
 DOG_Y = 700    # 강아지 자막(머리 위쪽)
 
 title_png(f"{OUT}/png/title.png")
@@ -63,7 +63,7 @@ for i,(src,s,e,cy,keep_audio,caps) in enumerate(SCENES):
     last="v1"; n=3
     for j,(cs,ce,txt,who) in enumerate(caps):
         p=f"{OUT}/png/c{i}_{j}.png"
-        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 76, WHITE, 10); y=NAR_Y
+        if who=="n": tw,th = text_png(p, txt, NAR_FONT, 64, "#111111", 0); y=NAR_Y
         else:        tw,th = text_png(p, txt, DOG_FONT, 113, WHITE, 12);  y=DOG_Y
         inputs += ["-i",p]
         fc += f";[{last}][{n}:v]overlay=(W-w)/2:{y - th//2}:enable='gte(t,{cs})*lt(t,{ce})'[v{n}]"
@@ -82,5 +82,5 @@ with open(f"{OUT}/list.txt","w") as f:
     for sgm in segs: f.write(f"file '{sgm}'\n")
 subprocess.run(["ffmpeg","-v","error","-y","-f","concat","-safe","0","-i",f"{OUT}/list.txt",
                 "-c:v","libx264","-preset","medium","-crf","18","-pix_fmt","yuv420p","-r","30",
-                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v8.mp4"],check=True)
+                "-af","loudnorm=I=-10:TP=-1.5:LRA=7","-c:a","aac","-b:a","192k",f"{OUT}/preview_v10.mp4"],check=True)
 print("done")
