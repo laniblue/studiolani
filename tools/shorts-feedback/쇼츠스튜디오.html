@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>쇼츠 스튜디오</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--line:#e3e6ea;--txt:#111;--sub:#6b7280;--blue:#1664ff;--mint:#d1fae5}
+@media (prefers-color-scheme:dark){:root{--bg:#111315;--card:#1b1e22;--line:#2a2f35;--txt:#f3f4f6;--sub:#9ca3af;--mint:#064e3b}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"Apple SD Gothic Neo",system-ui,sans-serif}
+header{display:flex;gap:8px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:2;flex-wrap:wrap}
+header h1{font-size:17px;margin:0 8px 0 0}
+.tabs{display:flex;gap:4px;background:var(--bg);padding:4px;border-radius:12px}
+.tabs button{border:0;background:transparent;padding:8px 14px;border-radius:9px;font-size:15px;color:var(--sub)}
+.tabs button.on{background:var(--card);color:var(--txt);font-weight:700;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+main{max-width:1400px;margin:0 auto;padding:16px}
+.page{display:none}.page.on{display:block}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:16px}
+video{width:100%;max-height:68vh;background:#000;border-radius:12px;display:block}
+.row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.time{font-variant-numeric:tabular-nums;font-size:22px;font-weight:700;min-width:92px}
+button,label.btn{font-size:15px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--txt);cursor:pointer;display:inline-block}
+.primary{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
+.small{font-size:12px;padding:6px 8px;opacity:.6}
+textarea,input[type=text],select{width:100%;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--txt)}
+textarea{min-height:80px;resize:vertical}
+label.f{display:block;margin-top:12px;font-size:13px;color:var(--sub)}label.f>*{margin-top:6px}
+.hint{color:var(--sub);font-size:13px;margin-top:6px}
+h2{font-size:15px;margin:0 0 10px;color:var(--sub);font-weight:600;display:flex;align-items:center;gap:8px}h2 span{margin-left:auto;font-weight:400}
+ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;max-height:68vh;overflow:auto}
+li{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;cursor:pointer}
+li.done{opacity:.55}li.done .text{text-decoration:line-through}
+li .t{color:var(--blue);font-weight:700;font-variant-numeric:tabular-nums}
+li .text{white-space:pre-wrap;word-break:break-word}
+li .reply{margin-top:6px;font-size:13px;color:var(--sub);background:var(--mint);padding:6px 8px;border-radius:8px}
+li .ops{display:flex;flex-direction:column;gap:6px}li .ops button{padding:6px 8px;font-size:13px}
+.empty{color:var(--sub);padding:20px;text-align:center}
+input[type=file]{display:none}
+body.drag{outline:4px dashed var(--blue);outline-offset:-4px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
+td input,td select{font-size:14px;padding:6px 8px;border-radius:8px}
+td.n{width:64px}td.w{width:92px}td.x{width:40px}
+.chip{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid var(--line);font-size:13px;cursor:pointer;margin:4px 6px 0 0}
+.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.steps{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px;padding:0;list-style:none}
+.steps li{display:block;border:0;padding:0;color:var(--sub);font-size:13px;cursor:default}
+</style>
+</head>
+<body>
+<header>
+  <h1>쇼츠 스튜디오</h1>
+  <div class="tabs"><button class="on" data-p="make">① 제작 요청</button><button data-p="edit">② 자막 편집</button><button data-p="fb">③ 피드백</button></div>
+</header>
+<main>
+
+<!-- ① 제작 요청 -->
+<section class="page on" id="p-make">
+  <div class="card">
+    <ul class="steps"><li>여기 적고 「요청 복사」 → 클로드 채팅에 붙여넣기 + 원본 영상 올리기 → 클로드가 쇼츠 스킬대로 만들어 줌</li></ul>
+    <label class="f">언어
+      <div><span class="chip on" data-g="lang" data-v="한국어">한국어</span><span class="chip" data-g="lang" data-v="일본어">일본어</span></div></label>
+    <label class="f" id="tplRow">템플릿 (한국어)
+      <div><span class="chip on" data-g="tpl" data-v="화이트">화이트 (동물·멍냥한입·음성 없음)</span><span class="chip" data-g="tpl" data-v="블랙">블랙 (검정 띠·해설 녹음)</span></div></label>
+    <label class="f">소재 한 줄 (뭐가 웃긴지·포인트)<input type="text" id="m-point" placeholder="예: 시바견이 간식 기다리면서 코를 계속 핥음. 포인트는 코 핥기, 「눈나」 들어가게"></label>
+    <label class="f">원본 영상 (파일 이름, 여러 개면 줄바꿈 · 채팅에도 같이 올리기)<textarea id="m-files" placeholder="시바1.mp4&#10;시바2.mp4"></textarea></label>
+    <label class="f">참고 쇼츠 링크 (있으면, 여러 줄)<textarea id="m-refs" placeholder="https://youtube.com/shorts/..."></textarea></label>
+    <label class="f">출처 (틱톡 @아이디 등)<input type="text" id="m-src" placeholder="틱톡 @petticszfw9"></label>
+    <label class="f">꼭 넣을 말 / 하지 말 것 (선택)<textarea id="m-must" placeholder="예: 강아지가 집사를 「눈나」라고 부름 · 존댓말 금지"></textarea></label>
+    <div class="row"><button class="primary" id="m-copy">요청 복사</button><span class="hint">복사한 걸 클로드한테 붙여넣고 영상 파일 올리면 끝</span></div>
+  </div>
+</section>
+
+<!-- ② 자막 편집 -->
+<section class="page" id="p-edit">
+  <div class="grid">
+    <div class="card">
+      <ul class="steps"><li>클로드가 영상이랑 같이 준 <b>자막표 json</b>을 열면 표가 떠. 글·시간 고치고 「수정본 복사」 → 클로드한테 붙여넣으면 그대로 다시 만들어 줌</li></ul>
+      <div class="row">
+        <label class="btn">자막표 json 열기<input type="file" id="e-json" accept=".json,application/json"></label>
+        <label class="btn">영상 열기<input type="file" id="e-video" accept="video/*"></label>
+        <button id="e-add">줄 추가</button>
+        <button class="primary" id="e-copy">수정본 복사</button>
+        <button class="small" id="e-export">json 저장</button>
+      </div>
+      <div class="hint" id="e-title"></div>
+      <div style="overflow:auto;margin-top:10px"><table id="e-table">
+        <thead><tr><th>장면</th><th>원본</th><th>시작</th><th>끝</th><th>화자</th><th>내용</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="hint">화자: 해설 = 영상 칸 아래 검정 글씨 · 강아지 = 영상 안 흰 글씨 · 속마음 = 노랑 글씨 검정 상자 · 시간은 그 장면 안에서 초(0.5 단위)</div>
+    </div>
+    <div class="card">
+      <h2>미리보기</h2>
+      <video id="e-v" controls playsinline preload="metadata"></video>
+      <div class="row"><span class="time" id="e-tm">00:00.0</span><button id="e-pp">일시정지</button></div>
+      <div class="hint">표의 줄을 누르면 그 시간으로 이동</div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 피드백 -->
+<section class="page" id="p-fb">
+  <div class="grid">
+    <div class="card">
+      <div class="row">
+        <label class="btn primary">영상 열기<input type="file" id="pick" accept="video/*"></label>
+        <span class="hint" id="vname">영상을 여기로 끌어다 놔도 돼</span>
+      </div>
+      <video id="v" controls playsinline preload="metadata" style="margin-top:10px"></video>
+      <div class="row"><span class="time" id="tm">00:00.0</span><button id="back">◀ 1초</button><button id="fwd">1초 ▶</button><button id="pp">일시정지</button></div>
+      <textarea id="memo" placeholder="영상 멈추고 여기에 피드백 쓰기 (저장하면 지금 시간이 같이 붙어요)" style="margin-top:10px"></textarea>
+      <div class="row"><button class="primary" id="save">이 시간에 저장</button><button class="primary" id="copy">피드백 복사</button><span class="hint">복사해서 클로드한테 붙여넣고 “피드백 반영해줘”</span></div>
+    </div>
+    <div class="card"><h2>피드백 목록 (누르면 그 장면으로) <span id="count"></span></h2><ul id="list"></ul></div>
+  </div>
+</section>
+</main>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const fmt=t=>{t=Math.max(0,t||0);const m=Math.floor(t/60),s=Math.floor(t%60),d=Math.floor((t%1)*10);return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${d}`};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function copyText(txt,btn,label){ try{ await navigator.clipboard.writeText(txt); const o=btn.textContent; btn.textContent='복사됨! 채팅에 붙여넣기'; setTimeout(()=>btn.textContent=label||o,2500);}catch(e){ prompt('아래 글 복사해서 클로드한테 붙여넣어', txt);} }
+// 탭
+$$('.tabs button').forEach(b=>b.onclick=()=>{ $$('.tabs button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); $$('.page').forEach(p=>p.classList.remove('on')); $('#p-'+b.dataset.p).classList.add('on'); localStorage.setItem('ss_tab',b.dataset.p); });
+const t0=localStorage.getItem('ss_tab'); if(t0&&$(`.tabs button[data-p="${t0}"]`)) $(`.tabs button[data-p="${t0}"]`).click();
+
+// ---------- ① 제작 요청 ----------
+const pick=(g)=>$(`.chip.on[data-g="${g}"]`)?.dataset.v;
+$$('.chip').forEach(c=>c.onclick=()=>{ $$(`.chip[data-g="${c.dataset.g}"]`).forEach(x=>x.classList.remove('on')); c.classList.add('on'); $('#tplRow').style.display=pick('lang')==='한국어'?'':'none'; });
+['m-point','m-files','m-refs','m-src','m-must'].forEach(id=>{ const el=$('#'+id); el.value=localStorage.getItem('ss_'+id)||''; el.oninput=()=>localStorage.setItem('ss_'+id,el.value); });
+$('#m-copy').onclick=()=>{
+  const lang=pick('lang'), tpl=lang==='한국어'?pick('tpl'):'-';
+  const txt=[`[쇼츠 제작 요청]`,`언어: ${lang}`,`템플릿: ${tpl}`,`소재: ${$('#m-point').value.trim()||'-'}`,`원본 영상: ${$('#m-files').value.trim().split(/\n+/).filter(Boolean).join(', ')||'(채팅에 올림)'}`,`참고 쇼츠: ${$('#m-refs').value.trim().split(/\n+/).filter(Boolean).join(', ')||'-'}`,`출처: ${$('#m-src').value.trim()||'-'}`,`꼭 넣을 말·금지: ${$('#m-must').value.trim()||'-'}`,``,`쇼츠 스킬(정답지·화이트 템플릿 문서)대로 만들어 줘. 완성되면 영상 + 자막표 json + 썸네일 A·B·C.`].join('\n');
+  copyText(txt,$('#m-copy'),'요청 복사');
+};
+
+// ---------- ② 자막 편집 ----------
+let plan={video:'',title:'',scenes:[]};   // scenes: [{src,start,end,captions:[{s,e,who,text}]}]
+const ev=$('#e-v'); let sceneOffsets=[];
+function recalcOffsets(){ let t=0; sceneOffsets=plan.scenes.map(sc=>{const o=t; t+=(+sc.end-+sc.start)||0; return o;}); }
+function renderPlan(){
+  recalcOffsets();
+  $('#e-title').textContent=plan.title?`제목: ${plan.title}  ·  영상: ${plan.video||''}`:'';
+  const tb=$('#e-table tbody'); tb.innerHTML='';
+  plan.scenes.forEach((sc,si)=>{
+    sc.captions.forEach((c,ci)=>{
+      const tr=document.createElement('tr'); tr.dataset.si=si; tr.dataset.ci=ci;
+      tr.innerHTML=`<td class="n">${si+1}</td><td class="w"><input value="${esc(sc.src)}" data-k="src" title="원본 ${esc(sc.src)} ${sc.start}~${sc.end}초"></td>
+        <td class="n"><input type="number" step="0.1" value="${c.s}" data-k="s"></td><td class="n"><input type="number" step="0.1" value="${c.e}" data-k="e"></td>
+        <td class="w"><select data-k="who"><option value="n"${c.who==='n'?' selected':''}>해설</option><option value="d"${c.who==='d'?' selected':''}>강아지</option><option value="m"${c.who==='m'?' selected':''}>속마음</option></select></td>
+        <td><input value="${esc(c.text)}" data-k="text"></td><td class="x"><button class="small" data-del>✕</button></td>`;
+      tb.appendChild(tr);
+    });
+  });
+}
+$('#e-table').addEventListener('input',e=>{ const tr=e.target.closest('tr'); if(!tr) return; const sc=plan.scenes[tr.dataset.si], c=sc.captions[tr.dataset.ci]; const k=e.target.dataset.k; if(k==='src') sc.src=e.target.value; else if(k==='s'||k==='e') c[k]=+e.target.value; else c[k]=e.target.value; });
+$('#e-table').addEventListener('click',e=>{ const tr=e.target.closest('tr'); if(!tr) return; const si=+tr.dataset.si, ci=+tr.dataset.ci;
+  if(e.target.hasAttribute('data-del')){ plan.scenes[si].captions.splice(ci,1); renderPlan(); return; }
+  if(e.target.tagName==='TD'||e.target.tagName==='TR'){ if(ev.src){ ev.currentTime=sceneOffsets[si]+(+plan.scenes[si].captions[ci].s); ev.pause(); } } });
+$('#e-json').onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ plan=JSON.parse(r.result); if(!plan.scenes) throw 0; renderPlan(); }catch(err){ alert('자막표 json이 아니에요'); } }; r.readAsText(f); };
+$('#e-video').onchange=e=>{ const f=e.target.files[0]; if(f){ ev.src=URL.createObjectURL(f); plan.video=plan.video||f.name; } };
+$('#e-add').onclick=()=>{ if(!plan.scenes.length) plan.scenes.push({src:'v1',start:0,end:5,captions:[]}); plan.scenes[plan.scenes.length-1].captions.push({s:0,e:1,who:'n',text:''}); renderPlan(); };
+ev.addEventListener('timeupdate',()=>{$('#e-tm').textContent=fmt(ev.currentTime)});
+$('#e-pp').onclick=()=>ev.paused?ev.play():ev.pause();
+const whoName={n:'해설',d:'강아지',m:'속마음'};
+$('#e-copy').onclick=()=>{
+  if(!plan.scenes.length){ alert('자막표 json을 먼저 열어 줘'); return; }
+  const lines=[`[쇼츠 자막 수정본] ${plan.video||''}`,`제목: ${plan.title||''}`];
+  plan.scenes.forEach((sc,i)=>{ lines.push(`장면${i+1} ${sc.src} ${sc.start}~${sc.end}`); sc.captions.forEach(c=>lines.push(`  ${c.s}~${c.e} ${whoName[c.who]||c.who} : ${c.text}`)); });
+  lines.push('','이 표대로 다시 만들어 줘 (표에 없는 건 그대로).');
+  copyText(lines.join('\n'),$('#e-copy'),'수정본 복사');
+};
+$('#e-export').onclick=()=>{ const blob=new Blob([JSON.stringify(plan,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(plan.video||'자막표').replace(/\.[^.]+$/,'')+'_자막표.json'; a.click(); };
+
+// ---------- ③ 피드백 ----------
+const v=$('#v'), list=$('#list'), memo=$('#memo');
+let data={video:'',items:[]}; const key=n=>'shorts_fb_'+n;
+function persist(){ try{ localStorage.setItem(key(data.video), JSON.stringify(data)); }catch(e){} render(); }
+function render(){
+  const items=[...data.items].sort((a,b)=>a.t-b.t);
+  $('#count').textContent=items.length?`${items.filter(i=>i.done).length}/${items.length} 반영`:'';
+  list.innerHTML=items.map(i=>`<li class="${i.done?'done':''}" data-id="${i.id}"><span class="t">${i.time}</span>
+    <div><div class="text">${esc(i.text)}</div>${i.reply?`<div class="reply">✓ ${esc(i.reply)}</div>`:''}</div>
+    <div class="ops"><button data-act="done">${i.done?'↩':'✓'}</button><button data-act="del">삭제</button></div></li>`).join('')||'<div class="empty">아직 피드백이 없어요. 영상 멈추고 아래에 써서 저장해 봐요.</div>';
+}
+function openFile(f){ if(!f) return; v.src=URL.createObjectURL(f); $('#vname').textContent=f.name; let saved=null; try{ saved=JSON.parse(localStorage.getItem(key(f.name))||'null'); }catch(e){} data=saved||{video:f.name,items:[]}; data.video=f.name; render(); }
+$('#pick').onchange=e=>openFile(e.target.files[0]);
+['dragenter','dragover'].forEach(x=>document.addEventListener(x,e=>{e.preventDefault();document.body.classList.add('drag')}));
+['dragleave','drop'].forEach(x=>document.addEventListener(x,e=>{e.preventDefault();document.body.classList.remove('drag')}));
+document.addEventListener('drop',e=>{ const f=[...e.dataTransfer.files].find(x=>x.type.startsWith('video/')||/\.(mp4|mov|m4v)$/i.test(x.name)); const j=[...e.dataTransfer.files].find(x=>/\.json$/i.test(x.name));
+  if(j){ const r=new FileReader(); r.onload=()=>{ try{ const o=JSON.parse(r.result); if(o.scenes){ plan=o; renderPlan(); $(`.tabs button[data-p="edit"]`).click(); } else if(o.items){ data=o; persist(); } }catch(err){} }; r.readAsText(j); }
+  if(f){ if($('#p-edit').classList.contains('on')){ ev.src=URL.createObjectURL(f); } else { openFile(f); $(`.tabs button[data-p="fb"]`).click(); } } });
+$('#save').onclick=()=>{ if(!data.video){ alert('먼저 영상을 열어 줘'); return; } const text=memo.value.trim(); if(!text) return memo.focus(); v.pause();
+  data.items.push({id:Date.now().toString(36),t:+v.currentTime.toFixed(2),time:fmt(v.currentTime),text,done:false,reply:'',created:new Date().toISOString().slice(0,19)}); memo.value=''; persist(); };
+list.onclick=e=>{ const li=e.target.closest('li'); if(!li) return; const it=data.items.find(i=>i.id===li.dataset.id); if(!it) return; const act=e.target.dataset.act;
+  if(act==='del'){ if(confirm('이 피드백 지울까?')){ data.items=data.items.filter(i=>i!==it); persist(); } return; }
+  if(act==='done'){ it.done=!it.done; persist(); return; } v.currentTime=it.t; v.pause(); };
+$('#copy').onclick=()=>{ const items=[...data.items].sort((a,b)=>a.t-b.t); if(!items.length){ alert('피드백이 아직 없어'); return; }
+  copyText(`[쇼츠 피드백] ${data.video}\n`+items.map(i=>`${i.done?'[완료] ':''}${i.time} ${i.text}`).join('\n'),$('#copy'),'피드백 복사'); };
+v.addEventListener('timeupdate',()=>{$('#tm').textContent=fmt(v.currentTime)});
+$('#pp').onclick=()=>v.paused?v.play():v.pause(); v.addEventListener('play',()=>$('#pp').textContent='일시정지'); v.addEventListener('pause',()=>$('#pp').textContent='재생');
+$('#back').onclick=()=>{v.currentTime=Math.max(0,v.currentTime-1);v.pause()}; $('#fwd').onclick=()=>{v.currentTime=v.currentTime+1;v.pause()};
+memo.addEventListener('focus',()=>v.pause());
+document.addEventListener('keydown',e=>{ if(['TEXTAREA','INPUT','SELECT'].includes(e.target.tagName)) return; if(e.code==='Space'){ e.preventDefault(); ($('#p-edit').classList.contains('on')?$('#e-pp'):$('#pp')).click(); } });
+render();
+</script>
+</body>
+</html>
