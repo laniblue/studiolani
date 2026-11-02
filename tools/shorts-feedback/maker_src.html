@@ -79,7 +79,7 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 
 <!-- ① 자료 -->
 <section class="page on" id="p1">
-  <h2>자료</h2><p class="lead">발견한 쇼츠 링크나 원본 영상 중 하나만 있어도 시작돼.</p>
+  <h2>자료</h2><p class="lead">링크·영상 넣고 「한 번에 끝까지」 누르면 ④ 편집까지 자동으로 가.</p>
   <div class="card"><h3>언어 · 템플릿</h3>
     <div class="seg" id="langSeg"><div class="opt on" data-v="ko">한국어<small>강아지·고양이</small></div><div class="opt" data-v="ja">일본어<small>해외 웃긴 영상</small></div></div>
     <div id="tplWrap" style="margin-top:10px"><div class="seg" id="tplSeg"><div class="opt on" data-v="white">화이트<small>멍냥한입 · 음성 없음</small></div><div class="opt" data-v="black">블랙<small>검정 띠</small></div></div></div></div>
@@ -98,7 +98,7 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
   <div class="card"><h3>클로드 분석</h3>
     <div class="how"><div class="n">1</div><div>클로드가 정답지대로 바로: 원본 찾기 → 유튜브 대조로 <b>같은 원본 쓴 쇼츠</b> → <b>카테고리 훅·내용 공식</b> → <b>상위 3개 제목·내용 비교</b> → 제목·내용 각색안</div></div>
     <div class="how"><div class="n">2</div><div>끝나면 ② 분석·③ 각색이 자동으로 채워져 (1~3분)</div></div>
-    <button class="btn primary block" id="runAnalyze" style="margin-top:6px">클로드 분석 시작</button>
+    <div class="ctrl" style="margin-top:6px"><button class="btn primary" id="runAuto" style="flex:1">한 번에 끝까지 (분석 → 제목·대본 A안 → ④ 편집)</button><button class="btn" id="runAnalyze">분석만</button></div>
     <div class="prog" id="anaProg"><i></i></div><div class="lead" id="anaStatus" style="margin:8px 0 0;font-size:13px"></div>
     <button id="copyReq" style="display:none"></button></div>
 </section>
@@ -357,7 +357,7 @@ $('#apiKey').value=KEYS.api||'';$('#ytKey').value=KEYS.yt||'';
 const BASE=location.protocol==='file:'?'http://localhost:8765':'';
 function syncMode(){$$('#modeSeg .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===KEYS.mode));$('#apiWrap').style.display=KEYS.mode==='api'?'':'none';$('#codeStatus').style.display=KEYS.mode==='code'?'':'none';}
 $$('#modeSeg .opt').forEach(o=>o.onclick=()=>{KEYS.mode=o.dataset.v;try{localStorage.setItem('shorts_studio_keys',JSON.stringify(KEYS));}catch(e){}syncMode();if(KEYS.mode==='code')checkCode();});
-async function checkCode(){const el=$('#codeStatus');el.textContent='클로드 코드 확인 중…';try{const r=await fetch(BASE+'/api/claude/status',{cache:'no-store'});const j=await r.json();el.innerHTML=j.ok?`✓ 연결됨 · Claude Code ${esc(j.version||'')} (구독으로 돌아감)`:`<span style="color:var(--red)">맥에 claude 명령이 없어: ${esc(j.error||'')}</span>`;return !!j.ok;}catch(e){el.innerHTML='<span style="color:var(--red)">꺼져 있어.</span> 맥에서 <b>제작실_켜기.command</b>를 더블클릭해서 켜 줘 (아이패드는 맥 주소로 열기)';return false;}}
+async function checkCode(){const el=$('#codeStatus');el.textContent='클로드 코드 확인 중…';try{const r=await fetch(BASE+'/api/claude/status',{cache:'no-store'});const j=await r.json();el.innerHTML=j.ok?`✓ 연결됨 · Claude Code ${esc(j.version||'')} (구독으로 돌아감)${j.ipad?`<br>📱 아이패드: 사파리에 <b>${esc(j.ipad)}</b> 입력 → 공유 → 홈 화면에 추가 (같은 와이파이, 맥 켜 둔 채)`:''}`:`<span style="color:var(--red)">맥에 claude 명령이 없어: ${esc(j.error||'')}</span>`;return !!j.ok;}catch(e){el.innerHTML='<span style="color:var(--red)">꺼져 있어.</span> 맥에서 <b>제작실_켜기.command</b>를 더블클릭해서 켜 줘 (아이패드는 맥 주소로 열기)';return false;}}
 syncMode();if(KEYS.mode==='code')checkCode();
 $('#btnKeys').onclick=()=>{go(1);setTimeout(()=>{$('#keysCard').scrollIntoView({behavior:'smooth'});$('#apiKey').focus();},50);};
 const RULES=`너는 쇼츠 제작 스킬(정답지)을 그대로 따르는 쇼츠 각색가다. 한국어 반말로, 머리글 블록 형식으로만 답한다. 숫자(조회수)는 검색으로 확인한 것만 쓰고, 못 찾으면 "확인 못 함"이라고 쓴다. 지어내지 않는다.
@@ -385,13 +385,14 @@ async function ytLookup(){if(!KEYS.yt)return '';const ids=P.refs.split(/\n+/).ma
       if(sids.length){const v=await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${sids.join(',')}&key=${KEYS.yt}`);const vj=await v.json();(vj.items||[]).sort((a,b)=>(+b.statistics.viewCount)-(+a.statistics.viewCount)).forEach(x=>out.push(`후보: ${x.snippet.title} | 조회수 ${(+x.statistics.viewCount).toLocaleString()} | https://youtube.com/shorts/${x.id} | 채널 ${x.snippet.channelTitle} | 썸네일 ${x.snippet.thumbnails?.high?.url||''}`));}}
   }catch(e){out.push('(유튜브 API 조회 실패: '+e.message+')');}
   return out.length?'\n[유튜브 API 조회 결과 — 같은 원본인지는 제목·썸네일로 대조해서 판단, 조회수는 이 숫자 사용]\n'+out.join('\n'):'';}
-let anaBusy=false;
+let anaBusy=false,autoMode=false;
+$('#runAuto').onclick=()=>{autoMode=true;runAnalyze();};
 async function runAnalyze(){if(anaBusy)return;if(!P.refs.trim()&&!P.clips.length){toast('쇼츠 링크나 원본 영상 중 하나는 넣어 줘');return;}
   anaBusy=true;const btn=$('#runAnalyze');btn.disabled=true;$('#anaProg').style.display='block';let pct=0;const tk=setInterval(()=>{pct=Math.min(92,pct+1.2);$('#anaProg i').style.width=pct+'%';},1200);const st=m=>{$('#anaStatus').textContent=m;$('#anaMeta').textContent=m;};
   try{st('유튜브 조회 중…');const yt=await ytLookup();const txt=await askClaude(requestText()+yt,{search:15,max_tokens:12000,onStatus:st});P.ana.raw=txt;
-    if(ingestReply(txt)){$('#anaProg i').style.width='100%';go(2);}else{st('형식을 못 읽었어 — 「다시 분석」 눌러 줘');}}
+    if(ingestReply(txt)){$('#anaProg i').style.width='100%';if(autoMode&&P.scenes.length){go(4);toast('A안으로 ④에 들어왔어. 제목·대본 바꾸려면 ③');}else go(2);}else{st('형식을 못 읽었어 — 「다시 분석」 눌러 줘');}}
   catch(e){st('실패: '+e.message);toast(e.message);}
-  finally{clearInterval(tk);anaBusy=false;btn.disabled=false;setTimeout(()=>{$('#anaProg').style.display='none';$('#anaProg i').style.width='0';},800);}}
+  finally{clearInterval(tk);anaBusy=false;autoMode=false;btn.disabled=false;setTimeout(()=>{$('#anaProg').style.display='none';$('#anaProg i').style.width='0';},800);}}
 $('#runAnalyze').onclick=runAnalyze;$('#reAnalyze').onclick=()=>{go(1);runAnalyze();};
 // ③ 다시 요청 → 바로 호출
 async function reqGo(){const b=$('#reqGo');if(b.disabled)return;b.disabled=true;const st=m=>$('#reqStatus').textContent=m;

@@ -122,7 +122,7 @@ def claude_status():
     if not c: return {"ok": False, "error": "claude 명령을 못 찾았어. 터미널에서 claude 가 실행되는지 확인"}
     try:
         v = subprocess.run([c, "--version"], capture_output=True, text=True, timeout=20).stdout.strip()
-        return {"ok": True, "version": v, "path": c}
+        return {"ok": True, "version": v, "path": c, "ipad": f"http://{lan_ip()}:{PORT}/"}
     except Exception as e:
         return {"ok": False, "error": str(e)}
 
