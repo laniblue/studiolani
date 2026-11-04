@@ -11,6 +11,7 @@
 @font-face{font-family:"HSHwalkong";src:url(data:font/woff2;base64,{{FONT_HS}}) format("woff2")}
 @font-face{font-family:"MPlusR";src:url(data:font/woff2;base64,{{FONT_MPLUS}}) format("woff2")}
 @font-face{font-family:"Paperlogy";src:url(data:font/woff2;base64,{{FONT_PL}}) format("woff2")}
+@font-face{font-family:"Paperlogy8";src:url(data:font/woff2;base64,{{FONT_PL8}}) format("woff2")}
 :root{--bg:#F2F4F6;--card:#fff;--line:#E5E8EB;--txt:#191F28;--sub:#6B7684;--muted:#8B95A1;--blue:#3182F6;--blue-bg:#E8F3FF;--red:#F04452;--green:#00C26B;--yellow-bg:#FFF4D6;--r:20px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-size:16px;line-height:1.5;letter-spacing:-.01em}
@@ -175,7 +176,7 @@ body.drag .drop{border-color:var(--blue);background:var(--blue-bg)}
 const SPEC={
   white:{box:{x:52,y:516,w:976,h:1019},title:{font:'66px "BMDoHyeon"',y:455,skew:0.22,stroke:1,color:'#111'},narr:{font:'72px "NarrKo"',y:1594,ls:-3,stroke:2,color:'#111'},dog:{font:'74px "Griun"',y:1384,stroke:10,color:'#fff'},mind:{font:'64px "HSHwalkong"',y:1388,color:'#FFE006',padX:30,padY:24},maxChars:9},
   black:{top:476,bottom:310,title:{font:'88px "BMDoHyeon"',colors:['#fff','#FFE006']},narr:{font:'72px "NarrKo"',y:1264,stroke:8,color:'#fff'},dog:{font:'74px "Griun"',y:1264,stroke:10,color:'#fff'},mind:{font:'64px "HSHwalkong"',y:1264,color:'#FFE006',padX:30,padY:24},maxChars:9},
-  ja:{top:474,bottom:231,title:{font:'130px "Paperlogy","MPlusR"',ys:[236,386],colors:['#fff','#80FF04']},narr:{font:'104px "Paperlogy","MPlusR"',y:1355,stroke:26,color:'#fff'},dog:{font:'91px "Paperlogy","MPlusR"',y:1365,stroke:23},colors:{d:'#80FF04',d2:'#A5D8FF',f:'#FFE006',em:'#FF0600'},mind:{font:'104px "Paperlogy","MPlusR"',y:1365,color:'#FFE006',padX:30,padY:24},maxChars:11}};
+  ja:{top:474,bottom:231,title:{font:'130px "Paperlogy","MPlusR"',ys:[236,386],colors:['#fff','#80FF04']},narr:{font:'101px "Paperlogy8","MPlusR"',y:1355,stroke:26,color:'#fff'},dog:{font:'91px "Paperlogy","MPlusR"',y:1365,stroke:23},colors:{d:'#80FF04',d2:'#A5D8FF',f:'#FFE006',em:'#FF0600'},mind:{font:'104px "Paperlogy","MPlusR"',y:1365,color:'#FFE006',padX:30,padY:24},maxChars:11}};
 const TEMPLATE_PNG="data:image/png;base64,{{TEMPLATE_PNG}}";
 const W=1080,H=1920,FPS=30;
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -188,7 +189,7 @@ const WHO_R={'해설':'n','강아지':'d','속마음':'m','사람':'d','고양�
 let P={tpl:'white',title:'',titles:[],titleSel:-1,props:[],propSel:-1,clips:[],scenes:[],notes:[],refs:'',src:'',desc:'',ana:{same:[],cat:'',top3:[]},upload:{tags:''},tab:1};
 const media={},voices={};let tplImg=null,playing=false,cur=0,curScene=-1,curCap=null,rafId=0,audioCtx=null,streamDest=null;
 const WHO=()=>P.tpl==='ja'?WHO_JA:WHO_KO;
-const ready=(async()=>{await Promise.all(['66px "BMDoHyeon"','72px "NarrKo"','74px "Griun"','64px "HSHwalkong"','104px "MPlusR"','104px "Paperlogy"'].map(f=>document.fonts.load(f,'가')));tplImg=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=TEMPLATE_PNG;});})();
+const ready=(async()=>{await Promise.all(['66px "BMDoHyeon"','72px "NarrKo"','74px "Griun"','64px "HSHwalkong"','104px "MPlusR"','104px "Paperlogy"','104px "Paperlogy8"'].map(f=>document.fonts.load(f,'가')));tplImg=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=TEMPLATE_PNG;});})();
 
 // ===== 탭 =====
 function go(n){P.tab=n;$$('.page').forEach(p=>p.classList.toggle('on',p.id==='p'+n));$$('.tab').forEach(t=>{const k=+t.dataset.t;t.classList.toggle('on',k===n);t.classList.toggle('done',k<n);});window.scrollTo({top:0});

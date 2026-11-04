@@ -1,7 +1,7 @@
 import base64,re,sys
 M='maker-assets'; b=lambda p: base64.b64encode(open(p,'rb').read()).decode()
 src=open('maker_src.html',encoding='utf-8').read()
-for k,f in [('FONT_BM','fonts/BMDOHYEON.woff2'),('FONT_NARR','fonts/KoreanCNMM-narration.woff2'),('FONT_GRIUN','fonts/GriunYeeun-Rg.woff2'),('FONT_HS','fonts/HSHwalkongSerif-Regular.woff2'),('FONT_MPLUS','fonts/MPLUSRounded1c-Black.woff2'),('FONT_PL','fonts/Paperlogy-7Bold.woff2'),('TEMPLATE_PNG','template.png')]:
+for k,f in [('FONT_BM','fonts/BMDOHYEON.woff2'),('FONT_NARR','fonts/KoreanCNMM-narration.woff2'),('FONT_GRIUN','fonts/GriunYeeun-Rg.woff2'),('FONT_HS','fonts/HSHwalkongSerif-Regular.woff2'),('FONT_MPLUS','fonts/MPLUSRounded1c-Black.woff2'),('FONT_PL','fonts/Paperlogy-7Bold.woff2'),('FONT_PL8','fonts/Paperlogy-8ExtraBold.woff2'),('TEMPLATE_PNG','template.png')]:
     src=src.replace('{{'+k+'}}',b(f'{M}/{f}'))
 open('쇼츠제작실.html','w',encoding='utf-8').write(src)
 # artifact variant: no doctype/html/head/body
