@@ -1,5 +1,9 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>무료 인스타 진단 리포트 · 스튜디오 라니</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="고객이 먼저 알아보는 인스타툰 계정 · 스튜디오 라니">
+<meta property="og:description" content="대표님 인스타가 고객 눈에 어떻게 보이는지 먼저 봐드립니다. 무료 인스타 진단 리포트.">
+<meta property="og:url" content="https://laniblue.github.io/studiolani/report/">
 <meta name="description" content="대표님 인스타가 고객 눈에 어떻게 보이는지 먼저 봐드립니다. 무료 인스타 진단 리포트.">
 <style>body{margin:0;background:#000}
 #bcx { --page: #0A0F1C; --alt: #0F1626; --deep: #070B16; --card: #131B2E; --card2: #18213A; --ink: #FFFFFF; --soft: #CFD8EA; --mute: #8E9AB3; --dim: #5D6884; --line: #1F2A44; --line2: #2A3656; --ac: #3366FF; --ac2: #2050E0; --acl: #7C9BFF; --sky: #9DB8FF; --shell: 430px; }
@@ -1035,6 +1039,7 @@
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_next" value="https://laniblue.github.io/studiolani/report/thanks.html">
 <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+<input type="hidden" name="유입 경로" id="src" value="직접 방문">
 <div class="af-g">
 <label>이름<input name="이름" placeholder="홍길동" autocomplete="name" required></label>
 <label>업체명<input name="업체명" placeholder="예: 스튜디오 라니" autocomplete="organization" required></label>
@@ -1263,4 +1268,5 @@ var go=function(){bootLani(document.getElementById('bcx'));};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();
 })();</script>
 <script>(function(){var a=document.getElementById('apply'),f=document.getElementById('fl');if(!a||!f||!('IntersectionObserver' in window))return;new IntersectionObserver(function(e){f.style.transition='opacity .3s';f.style.opacity=e[0].isIntersecting?'0':'';f.style.pointerEvents=e[0].isIntersecting?'none':'';},{threshold:0.05}).observe(a);})();</script>
+<script>(function(){var f=new URLSearchParams(location.search).get('from');var n={'work':'자료: Work 지시문','insta-skill':'자료: 인스타 스킬','arena':'자료: 아레나','ai-staff':'자료: 클로드 직원','dashboard':'자료: 보고서·대시보드'};var i=document.getElementById('src');if(i&&f)i.value=n[f]||f.slice(0,40)})();</script>
 </body></html>
